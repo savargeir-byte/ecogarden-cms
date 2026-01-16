@@ -1,5 +1,6 @@
 'use client';
 import { useDrag, useDrop } from 'react-dnd';
+import { useRef } from 'react';
 
 export const ITEM_TYPE = 'SECTION';
 
@@ -9,6 +10,8 @@ export default function DraggableSection({
   moveSection,
   children,
 }: any) {
+  const ref = useRef<HTMLDivElement>(null);
+  
   const [, drag] = useDrag({
     type: ITEM_TYPE,
     item: { id, index },
@@ -24,8 +27,10 @@ export default function DraggableSection({
     },
   });
 
+  drag(drop(ref));
+
   return (
-    <div ref={(node) => drag(drop(node))} className="cursor-move">
+    <div ref={ref} className="cursor-move">
       {children}
     </div>
   );
