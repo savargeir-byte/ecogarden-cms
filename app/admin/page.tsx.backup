@@ -1,0 +1,715 @@
+'use client';
+
+import AdminLayout from '@/components/admin/AdminLayout';
+import DraggableSection from '@/components/admin/DraggableSection';
+import MediaLibrary from '@/components/admin/MediaLibrary';
+import Hero from '@/components/sections/Hero';
+import CTA from '@/components/CTA';
+import Features from '@/components/Features';
+import HeroPremium from '@/components/sections/HeroPremium';
+import ProductGridPremium from '@/components/sections/ProductGridPremium';
+import { addSection, deleteSection, getPage, publishPage, unpublishPage, updateSection } from '@/lib/cms';
+import { saveVersion } from '@/lib/versioning';
+import { presets } from '@/lib/sectionPresets';
+import { supabase } from '@/lib/supabase';
+import dynamic from 'next/dynamic';
+import { useEffect, useState, useCallback } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
+const RichTextEditor = dynamic(() => import('@/components/cms/RichTextEditor'), { ssr: false });
+
+interface Section {
+  id: string;
+  type: string;
+  content: any;
+  position: number;
+}
+
+interface Page {
+  id: string;
+  slug: string;
+  title: string;
+  status: 'draft' | 'published';
+  sections: Section[];
+}
+
+export default function AdminPage() {
+  const [page, setPage] = useState<Page | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [editingSection, setEditingSection] = useState<string | null>(null);
+  const [formData, setFormData] = useState<any>({});
+  const [saving, setSaving] = useState(false);
+  const [showMediaLibrary, setShowMediaLibrary] = useState(false);
+  const [mediaTarget, setMediaTarget] = useState<string>('');
+  const [autoSaveTimer, setAutoSaveTimer] = useState<any>(null);
+
+  useEffect(() => {
+    loadPage();
+    
+    // Realtime sync
+    const channel = supabase
+      .channel('admin-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'sections' }, () => {
+        loadPage();
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'pages' }, () => {
+        loadPage();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  async function loadPage() {
+    setLoading(true);
+    const data = await getPage('home', true); // Load all sections including drafts
+    setPage(data);
+    setLoading(false);
+  }
+
+  async function handleSaveSection(sectionId: string) {
+    setSaving(true);
+    
+    // Save version before updating
+    const currentSection = page?.sections.find(s => s.id === sectionId);
+    if (currentSection) {
+      await saveVersion(currentSection);
+    }
+    
+    await updateSection(sectionId, formData);
+    setEditingSection(null);
+    setFormData({});
+    await loadPage();
+    setSaving(false);
+  }
+
+  async function handleAddSection(type: string) {
+    if (!page) return;
+    setSaving(true);
+    
+    // Get preset default content for this section type
+    const defaultContent = getDefaultContent(type);
+    
+    await addSection(page.id, type, defaultContent);
+    await loadPage();
+    setSaving(false);
+  }
+
+  function getDefaultContent(type: string) {
+    const defaults: any = {
+      hero: {
+        heading: 'Welcome to EcoGarden',
+        subheading: 'Sustainable gardening solutions for your home',
+        ctaText: 'Get Started',
+        ctaLink: '/products',
+        backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200'
+      },
+      heroPremium: {
+        title: 'Premium Gardening Products',
+        subtitle: 'Professional quality tools and supplies',
+        ctaText: 'Shop Now',
+        ctaLink: '/products',
+        image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800'
+      },
+      text: {
+        heading: 'About Us',
+        content: '<p>Add your content here...</p>'
+      },
+      cta: {
+        heading: 'Ready to start?',
+        description: 'Join thousands of happy gardeners',
+        buttonText: 'Get Started',
+        buttonLink: '/contact'
+      },
+      features: {
+        heading: 'Why Choose Us',
+        features: [
+          { icon: '🌱', title: 'Organic', description: '100% natural products' },
+          { icon: '🚚', title: 'Fast Delivery', description: 'Delivered in 2-3 days' },
+          { icon: '💚', title: 'Eco-Friendly', description: 'Sustainable practices' }
+        ]
+      },
+      productGridPremium: {
+        products: []
+      }
+    };
+    
+    return defaults[type] || {};
+  }
+
+  async function handleDeleteSection(sectionId: string) {
+    if (!confirm('Are you sure you want to delete this section?')) return;
+    setSaving(true);
+    await deleteSection(sectionId);
+    await loadPage();
+    setSaving(false);
+  }
+
+  async function handlePublish() {
+    if (!page) return;
+    setSaving(true);
+    await publishPage(page.id);
+    await loadPage();
+    setSaving(false);
+  }
+
+  async function handleUnpublish() {
+    if (!page) return;
+    setSaving(true);
+    await unpublishPage(page.id);
+    await loadPage();
+    setSaving(false);
+  }
+
+  function startEditing(section: Section) {
+    setEditingSection(section.id);
+    setFormData(section.content);
+  }
+
+  function cancelEditing() {
+    if (autoSaveTimer) clearTimeout(autoSaveTimer);
+    setEditingSection(null);
+    setFormData({});
+  }
+
+  // Auto-save function with debounce
+  const autoSaveSection = useCallback(async (sectionId: string, data: any) => {
+    const currentSection = page?.sections.find(s => s.id === sectionId);
+    if (currentSection) {
+      await saveVersion(currentSection);
+    }
+    await updateSection(sectionId, data);
+    await loadPage();
+  }, [page]);
+
+  // Update form data and trigger auto-save
+  function updateFormData(newData: any) {
+    setFormData(newData);
+    
+    // Clear existing timer
+    if (autoSaveTimer) clearTimeout(autoSaveTimer);
+    
+    // Set new timer for auto-save (1 second after last change)
+    const timer = setTimeout(() => {
+      if (editingSection) {
+        autoSaveSection(editingSection, newData);
+      }
+    }, 1000);
+    
+    setAutoSaveTimer(timer);
+  }
+
+  async function moveSection(fromIndex: number, toIndex: number) {
+    if (!page) return;
+    
+    const updated = [...page.sections];
+    const [moved] = updated.splice(fromIndex, 1);
+    updated.splice(toIndex, 0, moved);
+
+    setSaving(true);
+    for (let i = 0; i < updated.length; i++) {
+      await supabase
+        .from('sections')
+        .update({ position: i })
+        .eq('id', updated[i].id);
+    }
+    await loadPage();
+    setSaving(false);
+  }
+
+  function openMediaLibrary(targetField: string) {
+    setMediaTarget(targetField);
+    setShowMediaLibrary(true);
+  }
+
+  function selectMedia(url: string) {
+    setFormData({ ...formData, [mediaTarget]: url });
+    setShowMediaLibrary(false);
+    setMediaTarget('');
+  }
+
+  if (loading) {
+    return (
+      <AdminLayout>
+        <div className="flex items-center justify-center h-full">
+          <div className="text-lg">Loading...</div>
+        </div>
+      </AdminLayout>
+    );
+  }
+
+  if (!page) {
+    return (
+      <AdminLayout>
+        <div className="flex items-center justify-center h-full">
+          <div className="text-lg text-red-500">Page not found</div>
+        </div>
+      </AdminLayout>
+    );
+  }
+
+  return (
+    <AdminLayout>
+      <div className="max-w-7xl mx-auto">
+        {/* Page Header */}
+        <div className="bg-white border-b sticky top-0 z-40 px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">{page.title}</h1>
+              <p className="text-sm text-gray-500 mt-1">
+                Status: <span className={`font-semibold ${page.status === 'published' ? 'text-green-600' : 'text-yellow-600'}`}>
+                  {page.status}
+                </span>
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <a 
+                href="/"
+                target="_blank"
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+              >
+                Preview
+              </a>
+              {page.status === 'draft' ? (
+                <button
+                  onClick={handlePublish}
+                  disabled={saving}
+                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 font-medium"
+                >
+                  {saving ? 'Publishing...' : 'Publish'}
+                </button>
+              ) : (
+                <button
+                  onClick={handleUnpublish}
+                  disabled={saving}
+                  className="px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 disabled:opacity-50 font-medium"
+                >
+                  {saving ? 'Unpublishing...' : 'Unpublish'}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Live Page with Editable Overlays */}
+        <DndProvider backend={HTML5Backend}>
+          <div className="min-h-screen">
+            {page.sections.map((section, index) => (
+              <DraggableSection
+                key={section.id}
+                id={section.id}
+                index={index}
+                moveSection={moveSection}
+              >
+                <div className="relative group">
+                  {/* Section Content */}
+                  <div className={editingSection === section.id ? 'ring-4 ring-blue-500' : ''}>
+                    {renderSection(section)}
+                  </div>
+
+                  {/* Edit Overlay (shows on hover) */}
+                  <div className="absolute inset-0 border-2 border-dashed border-green-500 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs rounded">
+                      {section.type} - Position {section.position}
+                    </div>
+                    <div className="absolute top-2 right-2 flex gap-2 pointer-events-auto">
+                      <button
+                        onClick={() => startEditing(section)}
+                        className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700"
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteSection(section.id)}
+                        className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
+                      >
+                        🗑️ Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </DraggableSection>
+            ))}
+          </div>
+        </DndProvider>
+
+        {/* Add Section Buttons (Floating) */}
+        <div className="fixed bottom-6 right-6 bg-white rounded-lg shadow-2xl border border-gray-200 p-4 max-w-xs">
+          <h3 className="text-sm font-semibold text-gray-900 mb-3">Add Section</h3>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => handleAddSection('hero')}
+              disabled={saving}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 text-sm font-medium text-left"
+            >
+              + Hero
+            </button>
+            <button
+              onClick={() => handleAddSection('text')}
+              disabled={saving}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm font-medium text-left"
+            >
+              + Text
+            </button>
+            <button
+              onClick={() => handleAddSection('cta')}
+              disabled={saving}
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 text-sm font-medium text-left"
+            >
+              + CTA
+            </button>
+            <button
+              onClick={() => handleAddSection('features')}
+              disabled={saving}
+              className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 disabled:opacity-50 text-sm font-medium text-left"
+            >
+              + Features
+            </button>
+          </div>
+        </div>
+
+        {/* Edit Modal */}
+        {editingSection && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-6">
+            <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
+                <h2 className="text-xl font-bold">Edit Section</h2>
+                <button
+                  onClick={cancelEditing}
+                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                >
+                  ✕
+                </button>
+              </div>
+              
+              <div className="p-6">
+                {renderEditForm(page.sections.find(s => s.id === editingSection)!)}
+              </div>
+              
+              <div className="sticky bottom-0 bg-gray-50 border-t px-6 py-4 flex justify-end gap-3">
+                <button
+                  onClick={cancelEditing}
+                  className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Media Library Modal */}
+        {showMediaLibrary && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold">Media Library</h2>
+                <button
+                  onClick={() => setShowMediaLibrary(false)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  ✕
+                </button>
+              </div>
+              <MediaLibrary onSelect={selectMedia} />
+            </div>
+          </div>
+        )}
+      </div>
+    </AdminLayout>
+  );
+
+  function renderSection(section: Section) {
+    const sectionMap: any = {
+      hero: () => <Hero {...section.content} />,
+      text: () => <Text {...section.content} />,
+      cta: () => <CTA {...section.content} />,
+      features: () => <Features {...section.content} />,
+      heroPremium: () => <HeroPremium {...section.content} />,
+      productGridPremium: () => <ProductGridPremium {...section.content} />,
+    };
+
+    const Component = sectionMap[section.type];
+    return Component ? <Component /> : null;
+  }
+
+  function renderEditForm(section: Section) {
+                  {editingSection === section.id ? (
+                    <>
+                      <button
+                        onClick={() => handleSaveSection(section.id)}
+                        disabled={saving}
+                        className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 text-sm font-medium"
+                      >
+                        {saving ? 'Saving...' : 'Save'}
+                      </button>
+                      <button
+                        onClick={cancelEditing}
+                        className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium"
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => startEditing(section)}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteSection(section.id)}
+                        disabled={saving}
+                        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 text-sm font-medium"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Section Content Preview or Edit Form */}
+              {editingSection === section.id ? (
+                <div className="space-y-4 mt-4">
+                  {/* HERO Section Form */}
+                  {section.type === 'hero' && (
+                    <>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Heading</label>
+                        <input
+                          type="text"
+                          value={formData.heading || ''}
+                          onChange={(e) => updateFormData({ ...formData, heading: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Subheading</label>
+                        <textarea
+                          value={formData.subheading || ''}
+                          onChange={(e) => updateFormData({ ...formData, subheading: e.target.value })}
+                          rows={3}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">CTA Text</label>
+                        <input
+                          type="text"
+                          value={formData.ctaText || ''}
+                          onChange={(e) => updateFormData({ ...formData, ctaText: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">CTA Link</label>
+                        <input
+                          type="text"
+                          value={formData.ctaLink || ''}
+                          onChange={(e) => updateFormData({ ...formData, ctaLink: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Background Image URL</label>
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={formData.backgroundImage || ''}
+                            onChange={(e) => updateFormData({ ...formData, backgroundImage: e.target.value })}
+                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => openMediaLibrary('backgroundImage')}
+                            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                          >
+                            Choose Image
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* TEXT Section Form */}
+                  {section.type === 'text' && (
+                    <>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Heading (Optional)</label>
+                        <input
+                          type="text"
+                          value={formData.heading || ''}
+                          onChange={(e) => updateFormData({ ...formData, heading: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                        <RichTextEditor
+                          content={formData.content || ''}
+                          onChange={(html) => setFormData({ ...formData, content: html })}
+                        />
+                      </div>
+                    </>
+                  )}
+
+                  {/* CTA Section Form */}
+                  {section.type === 'cta' && (
+                    <>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Heading</label>
+                        <input
+                          type="text"
+                          value={formData.heading || ''}
+                          onChange={(e) => updateFormData({ ...formData, heading: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <textarea
+                          value={formData.description || ''}
+                          onChange={(e) => updateFormData({ ...formData, description: e.target.value })}
+                          rows={3}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
+                        <input
+                          type="text"
+                          value={formData.buttonText || ''}
+                          onChange={(e) => updateFormData({ ...formData, buttonText: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Button Link</label>
+                        <input
+                          type="text"
+                          value={formData.buttonLink || ''}
+                          onChange={(e) => updateFormData({ ...formData, buttonLink: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                    </>
+                  )}
+
+                  {/* FEATURES Section Form */}
+                  {section.type === 'features' && (
+                    <>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Heading</label>
+                        <input
+                          type="text"
+                          value={formData.heading || ''}
+                          onChange={(e) => updateFormData({ ...formData, heading: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Features (JSON array)</label>
+                        <textarea
+                          value={JSON.stringify(formData.features || [], null, 2)}
+                          onChange={(e) => {
+                            try {
+                              const parsed = JSON.parse(e.target.value);
+                              setFormData({ ...formData, features: parsed });
+                            } catch {}
+                          }}
+                          rows={10}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                          placeholder='[{"icon": "⚡", "title": "Fast", "description": "Lightning fast performance"}]'
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                  <pre className="text-sm text-gray-700 whitespace-pre-wrap">
+                    {JSON.stringify(section.content, null, 2)}
+                  </pre>
+                </div>
+              )}
+            </div>
+          </DraggableSection>
+            ))}
+          </div>
+        </DndProvider>
+
+        {/* Media Library Modal */}
+        {showMediaLibrary && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold">Media Library</h2>
+                <button
+                  onClick={() => setShowMediaLibrary(false)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  ✕
+                </button>
+              </div>
+              <MediaLibrary onSelect={selectMedia} />
+            </div>
+          </div>
+        )}
+
+        {/* Add Section */}
+        <div className="mt-6 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Add New Section</h3>
+          <div className="flex gap-3 flex-wrap">
+            <button
+              onClick={() => handleAddSection('hero')}
+              disabled={saving}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 font-medium"
+            >
+              + Hero
+            </button>
+            <button
+              onClick={() => handleAddSection('text')}
+              disabled={saving}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium"
+            >
+              + Text
+            </button>
+            <button
+              onClick={() => handleAddSection('cta')}
+              disabled={saving}
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 font-medium"
+            >
+              + CTA
+            </button>
+            <button
+              onClick={() => handleAddSection('features')}
+              disabled={saving}
+              className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 disabled:opacity-50 font-medium"
+            >
+              + Features
+            </button>
+            <button
+              onClick={() => handleAddSection('heroPremium')}
+              disabled={saving}
+              className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:opacity-50 font-medium"
+            >
+              + Hero Premium
+            </button>
+            <button
+              onClick={() => handleAddSection('productGridPremium')}
+              disabled={saving}
+              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 font-medium"
+            >
+              + Product Grid Premium
+            </button>
+          </div>
+        </div>
+      </div>
+    </AdminLayout>
+  );
+}

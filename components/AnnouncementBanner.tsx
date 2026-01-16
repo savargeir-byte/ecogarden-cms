@@ -1,0 +1,69 @@
+'use client';
+
+import { supabase } from '@/lib/supabase';
+import { useEffect, useState } from 'react';
+
+interface Announcement {
+  id: string;
+  message: string;
+  type: 'info' | 'warning' | 'success' | 'error';
+  active: boolean;
+  start_date?: string;
+  end_date?: string;
+}
+
+export default function AnnouncementBanner() {
+  const [announcement, setAnnouncement] = useState<Announcement | null>(null);
+  const [dismissed, setDismissed] = useState(false);
+
+  useEffect(() => {
+    loadAnnouncement();
+  }, []);
+
+  async function loadAnnouncement() {
+    const { data } = await supabase
+      .from('announcements')
+      .select('*')
+      .eq('active', true)
+      .order('created_at', { ascending: false })
+      .limit(1);
+
+    if (data && data.length > 0) {
+      const announcement = data[0];
+      // Check if within date range
+      const now = new Date();
+      const startDate = announcement.start_date ? new Date(announcement.start_date) : null;
+      const endDate = announcement.end_date ? new Date(announcement.end_date) : null;
+
+      if ((!startDate || now >= startDate) && (!endDate || now <= endDate)) {
+        setAnnouncement(announcement);
+      }
+    }
+  }
+
+  if (!announcement || dismissed) return null;
+
+  const colors = {
+    info: 'bg-blue-600 text-white',
+    warning: 'bg-yellow-500 text-gray-900',
+    success: 'bg-green-600 text-white',
+    error: 'bg-red-600 text-white',
+  };
+
+  return (
+    <div className={`${colors[announcement.type]} px-4 py-3 relative`}>
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <p className="text-sm font-medium flex-1 text-center">
+          {announcement.message}
+        </p>
+        <button
+          onClick={() => setDismissed(true)}
+          className="ml-4 text-white hover:text-gray-200"
+          aria-label="Close announcement"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  );
+}
