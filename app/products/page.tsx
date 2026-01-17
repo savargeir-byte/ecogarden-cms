@@ -77,18 +77,25 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
+      {/* Hero Section with Background Image */}
       <div className="relative h-[400px] bg-gradient-to-r from-green-600 via-green-700 to-green-800 overflow-hidden">
+        {/* Background Image */}
+        <img
+          src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=1920&q=80"
+          alt="Garden supplies"
+          className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
+        />
+        
         {/* Decorative circles */}
         <div className="absolute top-10 right-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
         
-        <div className="relative max-w-7xl mx-auto px-6 h-full flex flex-col justify-center items-center text-center">
+        <div className="relative max-w-7xl mx-auto px-6 h-full flex flex-col justify-center items-center text-center z-10">
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-2xl">
             Vörur
           </h1>
-          <p className="text-xl text-white/90 max-w-2xl drop-shadow-lg">
-            Allt fyrir garðyrkju og landbúnað
+          <p className="text-xl text-white/95 max-w-2xl drop-shadow-lg leading-relaxed">
+            Allt fyrir garðyrkju og landbúnað - Valið af fagfólki
           </p>
         </div>
       </div>

@@ -52,8 +52,8 @@ export default function Hero({ data }: HeroProps) {
             className="w-full h-full object-cover"
             priority
           />
-          {/* Dark Overlay - stronger on mobile for better text readability */}
-          <div className="absolute inset-0 bg-black/50 sm:bg-black/40"></div>
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/40"></div>
         </div>
       )}
 
