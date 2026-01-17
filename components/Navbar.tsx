@@ -1,22 +1,32 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <nav className={`bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm transition-all duration-300 ${scrolled ? 'py-2' : 'py-0'}`}>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-center h-20">
+          <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-16' : 'h-20'}`}>
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <img 
                 src="https://static.wixstatic.com/media/1a76e4_1a35f097f8004778afeb69466c3787f2~mv2.png/v1/fill/w_552,h_256,al_c,lg_1,q_85,enc_avif,quality_auto/Untitled%2520design%2520(3)_edited.png"
                 alt="Eco Garden Logo"
-                className="h-12 w-auto"
+                className={`w-auto transition-all duration-300 ${scrolled ? 'h-8' : 'h-12'}`}
               />
             </Link>
 
