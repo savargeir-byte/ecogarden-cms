@@ -56,16 +56,42 @@ export default function Navbar() {
                 Fá tilboð
               </Link>
               
-              {/* Hamburger - Always visible with transparent green background */}
+              {/* Hamburger - More transparent with site green color */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="p-2 rounded-lg bg-green-600/90 hover:bg-green-700/90 backdrop-blur-sm transition-all duration-200 relative z-50 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center shadow-md hover:scale-105"
+                className={`p-2 rounded-lg backdrop-blur-sm transition-all duration-300 relative z-50 flex items-center justify-center shadow-md hover:scale-110 border ${
+                  menuOpen 
+                    ? 'bg-green-600/15 hover:bg-green-600/25 border-green-600/30 w-12 h-12' 
+                    : scrolled 
+                      ? 'bg-green-600/20 hover:bg-green-600/30 border-green-600/30 w-10 h-10 sm:w-11 sm:h-11' 
+                      : 'bg-green-600/15 hover:bg-green-600/25 border-green-600/25 w-11 h-11 sm:w-12 sm:h-12'
+                }`}
                 aria-label="Toggle menu"
               >
-                <div className="w-5 h-4 sm:w-6 sm:h-5 flex flex-col justify-between">
-                  <span className={`block w-full h-0.5 bg-white transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-1.5 sm:translate-y-2' : ''}`} />
-                  <span className={`block w-full h-0.5 bg-white transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-                  <span className={`block w-full h-0.5 bg-white transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-1.5 sm:-translate-y-2' : ''}`} />
+                <div className={`flex flex-col justify-between transition-all duration-300 ${
+                  menuOpen ? 'w-6 h-5' : scrolled ? 'w-5 h-4' : 'w-6 h-5'
+                }`}>
+                  <span className={`block w-full transition-all duration-300 ${
+                    menuOpen 
+                      ? 'rotate-45 translate-y-2 h-0.5 bg-green-600' 
+                      : scrolled 
+                        ? 'h-0.5 bg-green-700' 
+                        : 'h-[3px] bg-green-600'
+                  }`} />
+                  <span className={`block w-full transition-all duration-300 ${
+                    menuOpen 
+                      ? 'opacity-0 h-0.5 bg-green-600' 
+                      : scrolled 
+                        ? 'h-0.5 bg-green-700' 
+                        : 'h-[3px] bg-green-600'
+                  }`} />
+                  <span className={`block w-full transition-all duration-300 ${
+                    menuOpen 
+                      ? '-rotate-45 -translate-y-2 h-0.5 bg-green-600' 
+                      : scrolled 
+                        ? 'h-0.5 bg-green-700' 
+                        : 'h-[3px] bg-green-600'
+                  }`} />
                 </div>
               </button>
             </div>

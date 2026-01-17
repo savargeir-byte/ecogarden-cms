@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import SmartImage from '../SmartImage';
+import TiltCard from '../TiltCard';
+import IntersectionAnimate from '../IntersectionAnimate';
 
 interface ImageGridProps {
   data: {
@@ -37,12 +39,17 @@ export default function ImageGrid({ data }: ImageGridProps) {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {data.items.map((item, i) => (
-            <Link
+            <IntersectionAnimate 
               key={i}
-              href={item.link}
-              className="group relative h-[28rem] overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 animate-slide-up hover:-translate-y-2"
-              style={{ animationDelay: `${i * 100}ms` }}
+              animation="slide-up" 
+              delay={i * 100}
+              duration={700}
             >
+              <TiltCard maxTilt={10} scale={1.03}>
+                <Link
+                  href={item.link}
+                  className="group relative h-[28rem] overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 block"
+                >
               {/* Background Image with dramatic zoom and rotate */}
               <SmartImage
                 src={item.image}
@@ -103,10 +110,12 @@ export default function ImageGrid({ data }: ImageGridProps) {
               </div>
               
               {/* Animated shine effect on hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
               </div>
-            </Link>
+                </Link>
+              </TiltCard>
+            </IntersectionAnimate>
           ))}
         </div>
       </div>

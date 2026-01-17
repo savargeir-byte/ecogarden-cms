@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="is">
+    <html lang="is" className="scroll-smooth">
       <body className="min-h-screen flex flex-col">
         {/* Announcement Banner */}
         <AnnouncementBanner />
@@ -24,16 +24,16 @@ export default function RootLayout({
 
         <main className="flex-1">{children}</main>
 
-        <footer className="bg-gray-900 text-white mt-20">
-          <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <footer className="bg-gray-900 text-white mt-8">
+          <div className="max-w-7xl mx-auto px-6 py-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
-                <h3 className="text-xl font-bold mb-4">Eco Garden</h3>
-                <p className="text-gray-400">Vistvænar lausnir fyrir garð og ræktun</p>
+                <h3 className="text-base font-bold mb-2">Eco Garden</h3>
+                <p className="text-gray-400 text-xs">Vistvænar lausnir fyrir garð og ræktun</p>
               </div>
               <div>
-                <h4 className="font-semibold mb-4">Flýtileiðir</h4>
-                <ul className="space-y-2 text-gray-400">
+                <h4 className="font-semibold mb-2 text-xs">Flýtileiðir</h4>
+                <ul className="space-y-1 text-gray-400 text-xs">
                   <li><a href="/" className="hover:text-white transition">Heim</a></li>
                   <li><a href="/products" className="hover:text-white transition">Vörur</a></li>
                   <li><a href="/about" className="hover:text-white transition">Um okkur</a></li>
@@ -41,14 +41,14 @@ export default function RootLayout({
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4">Hafðu samband</h4>
-                <p className="text-gray-400">Sendu okkur skilboð</p>
-                <a href="/contact" className="inline-block mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                <h4 className="font-semibold mb-2 text-xs">Hafðu samband</h4>
+                <p className="text-gray-400 text-xs">Sendu okkur skilboð</p>
+                <a href="/contact" className="inline-block mt-2 px-4 py-1 bg-green-600 text-white text-xs rounded-lg hover:bg-green-700 transition">
                   Hafa samband
                 </a>
               </div>
             </div>
-            <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <div className="border-t border-gray-800 mt-5 pt-4 text-center text-gray-400 text-xs">
               © 2024 Eco Garden. Allur réttur áskilinn.
             </div>
           </div>
