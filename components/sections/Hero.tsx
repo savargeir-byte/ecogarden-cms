@@ -1,7 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import SmartImage from "../SmartImage";
-import { useState, useEffect } from 'react';
 
 interface HeroProps {
   data: {

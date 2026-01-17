@@ -1,4 +1,4 @@
--- Update home page with 3 category tiles with images from Unsplash
+-- Update home page with 3 main category tiles with subcategories
 
 DO $$
 DECLARE
@@ -30,27 +30,44 @@ BEGIN
           jsonb_build_object(
             'title', 'Garðhönnun',
             'subtitle', 'Sérsniðin hönnun fyrir þinn draumagarð',
-            'description', 'Fagleg garðhönnun með áherslu á íslenskar aðstæður',
             'image', 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=800&q=80',
-            'link', '/products?category=design'
+            'link', '/products?category=Garðhönnun',
+            'subcategories', jsonb_build_array(
+              'Lóðamælingar',
+              'Garðhönnun',
+              'Gróðurval',
+              'Uppdrættir'
+            )
           ),
           jsonb_build_object(
-            'title', 'Ræktunarlausnir',
+            'title', 'Ræktun',
             'subtitle', 'Allt fyrir grænan og fallegann garð',
-            'description', 'Vistvænar lausnir frá fræi til uppskeru',
             'image', 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&q=80',
-            'link', '/products?category=growing'
+            'link', '/products?category=Ræktun',
+            'subcategories', jsonb_build_array(
+              'Fræ',
+              'Steinull',
+              'Jarðvegur',
+              'Áburður',
+              'Pottar'
+            )
           ),
           jsonb_build_object(
             'title', 'Garðvörur',
             'subtitle', 'Hágæða verkfæri og búnaður',
-            'description', 'Vörur sem endast í íslenskum aðstæðum',
             'image', 'https://images.unsplash.com/photo-1617576683096-00fc8eecb3af?w=800&q=80',
-            'link', '/products'
+            'link', '/products?category=Garðvörur',
+            'subcategories', jsonb_build_array(
+              'Garðverkfæri',
+              'Vélar',
+              'Slöngur',
+              'Húsgögn',
+              'Skraut'
+            )
           )
         )
       ),
-      3  -- Order after hero (1) and features (2)
+      2  -- Order after hero (1)
     )
     RETURNING id INTO imagegrid_section_id;
     
@@ -64,20 +81,43 @@ BEGIN
         jsonb_build_object(
           'title', 'Garðhönnun',
           'subtitle', 'Sérsniðin hönnun fyrir þinn draumagarð',
-          'description', 'Fagleg garðhönnun með áherslu á íslenskar aðstæður',
           'image', 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=800&q=80',
-          'link', '/products?category=design'
+          'link', '/products?category=Garðhönnun',
+          'subcategories', jsonb_build_array(
+            'Lóðamælingar',
+            'Garðhönnun',
+            'Gróðurval',
+            'Uppdrættir'
+          )
         ),
         jsonb_build_object(
-          'title', 'Ræktunarlausnir',
+          'title', 'Ræktun',
           'subtitle', 'Allt fyrir grænan og fallegann garð',
-          'description', 'Vistvænar lausnir frá fræi til uppskeru',
           'image', 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&q=80',
-          'link', '/products?category=growing'
+          'link', '/products?category=Ræktun',
+          'subcategories', jsonb_build_array(
+            'Fræ',
+            'Steinull',
+            'Jarðvegur',
+            'Áburður',
+            'Pottar'
+          )
         ),
         jsonb_build_object(
           'title', 'Garðvörur',
           'subtitle', 'Hágæða verkfæri og búnaður',
+          'image', 'https://images.unsplash.com/photo-1617576683096-00fc8eecb3af?w=800&q=80',
+          'link', '/products?category=Garðvörur',
+          'subcategories', jsonb_build_array(
+            'Garðverkfæri',
+            'Vélar',
+            'Slöngur',
+            'Húsgögn',
+            'Skraut'
+          )
+        )
+      )
+    )
           'description', 'Vörur sem endast í íslenskum aðstæðum',
           'image', 'https://images.unsplash.com/photo-1617576683096-00fc8eecb3af?w=800&q=80',
           'link', '/products'

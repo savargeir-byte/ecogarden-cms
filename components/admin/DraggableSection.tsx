@@ -1,6 +1,6 @@
 'use client';
-import { useDrag, useDrop } from 'react-dnd';
 import { useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 
 export const ITEM_TYPE = 'SECTION';
 

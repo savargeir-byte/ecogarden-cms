@@ -2,7 +2,6 @@ import PageRenderer from '@/components/PageRenderer';
 import CTA from "@/components/sections/CTA";
 import Features from "@/components/sections/Features";
 import Hero from "@/components/sections/Hero";
-import ProductCard from "@/components/ProductCard";
 import { getPage } from '@/lib/cms';
 import { supabase } from '@/lib/supabase';
 

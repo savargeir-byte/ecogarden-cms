@@ -9,6 +9,7 @@ interface ImageGridProps {
       title: string;
       subtitle?: string;
       link: string;
+      subcategories?: string[];
     }>;
   };
 }
@@ -52,11 +53,26 @@ export default function ImageGrid({ data }: ImageGridProps) {
                   {item.title}
                 </h3>
                 {item.subtitle && (
-                  <p className="text-lg text-gray-200 group-hover:text-white transition-colors duration-300">{item.subtitle}</p>
+                  <p className="text-lg text-gray-200 group-hover:text-white transition-colors duration-300 mb-3">{item.subtitle}</p>
                 )}
+                
+                {/* Subcategories */}
+                {item.subcategories && item.subcategories.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {item.subcategories.map((sub, idx) => (
+                      <span 
+                        key={idx}
+                        className="text-xs px-2 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white/90 group-hover:bg-green-500/30 transition-colors duration-300"
+                      >
+                        {sub}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
                 {/* Arrow indicator */}
                 <div className="mt-4 flex items-center text-green-400 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <span className="text-sm font-semibold">Explore our range</span>
+                  <span className="text-sm font-semibold">Skoða nánar</span>
                   <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
