@@ -48,7 +48,7 @@ export default function AboutPage() {
             </div>
             <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1200&h=800&fit=crop"
+                src="https://static.wixstatic.com/media/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg/v1/fill/w_1960,h_1040,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg"
                 alt="Náttúra og sjálfbærni"
                 fill
                 className="object-cover"
@@ -62,9 +62,9 @@ export default function AboutPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="order-2 lg:order-1 relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="order-2 lg:order-1 relative h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=1200&h=800&fit=crop"
+                src="https://static.wixstatic.com/media/0b0c6b_6fa1911629cb40a2b6221f7b65bc4431~mv2.png/v1/fill/w_472,h_501,al_c,lg_1,q_85,enc_avif,quality_auto/Capture_edited.png"
                 alt="Framtíðarsýn"
                 fill
                 className="object-cover"
@@ -110,7 +110,7 @@ export default function AboutPage() {
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow">
               <div className="relative h-80">
                 <Image
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=600&fit=crop"
+                  src="https://static.wixstatic.com/media/0b0c6b_af4b3be20d564fa689eb46d7c20c1219~mv2.png/v1/fill/w_492,h_536,al_c,lg_1,q_85,enc_avif,quality_auto/20200923_135803_edited.png"
                   alt="Guðmundur Karl Eiríksson"
                   fill
                   className="object-cover"
@@ -142,7 +142,7 @@ export default function AboutPage() {
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow">
               <div className="relative h-80">
                 <Image
-                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&h=600&fit=crop"
+                  src="https://static.wixstatic.com/media/1a76e4_86be2579acb7461baaef8e596d32b3b9~mv2.png/v1/fill/w_526,h_544,al_c,lg_1,q_85,enc_avif,quality_auto/Untitled%2520design%2520(3)_edited.png"
                   alt="Ólafur E Ólafsson"
                   fill
                   className="object-cover"
