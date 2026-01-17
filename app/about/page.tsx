@@ -51,6 +51,7 @@ export default function AboutPage() {
                 src="https://static.wixstatic.com/media/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg/v1/fill/w_1960,h_1040,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg"
                 alt="Náttúra og sjálfbærni"
                 fill
+                unoptimized
                 className="object-cover"
               />
             </div>
@@ -67,6 +68,7 @@ export default function AboutPage() {
                 src="https://static.wixstatic.com/media/0b0c6b_6fa1911629cb40a2b6221f7b65bc4431~mv2.png/v1/fill/w_472,h_501,al_c,lg_1,q_85,enc_avif,quality_auto/Capture_edited.png"
                 alt="Framtíðarsýn"
                 fill
+                unoptimized
                 className="object-cover"
               />
             </div>
@@ -99,9 +101,9 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-gradient-to-br from-green-50 to-teal-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-green-50 to-teal-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-10 sm:mb-12 lg:mb-16">
             Teymið okkar
           </h2>
           
@@ -113,6 +115,7 @@ export default function AboutPage() {
                   src="https://static.wixstatic.com/media/0b0c6b_af4b3be20d564fa689eb46d7c20c1219~mv2.png/v1/fill/w_492,h_536,al_c,lg_1,q_85,enc_avif,quality_auto/20200923_135803_edited.png"
                   alt="Guðmundur Karl Eiríksson"
                   fill
+                  unoptimized
                   className="object-cover"
                 />
               </div>
@@ -145,6 +148,7 @@ export default function AboutPage() {
                   src="https://static.wixstatic.com/media/1a76e4_86be2579acb7461baaef8e596d32b3b9~mv2.png/v1/fill/w_526,h_544,al_c,lg_1,q_85,enc_avif,quality_auto/Untitled%2520design%2520(3)_edited.png"
                   alt="Ólafur E Ólafsson"
                   fill
+                  unoptimized
                   className="object-cover"
                 />
               </div>
@@ -175,24 +179,24 @@ export default function AboutPage() {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-green-600 via-green-700 to-teal-800">
+      <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-green-600 via-green-700 to-teal-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
             Við eigum lausnina fyrir þig
           </h2>
-          <p className="text-lg sm:text-xl text-white/90 mb-6 sm:mb-8">
+          <p className="text-base sm:text-lg text-white/90 mb-4 sm:mb-6">
             Hringdu eða sendu okkur línu!
           </p>
           
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8">
-            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 text-white">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6">
+            <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 text-white">
               <div>
-                <p className="text-base sm:text-lg font-semibold mb-2">Lambhagavegur 9</p>
-                <p className="text-base sm:text-lg">110 Reykjavík</p>
+                <p className="text-sm sm:text-base font-semibold mb-1">Lambhagavegur 9</p>
+                <p className="text-sm sm:text-base">110 Reykjavík</p>
               </div>
               <div>
-                <p className="text-base sm:text-lg font-semibold mb-2">Sími: 487-8910</p>
-                <p className="text-base sm:text-lg">
+                <p className="text-sm sm:text-base font-semibold mb-1">Sími: 487-8910</p>
+                <p className="text-sm sm:text-base">
                   <a href="mailto:oli@eco-garden.is" className="hover:underline break-all">
                     oli@eco-garden.is
                   </a>
@@ -203,7 +207,7 @@ export default function AboutPage() {
 
           <a 
             href="/products"
-            className="inline-block bg-white text-green-700 px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-gray-100 transition-colors shadow-xl"
+            className="inline-block bg-white text-green-700 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-gray-100 transition-colors shadow-xl"
           >
             Skoða vörur
           </a>
