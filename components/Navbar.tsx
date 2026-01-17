@@ -9,24 +9,25 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
 
+    handleScroll(); // Check on mount
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <>
-      <nav className={`bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm transition-all duration-300 ${scrolled ? 'py-2' : 'py-0'}`}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-16' : 'h-20'}`}>
+      <nav className={`bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm transition-all duration-300`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-14 sm:h-16' : 'h-20 sm:h-24'}`}>
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <img 
                 src="https://static.wixstatic.com/media/1a76e4_1a35f097f8004778afeb69466c3787f2~mv2.png/v1/fill/w_552,h_256,al_c,lg_1,q_85,enc_avif,quality_auto/Untitled%2520design%2520(3)_edited.png"
                 alt="Eco Garden Logo"
-                className={`w-auto transition-all duration-300 ${scrolled ? 'h-8' : 'h-12'}`}
+                className={`w-auto transition-all duration-300 ${scrolled ? 'h-8 sm:h-10' : 'h-12 sm:h-14 lg:h-16'}`}
               />
             </Link>
 
@@ -55,16 +56,16 @@ export default function Navbar() {
                 Fá tilboð
               </Link>
               
-              {/* Hamburger - Always visible */}
+              {/* Hamburger - Always visible with transparent green background */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors relative z-50 w-12 h-12 flex items-center justify-center"
+                className="p-2 rounded-lg bg-green-600/90 hover:bg-green-700/90 backdrop-blur-sm transition-all relative z-50 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center shadow-md"
                 aria-label="Toggle menu"
               >
-                <div className="w-6 h-5 flex flex-col justify-between">
-                  <span className={`block w-full h-0.5 bg-gray-900 transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-                  <span className={`block w-full h-0.5 bg-gray-900 transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-                  <span className={`block w-full h-0.5 bg-gray-900 transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                <div className="w-5 h-4 sm:w-6 sm:h-5 flex flex-col justify-between">
+                  <span className={`block w-full h-0.5 bg-white transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-1.5 sm:translate-y-2' : ''}`} />
+                  <span className={`block w-full h-0.5 bg-white transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+                  <span className={`block w-full h-0.5 bg-white transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-1.5 sm:-translate-y-2' : ''}`} />
                 </div>
               </button>
             </div>
