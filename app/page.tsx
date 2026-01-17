@@ -24,9 +24,9 @@ export default async function Home({ searchParams }: any) {
   // Render CMS content if available
   if (page && page.sections && page.sections.length > 0) {
     // Separate hero and imageGrid from other sections
-    const heroSection = page.sections.find(s => s.type === 'hero');
-    const imageGridSection = page.sections.find(s => s.type === 'imageGrid');
-    const otherSections = page.sections.filter(s => s.type !== 'hero' && s.type !== 'imageGrid');
+    const heroSection = page.sections.find((s: any) => s.type === 'hero');
+    const imageGridSection = page.sections.find((s: any) => s.type === 'imageGrid');
+    const otherSections = page.sections.filter((s: any) => s.type !== 'hero' && s.type !== 'imageGrid');
 
     return (
       <div className="min-h-screen">
