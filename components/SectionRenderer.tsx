@@ -3,6 +3,7 @@ import FeatureList from "./sections/FeatureList";
 import Features from "./sections/Features";
 import Hero from "./sections/Hero";
 import ImageGallery from "./sections/ImageGallery";
+import ImageGrid from "./sections/ImageGrid";
 import SpecsTable from "./sections/SpecsTable";
 import SplitImageText from "./sections/SplitImageText";
 import SmartImage from "./SmartImage";
@@ -27,6 +28,8 @@ export default function SectionRenderer({ blocks }: any) {
         return <SplitImageText key={id} data={content} />;
       case "imageGallery":
         return <ImageGallery key={id} data={content} />;
+      case "imageGrid":
+        return <ImageGrid key={id} data={content} />;
       case "specsTable":
         return <SpecsTable key={id} data={content} />;
       case "cta":

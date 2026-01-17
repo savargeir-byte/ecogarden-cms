@@ -34,6 +34,23 @@ export default function ProductsPage() {
     'Almennar garðyrkjuvörur': ['Varnarefni', 'Grasfræ', 'Áburður', 'Næring', 'O.fl'],
   };
 
+  const subcategoryImages: Record<string, string> = {
+    'Fræ': 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80',
+    'Steinull': 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80',
+    'Mold': 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80',
+    'Varnarefni': 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80',
+    'Dúkar': 'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=80',
+    'Vélar og tæki': 'https://images.unsplash.com/photo-1617576683096-00fc8eecb3af?w=800&q=80',
+    'Áburður': 'https://images.unsplash.com/photo-1625246286509-bc46934c3a9f?w=800&q=80',
+    'Fóður': 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+    'Mottur': 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=80',
+    'Innréttingar': 'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=800&q=80',
+    'Hús': 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80',
+    'Grasfræ': 'https://images.unsplash.com/photo-1560869713-7d0a29430803?w=800&q=80',
+    'Næring': 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80',
+    'O.fl': 'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=80',
+  };
+
   useEffect(() => {
     loadProducts();
   }, [selectedCategory, selectedSubcategory]);
@@ -115,18 +132,20 @@ export default function ProductsPage() {
                   setSelectedSubcategory(sub);
                   setShowSubcategoryTiles(false);
                 }}
-                className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+                className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 z-10"
               >
-                {/* Background with category color */}
-                <div className="absolute inset-0 bg-gradient-to-br from-green-600 to-green-800 group-hover:scale-105 transition-transform duration-300"></div>
+                {/* Background Image */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                  style={{ backgroundImage: `url(${subcategoryImages[sub] || subcategoryImages['O.fl']})` }}
+                ></div>
                 
                 {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 group-hover:from-black/70 group-hover:via-black/40 transition-colors"></div>
                 
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6">
-                  <div className="text-5xl mb-4">📦</div>
-                  <h3 className="text-2xl font-bold mb-2 group-hover:scale-110 transition-transform">
+                  <h3 className="text-2xl font-bold mb-2 group-hover:scale-110 transition-transform drop-shadow-lg">
                     {sub}
                   </h3>
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 mt-4">

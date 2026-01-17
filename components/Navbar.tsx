@@ -19,7 +19,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm transition-all duration-300`}>
+      <nav className={`bg-white border-b border-gray-200 sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg' : 'shadow-sm'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-14 sm:h-16' : 'h-20 sm:h-24'}`}>
             {/* Logo */}
@@ -51,7 +51,7 @@ export default function Navbar() {
             <div className="flex items-center gap-4">
               <Link 
                 href="/contact" 
-                className="hidden lg:inline-block px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-md uppercase text-sm"
+                className="hidden lg:inline-block px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-102 uppercase text-sm"
               >
                 Fá tilboð
               </Link>
@@ -59,7 +59,7 @@ export default function Navbar() {
               {/* Hamburger - Always visible with transparent green background */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="p-2 rounded-lg bg-green-600/90 hover:bg-green-700/90 backdrop-blur-sm transition-all relative z-50 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center shadow-md"
+                className="p-2 rounded-lg bg-green-600/90 hover:bg-green-700/90 backdrop-blur-sm transition-all duration-200 relative z-50 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center shadow-md hover:scale-105"
                 aria-label="Toggle menu"
               >
                 <div className="w-5 h-4 sm:w-6 sm:h-5 flex flex-col justify-between">
