@@ -97,21 +97,6 @@ export default function ImageGrid({ data }: ImageGridProps) {
                   </p>
                 )}
                 
-                {/* Subcategories with stagger animation */}
-                {subcategories && subcategories.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {subcategories.map((sub, idx) => (
-                      <span 
-                        key={idx}
-                        className="text-xs px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-white/80 border border-white/20 group-hover:bg-green-500/30 group-hover:border-green-400/50 group-hover:text-white transition-all duration-300 hover:scale-110"
-                        style={{ transitionDelay: `${idx * 50}ms` }}
-                      >
-                        {sub}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                
                 {/* Arrow indicator with bounce */}
                 <div className="flex items-center text-green-400 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
                   <span className="text-sm font-bold tracking-wide">{t('viewMore')}</span>
