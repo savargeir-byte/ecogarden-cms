@@ -72,6 +72,8 @@ export default function AnnouncementBanner() {
     ? announcement.message_en 
     : announcement.message;
 
+  console.log('🗣️ AnnouncementBanner:', { language, message: announcement.message, message_en: announcement.message_en, displayMessage });
+
   return (
     <div className={`${colors[announcement.type]} px-4 py-3 relative`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
