@@ -56,53 +56,66 @@ export default function LoginClient() {
       return;
     }
 
-    setLoading(true);
-    setError("");
+    try {
+      setLoading(true);
+      setError("");
 
-    console.log("🔐 Attempting login with:", email);
+      console.log("🔐 Attempting login with:", email);
 
-    const { data, error: loginError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+      const { data, error: loginError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    console.log("📊 Login response:", { data, error: loginError });
+      console.log("📊 Login response:", { data, error: loginError });
 
-    if (loginError) {
-      console.error("❌ Login error:", loginError);
-      handleFailedAttempt();
-      setError(loginError.message);
-      setLoading(false);
-      return;
-    }
-
-    // Check if user has admin/editor role
-    if (data.user) {
-      console.log("👤 User logged in:", data.user.id);
-      
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', data.user.id)
-        .single();
-
-      console.log("📋 Profile data:", { profile, error: profileError });
-
-      if (!profile || (profile.role !== 'admin' && profile.role !== 'editor')) {
-        console.warn("⛔ Access denied - invalid role:", profile?.role);
-        await supabase.auth.signOut();
-        setError("Access denied. You don't have permission to access the admin area.");
+      if (loginError) {
+        console.error("❌ Login error:", loginError);
+        handleFailedAttempt();
+        setError(loginError.message);
         setLoading(false);
         return;
       }
 
-      console.log("✅ Login successful! Role:", profile.role);
-    }
+      // Check if user has admin/editor role
+      if (data.user) {
+        console.log("👤 User logged in:", data.user.id);
+        
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', data.user.id)
+          .single();
 
-    // Success - reset attempts
-    setLoginAttempts(0);
-    console.log("🚀 Redirecting to:", redirectTo);
-    router.push(redirectTo);
+        console.log("📋 Profile data:", { profile, error: profileError });
+
+        if (profileError) {
+          console.error("❌ Profile fetch error:", profileError);
+          setError("Error fetching user profile. Please try again.");
+          setLoading(false);
+          return;
+        }
+
+        if (!profile || (profile.role !== 'admin' && profile.role !== 'editor')) {
+          console.warn("⛔ Access denied - invalid role:", profile?.role);
+          await supabase.auth.signOut();
+          setError("Access denied. You don't have permission to access the admin area.");
+          setLoading(false);
+          return;
+        }
+
+        console.log("✅ Login successful! Role:", profile.role);
+      }
+
+      // Success - reset attempts
+      setLoginAttempts(0);
+      console.log("🚀 Redirecting to:", redirectTo);
+      router.push(redirectTo);
+    } catch (err: any) {
+      console.error("💥 Unexpected error:", err);
+      setError(err.message || "An unexpected error occurred");
+      setLoading(false);
+    }
   }
 
   async function handleMagicLink() {
