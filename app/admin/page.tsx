@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
 const RichTextEditor = dynamic(() => import('@/components/cms/RichTextEditor'), { ssr: false });
+const ImageUploader = dynamic(() => import('@/components/cms/ImageUploader'), { ssr: false });
 
 interface Section {
   id: string;
@@ -133,6 +134,18 @@ export default function AdminPage() {
           { title: 'Easy to Use', description: 'Simple setup', icon: '✨' },
           { title: 'Quality', description: 'Premium products', icon: '⭐' }
         ]
+      },
+      imageGrid: {
+        heading: 'Our Services',
+        items: [
+          {
+            title: 'Service 1',
+            subtitle: 'Description here',
+            image: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=80',
+            link: '/products',
+            subcategories: []
+          }
+        ]
       }
     };
     return defaults[type] || {};
@@ -256,6 +269,13 @@ export default function AdminPage() {
             >
               ⭐ Features
             </button>
+            <button
+              onClick={() => handleAddSection('imageGrid')}
+              disabled={saving}
+              className="px-4 py-2 bg-gradient-to-r from-pink-600 to-pink-700 text-white rounded-lg hover:from-pink-700 hover:to-pink-800 disabled:opacity-50 text-sm font-medium text-left shadow-md"
+            >
+              🖼️ Image Grid
+            </button>
           </div>
         </div>
 
@@ -303,28 +323,21 @@ export default function AdminPage() {
                           </div>
                           <div>
                             <label className="block text-sm font-medium mb-2">Background Image</label>
-                            <div className="flex gap-2">
-                              <input
-                                type="text"
-                                value={formData.backgroundImage || ''}
-                                onChange={(e) => setFormData({ ...formData, backgroundImage: e.target.value })}
-                                className="flex-1 border rounded-lg p-3"
-                                placeholder="https://..."
-                              />
-                              <button
-                                onClick={() => openMediaLibrary('backgroundImage')}
-                                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-                              >
-                                📁 Browse
-                              </button>
-                            </div>
+                            <ImageUploader
+                              currentImage={formData.backgroundImage || formData.image}
+                              onUpload={(url) => setFormData({ ...formData, backgroundImage: url, image: url })}
+                            />
                           </div>
                           <div>
                             <label className="block text-sm font-medium mb-2">CTA Text</label>
                             <input
                               type="text"
-                              value={formData.ctaText || ''}
-                              onChange={(e) => setFormData({ ...formData, ctaText: e.target.value })}
+                              value={formData.ctaText || formData.cta?.text || ''}
+                              onChange={(e) => setFormData({ 
+                                ...formData, 
+                                ctaText: e.target.value,
+                                cta: { ...formData.cta, text: e.target.value }
+                              })}
                               className="w-full border rounded-lg p-3"
                             />
                           </div>
@@ -332,8 +345,12 @@ export default function AdminPage() {
                             <label className="block text-sm font-medium mb-2">CTA Link</label>
                             <input
                               type="text"
-                              value={formData.ctaLink || ''}
-                              onChange={(e) => setFormData({ ...formData, ctaLink: e.target.value })}
+                              value={formData.ctaLink || formData.cta?.link || ''}
+                              onChange={(e) => setFormData({ 
+                                ...formData, 
+                                ctaLink: e.target.value,
+                                cta: { ...formData.cta, link: e.target.value }
+                              })}
                               className="w-full border rounded-lg p-3"
                             />
                           </div>
@@ -482,6 +499,135 @@ export default function AdminPage() {
                                 className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
                               >
                                 ➕ Add Feature
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+
+                    case 'imageGrid':
+                      return (
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Heading</label>
+                            <input
+                              type="text"
+                              value={formData.heading || ''}
+                              onChange={(e) => setFormData({ ...formData, heading: e.target.value })}
+                              className="w-full border rounded-lg p-3"
+                            />
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Grid Items</label>
+                            <div className="space-y-4">
+                              {(formData.items || []).map((item: any, index: number) => (
+                                <div key={index} className="border rounded-lg p-4 bg-gray-50 space-y-3">
+                                  <div className="flex justify-between items-start">
+                                    <span className="text-sm font-bold text-gray-700">Item {index + 1}</span>
+                                    <button
+                                      onClick={() => {
+                                        const newItems = [...(formData.items || [])];
+                                        newItems.splice(index, 1);
+                                        setFormData({ ...formData, items: newItems });
+                                      }}
+                                      className="text-red-600 hover:text-red-800 text-sm font-medium"
+                                    >
+                                      🗑️ Remove
+                                    </button>
+                                  </div>
+                                  
+                                  <div>
+                                    <label className="block text-xs font-medium mb-1 text-gray-600">Title</label>
+                                    <input
+                                      type="text"
+                                      value={item.title || ''}
+                                      onChange={(e) => {
+                                        const newItems = [...(formData.items || [])];
+                                        newItems[index] = { ...newItems[index], title: e.target.value };
+                                        setFormData({ ...formData, items: newItems });
+                                      }}
+                                      className="w-full border rounded p-2 text-sm"
+                                      placeholder="Title"
+                                    />
+                                  </div>
+                                  
+                                  <div>
+                                    <label className="block text-xs font-medium mb-1 text-gray-600">Subtitle</label>
+                                    <input
+                                      type="text"
+                                      value={item.subtitle || ''}
+                                      onChange={(e) => {
+                                        const newItems = [...(formData.items || [])];
+                                        newItems[index] = { ...newItems[index], subtitle: e.target.value };
+                                        setFormData({ ...formData, items: newItems });
+                                      }}
+                                      className="w-full border rounded p-2 text-sm"
+                                      placeholder="Subtitle"
+                                    />
+                                  </div>
+                                  
+                                  <div>
+                                    <label className="block text-xs font-medium mb-1 text-gray-600">Image</label>
+                                    <ImageUploader
+                                      currentImage={item.image}
+                                      onUpload={(url) => {
+                                        const newItems = [...(formData.items || [])];
+                                        newItems[index] = { ...newItems[index], image: url };
+                                        setFormData({ ...formData, items: newItems });
+                                      }}
+                                    />
+                                  </div>
+                                  
+                                  <div>
+                                    <label className="block text-xs font-medium mb-1 text-gray-600">Link</label>
+                                    <input
+                                      type="text"
+                                      value={item.link || ''}
+                                      onChange={(e) => {
+                                        const newItems = [...(formData.items || [])];
+                                        newItems[index] = { ...newItems[index], link: e.target.value };
+                                        setFormData({ ...formData, items: newItems });
+                                      }}
+                                      className="w-full border rounded p-2 text-sm"
+                                      placeholder="/products"
+                                    />
+                                  </div>
+                                  
+                                  <div>
+                                    <label className="block text-xs font-medium mb-1 text-gray-600">Subcategories (comma separated)</label>
+                                    <input
+                                      type="text"
+                                      value={(item.subcategories || []).join(', ')}
+                                      onChange={(e) => {
+                                        const newItems = [...(formData.items || [])];
+                                        newItems[index] = { 
+                                          ...newItems[index], 
+                                          subcategories: e.target.value.split(',').map((s: string) => s.trim()).filter(Boolean)
+                                        };
+                                        setFormData({ ...formData, items: newItems });
+                                      }}
+                                      className="w-full border rounded p-2 text-sm"
+                                      placeholder="Category 1, Category 2, Category 3"
+                                    />
+                                  </div>
+                                </div>
+                              ))}
+                              
+                              <button
+                                onClick={() => {
+                                  const newItems = [...(formData.items || []), { 
+                                    title: '', 
+                                    subtitle: '', 
+                                    image: '', 
+                                    link: '',
+                                    subcategories: []
+                                  }];
+                                  setFormData({ ...formData, items: newItems });
+                                }}
+                                className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+                              >
+                                ➕ Add Item
                               </button>
                             </div>
                           </div>

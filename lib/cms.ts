@@ -5,17 +5,24 @@ import { supabase } from "./supabase";
 // 📖 CORE CMS FUNCTIONS
 // ============================================
 
-export async function getPage(slug: string, preview = false) {
+export async function getPage(slug: string, preview = false, language = 'is') {
   const status = preview ? 'draft' : 'published'
+  
+  // Append language suffix to slug for English
+  const languageSlug = language === 'en' ? `${slug}-en` : slug;
 
   const { data, error } = await supabase
     .from('pages')
     .select('*, sections(*)')
-    .eq('slug', slug)
+    .eq('slug', languageSlug)
     .single()
 
   if (error) {
     console.error('getPage error:', error);
+    // Fallback to Icelandic if English not found
+    if (language === 'en') {
+      return getPage(slug, preview, 'is');
+    }
     return null;
   }
 

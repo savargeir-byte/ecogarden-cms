@@ -2,10 +2,25 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import LanguageSwitcher from './LanguageSwitcher';
+import { t } from '@/lib/i18n';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [language, setLanguage] = useState('is');
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem('language') || 'is';
+    setLanguage(savedLang);
+
+    const handleStorage = () => {
+      setLanguage(localStorage.getItem('language') || 'is');
+    };
+    
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,26 +49,30 @@ export default function Navbar() {
             {/* Desktop Menu - Center */}
             <div className="hidden lg:flex items-center gap-8">
               <Link href="/" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
-                Heim
+                {t('home', language)}
               </Link>
               <Link href="/products" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
-                Vörur
+                {t('products', language)}
               </Link>
               <Link href="/about" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
-                Um okkur
+                {t('about', language)}
               </Link>
               <Link href="/contact" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
-                Hafa samband
+                {t('contact', language)}
               </Link>
             </div>
 
-            {/* Right Side - CTA + Hamburger */}
-            <div className="flex items-center gap-4">
+            {/* Right Side - Language + CTA + Hamburger */}
+            <div className="flex items-center gap-3">
+              <div className="hidden md:block">
+                <LanguageSwitcher />
+              </div>
+              
               <Link 
                 href="/contact" 
                 className="hidden lg:inline-block px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-102 uppercase text-sm"
               >
-                Fá tilboð
+                {t('getQuote', language)}
               </Link>
               
               {/* Hamburger - More transparent with site green color */}
