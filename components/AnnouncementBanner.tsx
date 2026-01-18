@@ -70,11 +70,22 @@ export default function AnnouncementBanner() {
     error: 'bg-red-600 text-white',
   };
 
-  const displayMessage = language === 'en' && announcement.message_en 
+  // Show Icelandic by default, only show English if explicitly set to 'en'
+  const displayMessage = (language === 'en' && announcement.message_en) 
     ? announcement.message_en 
     : announcement.message;
 
-  console.log('🗣️ AnnouncementBanner:', { language, message: announcement.message, message_en: announcement.message_en, displayMessage });
+  // Debug logging
+  if (typeof window !== 'undefined') {
+    console.log('🗣️ AnnouncementBanner Debug:', {
+      language,
+      localStorageLang: localStorage.getItem('language'),
+      messageIS: announcement.message,
+      messageEN: announcement.message_en,
+      displayMessage,
+      willShowEnglish: language === 'en' && announcement.message_en
+    });
+  }
 
   return (
     <div className={`${colors[announcement.type]} px-4 py-3 relative`}>
