@@ -16,13 +16,15 @@ interface Announcement {
 export default function AnnouncementBanner() {
   const [announcement, setAnnouncement] = useState<Announcement | null>(null);
   const [dismissed, setDismissed] = useState(false);
-  const [language, setLanguage] = useState('is');
+  const [language, setLanguage] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('language') || 'is';
+    }
+    return 'is';
+  });
 
   useEffect(() => {
     loadAnnouncement();
-    
-    const savedLang = localStorage.getItem('language') || 'is';
-    setLanguage(savedLang);
 
     const handleLanguageChange = () => {
       const newLang = localStorage.getItem('language') || 'is';
