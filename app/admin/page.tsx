@@ -1,5 +1,7 @@
 'use client';
 
+// Admin page for managing CMS content
+
 import AdminLayout from '@/components/admin/AdminLayout';
 import MediaLibrary from '@/components/admin/MediaLibrary';
 import PageRenderer from '@/components/PageRenderer';
