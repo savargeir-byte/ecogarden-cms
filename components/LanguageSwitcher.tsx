@@ -23,8 +23,7 @@ export default function LanguageSwitcher() {
     
     // Trigger custom event to notify all components
     window.dispatchEvent(new Event('languagechange'));
-    
-    router.refresh();
+    window.dispatchEvent(new Event('storage'));
   };
 
   return (
