@@ -2,12 +2,39 @@
 
 import Link from "next/link";
 import RoleGate from "@/components/RoleGate";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 export default function AdminLayout({ children }: any) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Get current user
+    supabase.auth.getUser().then(async ({ data }) => {
+      if (data.user) {
+        setUserEmail(data.user.email || null);
+        
+        // Get user role
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', data.user.id)
+          .single();
+        
+        setUserRole(profile?.role || null);
+      }
+    });
+  }, []);
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    router.push('/login');
+  }
 
   const navItems = [
     { href: "/admin", label: "Pages", icon: "📄" },
@@ -46,8 +73,40 @@ export default function AdminLayout({ children }: any) {
           >
             View site →
           </a>
-          <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm">
-            ⚙️
+          
+          {/* User Profile Dropdown */}
+          <div className="relative group">
+            <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition">
+              <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                {userEmail?.charAt(0).toUpperCase() || '?'}
+              </div>
+              <div className="hidden md:block text-left">
+                <div className="text-xs font-medium text-gray-900 max-w-[150px] truncate">
+                  {userEmail || 'Loading...'}
+                </div>
+                {userRole && (
+                  <div className="text-xs text-gray-500 capitalize">{userRole}</div>
+                )}
+              </div>
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            {/* Dropdown Menu */}
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+              <div className="px-4 py-2 border-b border-gray-100">
+                <div className="text-xs text-gray-500">Signed in as</div>
+                <div className="text-sm font-medium text-gray-900 truncate">{userEmail}</div>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition flex items-center gap-2"
+              >
+                <span>🚪</span>
+                Sign out
+              </button>
+            </div>
           </div>
         </div>
       </header>

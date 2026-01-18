@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 interface Announcement {
   id: string;
   message: string;
+  message_en?: string;
   type: 'info' | 'warning' | 'success' | 'error';
   active: boolean;
   start_date?: string;
@@ -15,9 +16,26 @@ interface Announcement {
 export default function AnnouncementBanner() {
   const [announcement, setAnnouncement] = useState<Announcement | null>(null);
   const [dismissed, setDismissed] = useState(false);
+  const [language, setLanguage] = useState('is');
 
   useEffect(() => {
     loadAnnouncement();
+    
+    const savedLang = localStorage.getItem('language') || 'is';
+    setLanguage(savedLang);
+
+    const handleLanguageChange = () => {
+      const newLang = localStorage.getItem('language') || 'is';
+      setLanguage(newLang);
+    };
+
+    window.addEventListener('languagechange', handleLanguageChange);
+    window.addEventListener('storage', handleLanguageChange);
+    
+    return () => {
+      window.removeEventListener('languagechange', handleLanguageChange);
+      window.removeEventListener('storage', handleLanguageChange);
+    };
   }, []);
 
   async function loadAnnouncement() {
@@ -50,11 +68,15 @@ export default function AnnouncementBanner() {
     error: 'bg-red-600 text-white',
   };
 
+  const displayMessage = language === 'en' && announcement.message_en 
+    ? announcement.message_en 
+    : announcement.message;
+
   return (
     <div className={`${colors[announcement.type]} px-4 py-3 relative`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <p className="text-sm font-medium flex-1 text-center">
-          {announcement.message}
+          {displayMessage}
         </p>
         <button
           onClick={() => setDismissed(true)}

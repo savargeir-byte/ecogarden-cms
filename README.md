@@ -4,6 +4,8 @@
 
 Built with Next.js 16, Supabase, and TypeScript.
 
+**🌍 Now with full bilingual support (Icelandic/English)!**
+
 ---
 
 ## 🚀 Quick Start
@@ -28,6 +30,15 @@ npm install
 npm run dev
 ```
 
+### 4. Add English Translations (Optional)
+
+```bash
+# Run the setup script
+.\setup-translations.ps1
+
+# Or manually run add-english-translations.sql in Supabase SQL Editor
+```
+
 Open [http://localhost:3000](http://localhost:3000)
 
 📖 **Full setup guide:** See [QUICKSTART.md](QUICKSTART.md)
@@ -39,11 +50,26 @@ Open [http://localhost:3000](http://localhost:3000)
 | File                                               | Purpose                     |
 | -------------------------------------------------- | --------------------------- |
 | **[QUICKSTART.md](QUICKSTART.md)**                 | 5-minute setup guide        |
+| **[TRANSLATIONS.md](TRANSLATIONS.md)**             | 🌍 Translation system guide |
 | **[CLEAN-SCHEMA.sql](CLEAN-SCHEMA.sql)**           | Copy-paste SQL schema       |
 | **[EXAMPLES.md](EXAMPLES.md)**                     | ⭐ Code examples & patterns |
 | **[FIXED-ARCHITECTURE.md](FIXED-ARCHITECTURE.md)** | Technical architecture      |
 | **[DEPLOYMENT.md](DEPLOYMENT.md)**                 | Production deployment       |
 | **[MIGRATION-GUIDE.md](MIGRATION-GUIDE.md)**       | Migrate old data            |
+
+---
+
+## 🌍 Bilingual Support
+
+Eco Garden CMS now supports **Icelandic** and **English**:
+
+- ✅ **UI translations** - All interface elements translated
+- ✅ **Content translations** - Pages available in both languages
+- ✅ **Language switcher** - Easy toggle in navbar
+- ✅ **Persistent choice** - Language saved in localStorage
+- ✅ **SEO friendly** - Locale-specific content
+
+**Learn more:** [TRANSLATIONS.md](TRANSLATIONS.md)
 
 ---
 
@@ -55,6 +81,8 @@ Supabase (Database)
 sections table (Single Source of Truth)
     ↓
 Admin (WRITE) ← Realtime Sync → Public Site (READ)
+    ↓
+i18n Layer (Translations)
 ```
 
 ### Key Features:
@@ -66,6 +94,7 @@ Admin (WRITE) ← Realtime Sync → Public Site (READ)
 - ✅ **Realtime sync** - Supabase channels
 - ✅ **Image upload** - Supabase Storage
 - ✅ **RLS security** - Row-level permissions
+- ✅ **Bilingual support** - IS/EN translations
 
 ---
 

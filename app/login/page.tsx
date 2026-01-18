@@ -1,7 +1,7 @@
 "use client";
 import { supabase } from "@/lib/supabase";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -9,34 +9,115 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [mode, setMode] = useState<"password" | "magic">("password");
+  const [loginAttempts, setLoginAttempts] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
+  const [lockoutTime, setLockoutTime] = useState<number | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirectTo') || '/admin';
+
+  // Check if already logged in
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        router.push(redirectTo);
+      }
+    });
+  }, [router, redirectTo]);
+
+  // Rate limiting - unlock after 15 minutes
+  useEffect(() => {
+    if (isLocked && lockoutTime) {
+      const timer = setTimeout(() => {
+        setIsLocked(false);
+        setLoginAttempts(0);
+        setLockoutTime(null);
+        setError("");
+      }, 15 * 60 * 1000); // 15 minutes
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLocked, lockoutTime]);
+
+  function handleFailedAttempt() {
+    const newAttempts = loginAttempts + 1;
+    setLoginAttempts(newAttempts);
+
+    if (newAttempts >= 5) {
+      setIsLocked(true);
+      setLockoutTime(Date.now());
+      setError("Too many failed attempts. Account locked for 15 minutes.");
+    }
+  }
 
   async function handlePasswordLogin() {
+    if (isLocked) {
+      setError("Account is locked. Please try again in 15 minutes.");
+      return;
+    }
+
     setLoading(true);
     setError("");
+
+    console.log("🔐 Attempting login with:", email);
 
     const { data, error: loginError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
+    console.log("📊 Login response:", { data, error: loginError });
+
     if (loginError) {
+      console.error("❌ Login error:", loginError);
+      handleFailedAttempt();
       setError(loginError.message);
       setLoading(false);
       return;
     }
 
-    router.push("/admin");
+    // Check if user has admin/editor role
+    if (data.user) {
+      console.log("👤 User logged in:", data.user.id);
+      
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', data.user.id)
+        .single();
+
+      console.log("📋 Profile data:", { profile, error: profileError });
+
+      if (!profile || (profile.role !== 'admin' && profile.role !== 'editor')) {
+        console.warn("⛔ Access denied - invalid role:", profile?.role);
+        await supabase.auth.signOut();
+        setError("Access denied. You don't have permission to access the admin area.");
+        setLoading(false);
+        return;
+      }
+
+      console.log("✅ Login successful! Role:", profile.role);
+    }
+
+    // Success - reset attempts
+    setLoginAttempts(0);
+    console.log("🚀 Redirecting to:", redirectTo);
+    router.push(redirectTo);
   }
 
   async function handleMagicLink() {
+    if (isLocked) {
+      setError("Account is locked. Please try again in 15 minutes.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
     const { error: magicError } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/admin`,
+        emailRedirectTo: `${window.location.origin}${redirectTo}`,
       },
     });
 
@@ -61,6 +142,31 @@ export default function Login() {
           <h1 className="text-3xl font-bold text-gray-900">EcoGarden CMS</h1>
           <p className="text-gray-600 mt-2">Sign in to manage content</p>
         </div>
+
+        {/* Security Warning if locked */}
+        {isLocked && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div className="flex items-start gap-2">
+              <span className="text-red-600 text-xl">🔒</span>
+              <div>
+                <div className="font-medium text-red-900">Account Locked</div>
+                <div className="text-sm text-red-700 mt-1">
+                  Too many failed login attempts. Please try again in 15 minutes.
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Login Attempts Warning */}
+        {loginAttempts > 0 && loginAttempts < 5 && !isLocked && (
+          <div className="mb-6 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="flex items-center gap-2 text-sm text-yellow-800">
+              <span>⚠️</span>
+              <span>Failed attempts: {loginAttempts}/5. {5 - loginAttempts} remaining.</span>
+            </div>
+          </div>
+        )}
 
         {/* Mode Tabs */}
         <div className="flex gap-2 mb-6">
