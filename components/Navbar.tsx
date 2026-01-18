@@ -3,30 +3,12 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
-import { t } from '@/lib/i18n';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [language, setLanguage] = useState('is');
-
-  useEffect(() => {
-    const savedLang = localStorage.getItem('language') || 'is';
-    setLanguage(savedLang);
-
-    const handleLanguageChange = () => {
-      const newLang = localStorage.getItem('language') || 'is';
-      setLanguage(newLang);
-    };
-    
-    window.addEventListener('languagechange', handleLanguageChange);
-    window.addEventListener('storage', handleLanguageChange);
-    
-    return () => {
-      window.removeEventListener('languagechange', handleLanguageChange);
-      window.removeEventListener('storage', handleLanguageChange);
-    };
-  }, []);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,26 +27,32 @@ export default function Navbar() {
           <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-14 sm:h-16' : 'h-20 sm:h-24'}`}>
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
-              <img 
-                src="https://static.wixstatic.com/media/1a76e4_1a35f097f8004778afeb69466c3787f2~mv2.png/v1/fill/w_552,h_256,al_c,lg_1,q_85,enc_avif,quality_auto/Untitled%2520design%2520(3)_edited.png"
-                alt="Eco Garden Logo"
-                className={`w-auto transition-all duration-300 ${scrolled ? 'h-8 sm:h-10' : 'h-12 sm:h-14 lg:h-16'}`}
-              />
+              <div className={`flex items-center gap-2 transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'}`}>
+                <div className={`bg-gradient-to-br from-green-500 to-green-700 rounded-lg p-2 transition-all duration-300 ${scrolled ? 'w-8 h-8' : 'w-10 h-10'}`}>
+                  <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-white">
+                    <path d="M12 2L4 7v10c0 5.55 3.84 10 8 10s8-4.45 8-10V7l-8-5z" fill="currentColor" opacity="0.3"/>
+                    <path d="M12 2v10M12 12l-4 4M12 12l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <span className={`font-bold text-gray-800 transition-all duration-300 ${scrolled ? 'text-lg' : 'text-xl'}`}>
+                  Eco<span className="text-green-600">Garden</span>
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Menu - Center */}
             <div className="hidden lg:flex items-center gap-8">
               <Link href="/" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
-                {t('home', language)}
+                {t('home')}
               </Link>
               <Link href="/products" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
-                {t('products', language)}
+                {t('products')}
               </Link>
               <Link href="/about" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
-                {t('about', language)}
+                {t('about')}
               </Link>
               <Link href="/contact" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
-                {t('contact', language)}
+                {t('contact')}
               </Link>
             </div>
 
@@ -78,7 +66,7 @@ export default function Navbar() {
                 href="/contact" 
                 className="hidden lg:inline-block px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-102 uppercase text-sm"
               >
-                {t('getQuote', language)}
+                {t('getQuote')}
               </Link>
               
               {/* Hamburger - More transparent with site green color */}
@@ -152,8 +140,8 @@ export default function Navbar() {
               className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
               style={{ transitionDelay: menuOpen ? '100ms' : '0ms' }}
             >
-              <span className="text-2xl">🎯</span>
-              <span>3D Interactive Gallery</span>
+              <span className="text-2xl">🏡</span>
+              <span>{t('home')}</span>
             </Link>
             <Link 
               href="/products" 
@@ -161,8 +149,8 @@ export default function Navbar() {
               className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
               style={{ transitionDelay: menuOpen ? '150ms' : '0ms' }}
             >
-              <span className="text-2xl">📎</span>
-              <span>Case Studies</span>
+              <span className="text-2xl">🌱</span>
+              <span>{t('products')}</span>
             </Link>
             <Link 
               href="/about" 
@@ -170,8 +158,8 @@ export default function Navbar() {
               className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
               style={{ transitionDelay: menuOpen ? '200ms' : '0ms' }}
             >
-              <span className="text-2xl">📢</span>
-              <span>News & Events</span>
+              <span className="text-2xl">ℹ️</span>
+              <span>{t('about')}</span>
             </Link>
             <Link 
               href="/contact" 
@@ -179,18 +167,14 @@ export default function Navbar() {
               className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
               style={{ transitionDelay: menuOpen ? '250ms' : '0ms' }}
             >
-              <span className="text-2xl">💼</span>
-              <span>Careers</span>
+              <span className="text-2xl">📞</span>
+              <span>{t('contact')}</span>
             </Link>
-            <Link 
-              href="/about" 
-              onClick={() => setMenuOpen(false)}
-              className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
-              style={{ transitionDelay: menuOpen ? '300ms' : '0ms' }}
-            >
-              <span className="text-2xl">ℹ️</span>
-              <span>About Us</span>
-            </Link>
+          </div>
+          
+          {/* Language Switcher in mobile menu */}
+          <div className="mt-8 pt-8 border-t border-white/20 md:hidden">
+            <LanguageSwitcher />
           </div>
         </div>
       </div>
