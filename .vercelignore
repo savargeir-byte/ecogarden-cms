@@ -1,0 +1,3 @@
+# Force Vercel to rebuild
+.next
+node_modules
