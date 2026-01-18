@@ -5,7 +5,9 @@ import MediaLibrary from '@/components/admin/MediaLibrary';
 import PageRenderer from '@/components/PageRenderer';
 import { addSection, deleteSection, getPage, publishPage, unpublishPage, updateSection } from '@/lib/cms';
 import { saveVersion } from '@/lib/versioning';
+import { supabase } from '@/lib/supabase';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const RichTextEditor = dynamic(() => import('@/components/cms/RichTextEditor'), { ssr: false });
@@ -27,6 +29,8 @@ interface Page {
 }
 
 export default function AdminPage() {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [page, setPage] = useState<Page | null>(null);
   const [loading, setLoading] = useState(true);
   const [editingSection, setEditingSection] = useState<string | null>(null);
@@ -36,14 +40,45 @@ export default function AdminPage() {
   const [mediaTarget, setMediaTarget] = useState<string>('');
 
   useEffect(() => {
-    loadPage();
+    checkAuth();
   }, []);
 
+  async function checkAuth() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      router.push('/login');
+      return;
+    }
+    setIsAuthenticated(true);
+    loadPage();
+  }
+
   async function loadPage() {
-    setLoading(true);
-    const data = await getPage('home', true);
-    setPage(data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      // For admin, always load the base Icelandic page (no language suffix)
+      const { data, error } = await supabase
+        .from('pages')
+        .select('*, sections(*)')
+        .eq('slug', 'home')
+        .single();
+
+      if (error) {
+        console.error('Error loading page:', error);
+        return;
+      }
+
+      // Sort sections by position
+      if (data?.sections) {
+        data.sections.sort((a: any, b: any) => a.position - b.position);
+      }
+
+      setPage(data);
+    } catch (error) {
+      console.error('Error loading page:', error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleAddSection(type: string) {
@@ -151,11 +186,16 @@ export default function AdminPage() {
     return defaults[type] || {};
   }
 
-  if (loading || !page) {
+  if (!isAuthenticated || loading || !page) {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-screen">
-          <div className="text-xl">Loading...</div>
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+            <div className="text-xl text-gray-600">
+              {!isAuthenticated ? 'Checking authentication...' : 'Loading page...'}
+            </div>
+          </div>
         </div>
       </AdminLayout>
     );
