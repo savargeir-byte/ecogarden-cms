@@ -28,6 +28,7 @@ export const translations = {
     productsHeading: 'Vörur sem virka í íslenskum görðum',
     productsSubheading: 'Lausnir og efni sem við notum sjálf í verkefnum okkar.',
     viewAllProducts: 'Skoða allar lausnir',
+    viewMore: 'Skoða nánar',
     
     // Mission
     missionHeading: 'Garðlausnir sem endast í íslenskum aðstæðum',
@@ -159,6 +160,7 @@ export const translations = {
     productsHeading: 'Products That Work in Icelandic Gardens',
     productsSubheading: 'Solutions and materials we use ourselves in our projects.',
     viewAllProducts: 'View All Solutions',
+    viewMore: 'View More',
     
     // Mission
     missionHeading: 'Garden Solutions Built for Icelandic Conditions',

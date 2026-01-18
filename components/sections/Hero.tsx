@@ -2,22 +2,30 @@
 
 import { useEffect, useState } from 'react';
 import SmartImage from "../SmartImage";
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface HeroProps {
   data: {
     title?: string;
+    title_en?: string;
     heading?: string;
+    heading_en?: string;
     subtitle?: string;
+    subtitle_en?: string;
     text?: string;
+    text_en?: string;
     image?: string;
     imageAlt?: string;
+    imageAlt_en?: string;
     ctaText?: string;
+    ctaText_en?: string;
     ctaLink?: string;
   };
 }
 
 export default function Hero({ data }: HeroProps) {
   const [scrolled, setScrolled] = useState(false);
+  const { language } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,8 +42,22 @@ export default function Hero({ data }: HeroProps) {
     return null;
   }
   
-  const mainTitle = data.title || data.heading;
-  const subText = data.subtitle || data.text;
+  // Get text based on language
+  const mainTitle = language === 'en' 
+    ? (data.title_en || data.heading_en || data.title || data.heading)
+    : (data.title || data.heading);
+    
+  const subText = language === 'en'
+    ? (data.subtitle_en || data.text_en || data.subtitle || data.text)
+    : (data.subtitle || data.text);
+    
+  const imageAlt = language === 'en'
+    ? (data.imageAlt_en || data.imageAlt || mainTitle || "Hero image")
+    : (data.imageAlt || mainTitle || "Hero mynd");
+    
+  const ctaText = language === 'en'
+    ? (data.ctaText_en || data.ctaText)
+    : data.ctaText;
 
   return (
     <section className={`relative overflow-hidden transition-all duration-500 ${
@@ -46,7 +68,7 @@ export default function Hero({ data }: HeroProps) {
         <div className="absolute inset-0">
           <SmartImage
             src={data.image}
-            alt={data.imageAlt || mainTitle || "Hero image"}
+            alt={imageAlt}
             width={1920}
             height={700}
             className="w-full h-full object-cover"
@@ -75,12 +97,12 @@ export default function Hero({ data }: HeroProps) {
                 {subText}
               </p>
             )}
-            {data.ctaText && data.ctaLink && !scrolled && (
+            {ctaText && data.ctaLink && !scrolled && (
               <a
                 href={data.ctaLink}
                 className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-all shadow-lg hover:shadow-xl text-base sm:text-lg hover:scale-102"
               >
-                {data.ctaText}
+                {ctaText}
               </a>
             )}
           </div>
