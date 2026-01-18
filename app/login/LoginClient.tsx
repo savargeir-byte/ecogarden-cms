@@ -62,10 +62,20 @@ export default function LoginClient() {
 
       console.log("🔐 Attempting login with:", email);
 
-      const { data, error: loginError } = await supabase.auth.signInWithPassword({
+      // Add timeout to prevent hanging
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Login timeout - please check your connection')), 10000)
+      );
+
+      const loginPromise = supabase.auth.signInWithPassword({
         email,
         password,
       });
+
+      const { data, error: loginError } = await Promise.race([
+        loginPromise,
+        timeoutPromise
+      ]) as any;
 
       console.log("📊 Login response:", { data, error: loginError });
 
@@ -113,7 +123,7 @@ export default function LoginClient() {
       router.push(redirectTo);
     } catch (err: any) {
       console.error("💥 Unexpected error:", err);
-      setError(err.message || "An unexpected error occurred");
+      setError(err.message || "An unexpected error occurred. Please check your connection.");
       setLoading(false);
     }
   }
