@@ -767,12 +767,6 @@ export default function AdminPage() {
                           </div>
                         </div>
                       );
-                                ➕ Add Feature
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      );
 
                     case 'imageGrid':
                       return (
