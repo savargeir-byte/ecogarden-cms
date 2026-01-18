@@ -302,158 +302,331 @@ export default function AdminPage() {
                   switch (section.type) {
                     case 'hero':
                       return (
-                        <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Heading</label>
-                            <input
-                              type="text"
-                              value={formData.heading || ''}
-                              onChange={(e) => setFormData({ ...formData, heading: e.target.value })}
-                              className="w-full border rounded-lg p-3"
-                            />
+                        <div className="space-y-6">
+                          {/* Icelandic Fields */}
+                          <div className="border-l-4 border-blue-500 pl-4 space-y-4">
+                            <h3 className="text-lg font-bold text-blue-700">🇮🇸 Íslenska</h3>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Title (IS)</label>
+                              <input
+                                type="text"
+                                value={formData.title || formData.heading || ''}
+                                onChange={(e) => setFormData({ ...formData, title: e.target.value, heading: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Garðlausnir byggðar fyrir íslenskar aðstæður"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Subtitle (IS)</label>
+                              <textarea
+                                value={formData.subtitle || formData.subheading || ''}
+                                onChange={(e) => setFormData({ ...formData, subtitle: e.target.value, subheading: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                rows={2}
+                                placeholder="Hönnuð fyrir íslenskt veðurfar"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Image Alt Text (IS)</label>
+                              <input
+                                type="text"
+                                value={formData.imageAlt || ''}
+                                onChange={(e) => setFormData({ ...formData, imageAlt: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Íslenskur garður"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">CTA Button Text (IS)</label>
+                              <input
+                                type="text"
+                                value={formData.ctaText || formData.cta?.text || ''}
+                                onChange={(e) => setFormData({ 
+                                  ...formData, 
+                                  ctaText: e.target.value,
+                                  cta: { ...formData.cta, text: e.target.value }
+                                })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Skoða vörur"
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Subheading</label>
-                            <textarea
-                              value={formData.subheading || ''}
-                              onChange={(e) => setFormData({ ...formData, subheading: e.target.value })}
-                              className="w-full border rounded-lg p-3"
-                              rows={3}
-                            />
+
+                          {/* English Fields */}
+                          <div className="border-l-4 border-green-500 pl-4 space-y-4">
+                            <h3 className="text-lg font-bold text-green-700">🇬🇧 English</h3>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Title (EN)</label>
+                              <input
+                                type="text"
+                                value={formData.title_en || formData.heading_en || ''}
+                                onChange={(e) => setFormData({ ...formData, title_en: e.target.value, heading_en: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Garden Solutions Built for Icelandic Conditions"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Subtitle (EN)</label>
+                              <textarea
+                                value={formData.subtitle_en || formData.subheading_en || ''}
+                                onChange={(e) => setFormData({ ...formData, subtitle_en: e.target.value, subheading_en: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                rows={2}
+                                placeholder="Designed for Icelandic weather"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Image Alt Text (EN)</label>
+                              <input
+                                type="text"
+                                value={formData.imageAlt_en || ''}
+                                onChange={(e) => setFormData({ ...formData, imageAlt_en: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Icelandic garden"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">CTA Button Text (EN)</label>
+                              <input
+                                type="text"
+                                value={formData.ctaText_en || formData.cta?.text_en || ''}
+                                onChange={(e) => setFormData({ 
+                                  ...formData, 
+                                  ctaText_en: e.target.value,
+                                  cta: { ...formData.cta, text_en: e.target.value }
+                                })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="View Products"
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Background Image</label>
-                            <ImageUploader
-                              currentImage={formData.backgroundImage || formData.image}
-                              onUpload={(url) => setFormData({ ...formData, backgroundImage: url, image: url })}
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">CTA Text</label>
-                            <input
-                              type="text"
-                              value={formData.ctaText || formData.cta?.text || ''}
-                              onChange={(e) => setFormData({ 
-                                ...formData, 
-                                ctaText: e.target.value,
-                                cta: { ...formData.cta, text: e.target.value }
-                              })}
-                              className="w-full border rounded-lg p-3"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">CTA Link</label>
-                            <input
-                              type="text"
-                              value={formData.ctaLink || formData.cta?.link || ''}
-                              onChange={(e) => setFormData({ 
-                                ...formData, 
-                                ctaLink: e.target.value,
-                                cta: { ...formData.cta, link: e.target.value }
-                              })}
-                              className="w-full border rounded-lg p-3"
-                            />
+
+                          {/* Shared Fields */}
+                          <div className="border-l-4 border-purple-500 pl-4 space-y-4">
+                            <h3 className="text-lg font-bold text-purple-700">🖼️ Images & Links</h3>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Background Image</label>
+                              <ImageUploader
+                                currentImage={formData.backgroundImage || formData.image}
+                                onUpload={(url) => setFormData({ ...formData, backgroundImage: url, image: url })}
+                              />
+                            </div>
+                            
+                            <div>
+                              <label className="block text-sm font-medium mb-2">CTA Link</label>
+                              <input
+                                type="text"
+                                value={formData.ctaLink || formData.cta?.link || ''}
+                                onChange={(e) => setFormData({ 
+                                  ...formData, 
+                                  ctaLink: e.target.value,
+                                  cta: { ...formData.cta, link: e.target.value }
+                                })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="/products"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
 
                     case 'text':
                       return (
-                        <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Heading</label>
-                            <input
-                              type="text"
-                              value={formData.heading || ''}
-                              onChange={(e) => setFormData({ ...formData, heading: e.target.value })}
-                              className="w-full border rounded-lg p-3"
-                            />
+                        <div className="space-y-6">
+                          {/* Icelandic */}
+                          <div className="border-l-4 border-blue-500 pl-4 space-y-4">
+                            <h3 className="text-lg font-bold text-blue-700">🇮🇸 Íslenska</h3>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Heading (IS)</label>
+                              <input
+                                type="text"
+                                value={formData.heading || ''}
+                                onChange={(e) => setFormData({ ...formData, heading: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Um okkur"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Content (IS)</label>
+                              <RichTextEditor
+                                content={formData.content || ''}
+                                onChange={(content) => setFormData({ ...formData, content })}
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Content</label>
-                            <RichTextEditor
-                              content={formData.content || ''}
-                              onChange={(content) => setFormData({ ...formData, content })}
-                            />
+
+                          {/* English */}
+                          <div className="border-l-4 border-green-500 pl-4 space-y-4">
+                            <h3 className="text-lg font-bold text-green-700">🇬🇧 English</h3>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Heading (EN)</label>
+                              <input
+                                type="text"
+                                value={formData.heading_en || ''}
+                                onChange={(e) => setFormData({ ...formData, heading_en: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="About Us"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Content (EN)</label>
+                              <RichTextEditor
+                                content={formData.content_en || ''}
+                                onChange={(content_en) => setFormData({ ...formData, content_en })}
+                              />
+                            </div>
                           </div>
                         </div>
                       );
 
                     case 'cta':
                       return (
-                        <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Heading</label>
-                            <input
-                              type="text"
-                              value={formData.heading || ''}
-                              onChange={(e) => setFormData({ ...formData, heading: e.target.value })}
-                              className="w-full border rounded-lg p-3"
-                            />
+                        <div className="space-y-6">
+                          {/* Icelandic */}
+                          <div className="border-l-4 border-blue-500 pl-4 space-y-4">
+                            <h3 className="text-lg font-bold text-blue-700">🇮🇸 Íslenska</h3>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Heading (IS)</label>
+                              <input
+                                type="text"
+                                value={formData.heading || ''}
+                                onChange={(e) => setFormData({ ...formData, heading: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Tilbúin að byrja?"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Description (IS)</label>
+                              <textarea
+                                value={formData.description || ''}
+                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                rows={3}
+                                placeholder="Vertu með þúsundum ánægðra garðyrkjumanna"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Button Text (IS)</label>
+                              <input
+                                type="text"
+                                value={formData.buttonText || ''}
+                                onChange={(e) => setFormData({ ...formData, buttonText: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Byrja núna"
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Description</label>
-                            <textarea
-                              value={formData.description || ''}
-                              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                              className="w-full border rounded-lg p-3"
-                              rows={3}
-                            />
+
+                          {/* English */}
+                          <div className="border-l-4 border-green-500 pl-4 space-y-4">
+                            <h3 className="text-lg font-bold text-green-700">🇬🇧 English</h3>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Heading (EN)</label>
+                              <input
+                                type="text"
+                                value={formData.heading_en || ''}
+                                onChange={(e) => setFormData({ ...formData, heading_en: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Ready to start?"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Description (EN)</label>
+                              <textarea
+                                value={formData.description_en || ''}
+                                onChange={(e) => setFormData({ ...formData, description_en: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                rows={3}
+                                placeholder="Join thousands of happy gardeners"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Button Text (EN)</label>
+                              <input
+                                type="text"
+                                value={formData.buttonText_en || ''}
+                                onChange={(e) => setFormData({ ...formData, buttonText_en: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="Get Started"
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Button Text</label>
-                            <input
-                              type="text"
-                              value={formData.buttonText || ''}
-                              onChange={(e) => setFormData({ ...formData, buttonText: e.target.value })}
-                              className="w-full border rounded-lg p-3"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Button Link</label>
-                            <input
-                              type="text"
-                              value={formData.buttonLink || ''}
-                              onChange={(e) => setFormData({ ...formData, buttonLink: e.target.value })}
-                              className="w-full border rounded-lg p-3"
-                            />
+
+                          {/* Shared */}
+                          <div className="border-l-4 border-purple-500 pl-4 space-y-4">
+                            <h3 className="text-lg font-bold text-purple-700">🔗 Link</h3>
+                            <div>
+                              <label className="block text-sm font-medium mb-2">Button Link</label>
+                              <input
+                                type="text"
+                                value={formData.buttonLink || ''}
+                                onChange={(e) => setFormData({ ...formData, buttonLink: e.target.value })}
+                                className="w-full border rounded-lg p-3"
+                                placeholder="/products"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
 
                     case 'features':
                       return (
-                        <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Heading</label>
+                        <div className="space-y-6">
+                          {/* Icelandic Heading */}
+                          <div className="border-l-4 border-blue-500 pl-4">
+                            <label className="block text-sm font-medium mb-2">🇮🇸 Heading (IS)</label>
                             <input
                               type="text"
                               value={formData.heading || ''}
                               onChange={(e) => setFormData({ ...formData, heading: e.target.value })}
                               className="w-full border rounded-lg p-3"
+                              placeholder="Af hverju að velja okkur"
+                            />
+                          </div>
+                          
+                          {/* English Heading */}
+                          <div className="border-l-4 border-green-500 pl-4">
+                            <label className="block text-sm font-medium mb-2">🇬🇧 Heading (EN)</label>
+                            <input
+                              type="text"
+                              value={formData.heading_en || ''}
+                              onChange={(e) => setFormData({ ...formData, heading_en: e.target.value })}
+                              className="w-full border rounded-lg p-3"
+                              placeholder="Why Choose Us"
                             />
                           </div>
                           
                           <div>
-                            <label className="block text-sm font-medium mb-2">Features</label>
-                            <div className="space-y-3">
+                            <label className="block text-sm font-bold mb-3 text-lg">⭐ Features</label>
+                            <div className="space-y-4">
                               {(formData.features || []).map((feature: any, index: number) => (
-                                <div key={index} className="border rounded-lg p-4 bg-gray-50">
-                                  <div className="flex justify-between items-start mb-3">
-                                    <span className="text-sm font-medium text-gray-700">Feature {index + 1}</span>
+                                <div key={index} className="border-2 border-gray-300 rounded-xl p-5 bg-white shadow-sm">
+                                  <div className="flex justify-between items-start mb-4 bg-gradient-to-r from-purple-50 to-blue-50 p-3 rounded-lg">
+                                    <span className="text-base font-bold text-gray-800">Feature {index + 1}</span>
                                     <button
                                       onClick={() => {
                                         const newFeatures = [...(formData.features || [])];
                                         newFeatures.splice(index, 1);
                                         setFormData({ ...formData, features: newFeatures });
                                       }}
-                                      className="text-red-600 hover:text-red-800 text-sm font-medium"
+                                      className="text-red-600 hover:text-red-800 font-medium px-3 py-1 rounded hover:bg-red-50"
                                     >
                                       🗑️ Remove
                                     </button>
                                   </div>
                                   
-                                  <div className="space-y-2">
+                                  {/* Icon */}
+                                  <div className="mb-4">
+                                    <label className="block text-xs font-medium mb-1 text-gray-700">Icon (emoji)</label>
                                     <input
                                       type="text"
                                       value={feature.icon || ''}
@@ -462,42 +635,98 @@ export default function AdminPage() {
                                         newFeatures[index] = { ...newFeatures[index], icon: e.target.value };
                                         setFormData({ ...formData, features: newFeatures });
                                       }}
-                                      className="w-full border rounded p-2 text-sm"
-                                      placeholder="Icon (emoji)"
+                                      className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                      placeholder="🌱"
                                     />
-                                    <input
-                                      type="text"
-                                      value={feature.title || ''}
-                                      onChange={(e) => {
-                                        const newFeatures = [...(formData.features || [])];
-                                        newFeatures[index] = { ...newFeatures[index], title: e.target.value };
-                                        setFormData({ ...formData, features: newFeatures });
-                                      }}
-                                      className="w-full border rounded p-2 text-sm"
-                                      placeholder="Title"
-                                    />
-                                    <textarea
-                                      value={feature.description || ''}
-                                      onChange={(e) => {
-                                        const newFeatures = [...(formData.features || [])];
-                                        newFeatures[index] = { ...newFeatures[index], description: e.target.value };
-                                        setFormData({ ...formData, features: newFeatures });
-                                      }}
-                                      className="w-full border rounded p-2 text-sm"
-                                      rows={2}
-                                      placeholder="Description"
-                                    />
+                                  </div>
+                                  
+                                  {/* Icelandic */}
+                                  <div className="border-l-4 border-blue-500 pl-4 space-y-3 bg-blue-50 p-3 rounded mb-3">
+                                    <h4 className="font-bold text-blue-700">🇮🇸 Íslenska</h4>
+                                    <div>
+                                      <label className="block text-xs font-medium mb-1 text-gray-700">Title (IS)</label>
+                                      <input
+                                        type="text"
+                                        value={feature.title || ''}
+                                        onChange={(e) => {
+                                          const newFeatures = [...(formData.features || [])];
+                                          newFeatures[index] = { ...newFeatures[index], title: e.target.value };
+                                          setFormData({ ...formData, features: newFeatures });
+                                        }}
+                                        className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                        placeholder="Umhverfisvænn"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="block text-xs font-medium mb-1 text-gray-700">Description (IS)</label>
+                                      <textarea
+                                        value={feature.description || ''}
+                                        onChange={(e) => {
+                                          const newFeatures = [...(formData.features || [])];
+                                          newFeatures[index] = { ...newFeatures[index], description: e.target.value };
+                                          setFormData({ ...formData, features: newFeatures });
+                                        }}
+                                        className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                        rows={2}
+                                        placeholder="Sjálfbær efni og framkvæmdir"
+                                      />
+                                    </div>
+                                  </div>
+                                  
+                                  {/* English */}
+                                  <div className="border-l-4 border-green-500 pl-4 space-y-3 bg-green-50 p-3 rounded">
+                                    <h4 className="font-bold text-green-700">🇬🇧 English</h4>
+                                    <div>
+                                      <label className="block text-xs font-medium mb-1 text-gray-700">Title (EN)</label>
+                                      <input
+                                        type="text"
+                                        value={feature.title_en || ''}
+                                        onChange={(e) => {
+                                          const newFeatures = [...(formData.features || [])];
+                                          newFeatures[index] = { ...newFeatures[index], title_en: e.target.value };
+                                          setFormData({ ...formData, features: newFeatures });
+                                        }}
+                                        className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                        placeholder="Eco-Friendly"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="block text-xs font-medium mb-1 text-gray-700">Description (EN)</label>
+                                      <textarea
+                                        value={feature.description_en || ''}
+                                        onChange={(e) => {
+                                          const newFeatures = [...(formData.features || [])];
+                                          newFeatures[index] = { ...newFeatures[index], description_en: e.target.value };
+                                          setFormData({ ...formData, features: newFeatures });
+                                        }}
+                                        className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                        rows={2}
+                                        placeholder="Sustainable materials and practices"
+                                      />
+                                    </div>
                                   </div>
                                 </div>
                               ))}
                               
                               <button
                                 onClick={() => {
-                                  const newFeatures = [...(formData.features || []), { icon: '✨', title: '', description: '' }];
+                                  const newFeatures = [...(formData.features || []), { 
+                                    icon: '✨', 
+                                    title: '', 
+                                    title_en: '',
+                                    description: '',
+                                    description_en: ''
+                                  }];
                                   setFormData({ ...formData, features: newFeatures });
                                 }}
-                                className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+                                className="w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-bold shadow-md"
                               >
+                                ➕ Add Feature
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
                                 ➕ Add Feature
                               </button>
                             </div>
@@ -508,67 +737,120 @@ export default function AdminPage() {
                     case 'imageGrid':
                       return (
                         <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Heading</label>
+                          {/* Icelandic Heading */}
+                          <div className="border-l-4 border-blue-500 pl-4">
+                            <label className="block text-sm font-medium mb-2">🇮🇸 Heading (IS)</label>
                             <input
                               type="text"
                               value={formData.heading || ''}
                               onChange={(e) => setFormData({ ...formData, heading: e.target.value })}
                               className="w-full border rounded-lg p-3"
+                              placeholder="Vöruflokkar"
+                            />
+                          </div>
+                          
+                          {/* English Heading */}
+                          <div className="border-l-4 border-green-500 pl-4">
+                            <label className="block text-sm font-medium mb-2">🇬🇧 Heading (EN)</label>
+                            <input
+                              type="text"
+                              value={formData.heading_en || ''}
+                              onChange={(e) => setFormData({ ...formData, heading_en: e.target.value })}
+                              className="w-full border rounded-lg p-3"
+                              placeholder="Product Categories"
                             />
                           </div>
                           
                           <div>
-                            <label className="block text-sm font-medium mb-2">Grid Items</label>
+                            <label className="block text-sm font-bold mb-3 text-lg">🖼️ Grid Items</label>
                             <div className="space-y-4">
                               {(formData.items || []).map((item: any, index: number) => (
-                                <div key={index} className="border rounded-lg p-4 bg-gray-50 space-y-3">
-                                  <div className="flex justify-between items-start">
-                                    <span className="text-sm font-bold text-gray-700">Item {index + 1}</span>
+                                <div key={index} className="border-2 border-gray-300 rounded-xl p-5 bg-white shadow-sm space-y-4">
+                                  <div className="flex justify-between items-start bg-gradient-to-r from-purple-50 to-blue-50 p-3 rounded-lg">
+                                    <span className="text-base font-bold text-gray-800">Item {index + 1}</span>
                                     <button
                                       onClick={() => {
                                         const newItems = [...(formData.items || [])];
                                         newItems.splice(index, 1);
                                         setFormData({ ...formData, items: newItems });
                                       }}
-                                      className="text-red-600 hover:text-red-800 text-sm font-medium"
+                                      className="text-red-600 hover:text-red-800 font-medium px-3 py-1 rounded hover:bg-red-50"
                                     >
                                       🗑️ Remove
                                     </button>
                                   </div>
                                   
-                                  <div>
-                                    <label className="block text-xs font-medium mb-1 text-gray-600">Title</label>
-                                    <input
-                                      type="text"
-                                      value={item.title || ''}
-                                      onChange={(e) => {
-                                        const newItems = [...(formData.items || [])];
-                                        newItems[index] = { ...newItems[index], title: e.target.value };
-                                        setFormData({ ...formData, items: newItems });
-                                      }}
-                                      className="w-full border rounded p-2 text-sm"
-                                      placeholder="Title"
-                                    />
+                                  {/* Icelandic */}
+                                  <div className="border-l-4 border-blue-500 pl-4 space-y-3 bg-blue-50 p-3 rounded">
+                                    <h4 className="font-bold text-blue-700">🇮🇸 Íslenska</h4>
+                                    <div>
+                                      <label className="block text-xs font-medium mb-1 text-gray-700">Title (IS)</label>
+                                      <input
+                                        type="text"
+                                        value={item.title || ''}
+                                        onChange={(e) => {
+                                          const newItems = [...(formData.items || [])];
+                                          newItems[index] = { ...newItems[index], title: e.target.value };
+                                          setFormData({ ...formData, items: newItems });
+                                        }}
+                                        className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                        placeholder="Garðyrkjubændur"
+                                      />
+                                    </div>
+                                    
+                                    <div>
+                                      <label className="block text-xs font-medium mb-1 text-gray-700">Subtitle (IS)</label>
+                                      <input
+                                        type="text"
+                                        value={item.subtitle || ''}
+                                        onChange={(e) => {
+                                          const newItems = [...(formData.items || [])];
+                                          newItems[index] = { ...newItems[index], subtitle: e.target.value };
+                                          setFormData({ ...formData, items: newItems });
+                                        }}
+                                        className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                        placeholder="Fagleg garðræktarlausn"
+                                      />
+                                    </div>
                                   </div>
                                   
-                                  <div>
-                                    <label className="block text-xs font-medium mb-1 text-gray-600">Subtitle</label>
-                                    <input
-                                      type="text"
-                                      value={item.subtitle || ''}
-                                      onChange={(e) => {
-                                        const newItems = [...(formData.items || [])];
-                                        newItems[index] = { ...newItems[index], subtitle: e.target.value };
-                                        setFormData({ ...formData, items: newItems });
-                                      }}
-                                      className="w-full border rounded p-2 text-sm"
-                                      placeholder="Subtitle"
-                                    />
+                                  {/* English */}
+                                  <div className="border-l-4 border-green-500 pl-4 space-y-3 bg-green-50 p-3 rounded">
+                                    <h4 className="font-bold text-green-700">🇬🇧 English</h4>
+                                    <div>
+                                      <label className="block text-xs font-medium mb-1 text-gray-700">Title (EN)</label>
+                                      <input
+                                        type="text"
+                                        value={item.title_en || ''}
+                                        onChange={(e) => {
+                                          const newItems = [...(formData.items || [])];
+                                          newItems[index] = { ...newItems[index], title_en: e.target.value };
+                                          setFormData({ ...formData, items: newItems });
+                                        }}
+                                        className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                        placeholder="Professional Growers"
+                                      />
+                                    </div>
+                                    
+                                    <div>
+                                      <label className="block text-xs font-medium mb-1 text-gray-700">Subtitle (EN)</label>
+                                      <input
+                                        type="text"
+                                        value={item.subtitle_en || ''}
+                                        onChange={(e) => {
+                                          const newItems = [...(formData.items || [])];
+                                          newItems[index] = { ...newItems[index], subtitle_en: e.target.value };
+                                          setFormData({ ...formData, items: newItems });
+                                        }}
+                                        className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                        placeholder="Professional gardening solutions"
+                                      />
+                                    </div>
                                   </div>
                                   
-                                  <div>
-                                    <label className="block text-xs font-medium mb-1 text-gray-600">Image</label>
+                                  {/* Image */}
+                                  <div className="border-l-4 border-purple-500 pl-4 bg-purple-50 p-3 rounded">
+                                    <label className="block text-xs font-bold mb-2 text-purple-700">🖼️ Image</label>
                                     <ImageUploader
                                       currentImage={item.image}
                                       onUpload={(url) => {
@@ -579,8 +861,9 @@ export default function AdminPage() {
                                     />
                                   </div>
                                   
+                                  {/* Link */}
                                   <div>
-                                    <label className="block text-xs font-medium mb-1 text-gray-600">Link</label>
+                                    <label className="block text-xs font-medium mb-1 text-gray-700">🔗 Link</label>
                                     <input
                                       type="text"
                                       value={item.link || ''}
@@ -589,13 +872,14 @@ export default function AdminPage() {
                                         newItems[index] = { ...newItems[index], link: e.target.value };
                                         setFormData({ ...formData, items: newItems });
                                       }}
-                                      className="w-full border rounded p-2 text-sm"
-                                      placeholder="/products"
+                                      className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                      placeholder="/products?category=gardyrkjubaendur"
                                     />
                                   </div>
                                   
+                                  {/* Subcategories */}
                                   <div>
-                                    <label className="block text-xs font-medium mb-1 text-gray-600">Subcategories (comma separated)</label>
+                                    <label className="block text-xs font-medium mb-1 text-gray-700">📋 Subcategories (comma separated)</label>
                                     <input
                                       type="text"
                                       value={(item.subcategories || []).join(', ')}
@@ -607,8 +891,8 @@ export default function AdminPage() {
                                         };
                                         setFormData({ ...formData, items: newItems });
                                       }}
-                                      className="w-full border rounded p-2 text-sm"
-                                      placeholder="Category 1, Category 2, Category 3"
+                                      className="w-full border-2 rounded-lg p-2.5 text-sm"
+                                      placeholder="Jarðvegur, Áburður, Gler"
                                     />
                                   </div>
                                 </div>
@@ -618,16 +902,18 @@ export default function AdminPage() {
                                 onClick={() => {
                                   const newItems = [...(formData.items || []), { 
                                     title: '', 
+                                    title_en: '',
                                     subtitle: '', 
+                                    subtitle_en: '',
                                     image: '', 
                                     link: '',
                                     subcategories: []
                                   }];
                                   setFormData({ ...formData, items: newItems });
                                 }}
-                                className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+                                className="w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-bold shadow-md"
                               >
-                                ➕ Add Item
+                                ➕ Add New Item
                               </button>
                             </div>
                           </div>
