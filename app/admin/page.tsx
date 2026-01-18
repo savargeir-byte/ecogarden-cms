@@ -281,7 +281,7 @@ export default function AdminPage() {
 
         {/* Floating Add Section Menu */}
         <div className="fixed bottom-6 right-6 bg-white rounded-lg shadow-2xl border-2 border-gray-300 p-4 max-w-xs z-50">
-          <h3 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wide">➕ Add Section</h3>
+          <h3 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wide">+ Add Section</h3>
           <div className="flex flex-col gap-2">
             <button
               onClick={() => handleAddSection('hero')}
@@ -763,7 +763,7 @@ export default function AdminPage() {
                                 }}
                                 className="w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-bold shadow-md"
                               >
-                                ➕ Add Feature
+                                + Add Feature
                               </button>
                             </div>
                           </div>
@@ -949,7 +949,7 @@ export default function AdminPage() {
                                 }}
                                 className="w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-bold shadow-md"
                               >
-                                ➕ Add New Item
+                                + Add New Item
                               </button>
                             </div>
                           </div>
