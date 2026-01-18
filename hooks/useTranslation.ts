@@ -7,9 +7,15 @@ export function useTranslation() {
   const [language, setLanguage] = useState('is');
 
   useEffect(() => {
-    // Get initial language
-    const savedLang = localStorage.getItem('language') || 'is';
-    setLanguage(savedLang);
+    // Get initial language - ONLY use 'en' if explicitly set, default to 'is'
+    const savedLang = localStorage.getItem('language');
+    const initialLang = (savedLang === 'en') ? 'en' : 'is';
+    setLanguage(initialLang);
+    
+    // Make sure localStorage has the right value
+    if (savedLang !== 'is' && savedLang !== 'en') {
+      localStorage.setItem('language', 'is');
+    }
 
     // Listen for language changes
     const handleLanguageChange = () => {

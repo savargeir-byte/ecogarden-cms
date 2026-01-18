@@ -18,7 +18,9 @@ export default function AnnouncementBanner() {
   const [dismissed, setDismissed] = useState(false);
   const [language, setLanguage] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('language') || 'is';
+      const saved = localStorage.getItem('language');
+      // IMPORTANT: Default to 'is' (Icelandic), only use 'en' if explicitly set
+      return (saved === 'en') ? 'en' : 'is';
     }
     return 'is';
   });
@@ -70,10 +72,10 @@ export default function AnnouncementBanner() {
     error: 'bg-red-600 text-white',
   };
 
-  // Show Icelandic by default, only show English if explicitly set to 'en'
+  // FIX: Logic was backwards! Default to Icelandic (message), only show English if language === 'en'
   const displayMessage = (language === 'en' && announcement.message_en) 
-    ? announcement.message_en 
-    : announcement.message;
+    ? announcement.message_en  // Show English only if explicitly 'en' and translation exists
+    : announcement.message;     // Always show Icelandic otherwise
 
   // Debug logging
   if (typeof window !== 'undefined') {
