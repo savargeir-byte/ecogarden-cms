@@ -5,6 +5,16 @@ import { useEffect, useState } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from '@/hooks/useTranslation';
 
+// ============================================================
+// NAVBAR
+// ============================================================
+// YFIRLIT — Hvar er hægt að breyta hvað:
+//   Logo texti       → "Eco<span>Garden</span>" hér að neðan
+//   Valmynd liðir    → Texti kemur úr lib/i18n.ts (home, products, about, contact)
+//   "Fá tilboð" hnappur → Texti kemur úr lib/i18n.ts (getQuote)
+//                         href= er '/contact'
+// ============================================================
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -34,6 +44,8 @@ export default function Navbar() {
                     <path d="M12 2v10M12 12l-4 4M12 12l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                   </svg>
                 </div>
+                {/* ── LOGO TEXTI ─────────────────────────────────
+                    Breyttu "Eco" og "Garden" til að endurnefna logo */}
                 <span className={`font-bold text-gray-800 transition-all duration-300 ${scrolled ? 'text-lg' : 'text-xl'}`}>
                   Eco<span className="text-green-600">Garden</span>
                 </span>

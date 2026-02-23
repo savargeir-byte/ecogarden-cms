@@ -1,3 +1,19 @@
+// ============================================================
+// ÞÝÐINGAR (Translations) — AÐALFÍLL FYRIR ALLA TEXTA
+// ============================================================
+// Hér eru ÖLLUM textar á vefnum sem breytast eftir tungumáli.
+// Breyttu alltaf BÆÐI íslenska (is:) og enska (en:) hlutann
+// til að halda samræmi.
+//
+// HVAR BIRTIST HVAÐ:
+//   Navbar       → home, products, about, contact, getQuote
+//   Stats hluti  → statsHeading, statsSubheading, projects*, yearsExperience*, satisfaction*
+//   Mission hluti → missionHeading, missionText, missionDesc
+//   Vörur síða   → productsHeading, productsSubheading, viewAllProducts
+//   Um okkur     → whyEcoGarden, ourSolutions, ourTeam, ...
+//   Samband      → contactHeroTitle, contactHeroSubtitle, address, phone, email, ...
+// ============================================================
+
 // Language helper to get current language from localStorage (client-side only)
 export function getLanguage() {
   if (typeof window === 'undefined') return 'is';

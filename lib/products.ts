@@ -1,18 +1,51 @@
+// ============================================================
+// VÖRULISTI (Static product catalogue)
+// ============================================================
+// Hér eru ALLAR vörur á vefnum. Þetta er eini staðurinn þar
+// sem þarf að gera breytingar á vörum.
+//
+// ── TIL AÐ BREYTA VÖRU ──────────────────────────────────────
+//   Finndu vöruna í products[] fylkinu og breyttu:
+//     title       → Heiti vörunnar
+//     description → Lýsing á vörunni
+//     price       → Verð í krónum (eða eyðtu línunni ef ekkert verð)
+//     image       → URL á aðalmynd (Unsplash, Wix CDN eða /public/...)
+//     images[]    → Fylki af fleiri myndum á vörusíðu
+//     features[]  → Punktar sem birtast á vörusíðu
+//     specifications → Tafla með tæknilegum upplýsingum
+//
+// ── TIL AÐ BÆTA VIÐ VÖRU ───────────────────────────────────
+//   Afritaðu eitt af blokkum hér að neðan, límaðu aftast í
+//   products[] fylkið og breyttu id, slug og öðrum gildum.
+//   MIKILVÆGT: slug verður að vera einkvæmt (t.d. 'ny-vara-2024')
+//
+// ── FLOKKAR (category) ──────────────────────────────────────
+//   'gardyrkjubaendur'        → Garðyrkjubændur
+//   'landbunadur'             → Landbúnaður
+//   'almennar-gardyrkjuvorur' → Almennar Garðyrkjuvörur
+//
+// ── UNDIRFLOKKAR (subcategory) samræmast flokkagerð ─────────
+//   Garðyrkjubændur: 'grodur hus' | 'varmast yring' | 'raektunarkassar' |
+//                    'vokvunarkerfi' | 'led-ljosabunadur' | 'hitastigar-og-maelar'
+//   Landbúnaður: 'grenjur-og-trog' | 'throskahiti' | 'jarðvegur' | 'frjóvgun'
+//   Almennar: 'handverkfaeri' | 'garðhönnun' | 'pottar-og-kassar' | ...
+// ============================================================
+
 // Static product data - replaces Supabase CMS
 
 export interface Product {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  price?: number;
-  image: string;
-  images: string[];
-  category: string;
-  subcategory: string;
+  id: string;                                    // Einkvæmt númer
+  slug: string;                                  // URL-vinlegur lykill, t.d. 'grodarhus-pro-6x12'
+  title: string;                                 // ← HEITI VÖRU — breytist á vörusíðu og spjaldi
+  description: string;                           // ← LÝSING — birtist á spjaldi og vörusíðu
+  price?: number;                                // ← VERÐ í krónum (valfrjálst — sleppa ef við á)
+  image: string;                                 // ← AÐALMYND URL — birtist á spjaldi og vörulista
+  images: string[];                              // ← FLEIRI MYNDIR — gallerí á vörusíðu
+  category: string;                              // Flokkur (sjá skjölun að ofan)
+  subcategory: string;                           // Undirflokkur (sjá skjölun að ofan)
   status: 'published';
-  features?: string[];
-  specifications?: Record<string, string>;
+  features?: string[];                           // ← KOSTI VÖRU — punktar á vörusíðu
+  specifications?: Record<string, string>;       // ← TÆKNILEG GÖGN — tafla á vörusíðu
   seo?: { title?: string; description?: string };
 }
 

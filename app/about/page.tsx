@@ -2,10 +2,24 @@
 
 import Image from 'next/image';
 
+// ============================================================
+// UM OKKUR SÍÐA (About page)
+// ============================================================
+// YFIRLIT — Hvar er hægt að breyta hvað:
+//   Hero mynd/texti  → hér að neðan (src= og <h1>/<p> í glass card)
+//   Traust-ræma      → 4 ✔ textar undir hero
+//   Af hverju kortið → 3 kort með emoji, fyrirsögn, lýsing
+//   Okkar lausnir    → 3 kort með emoji, fyrirsögn, lýsing
+//   Teymið okkar     → Guðmundur / Ólafur — myndir, nöfn, titlar, tilvitnanir
+//   CTA neðst        → Fyrirsögn, undirtexti, sambandsupplýsingar
+// ============================================================
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* HERO Section - Contained + Glass Card */}
+      {/* ── HERO BAKGRUNNSMYND ──────────────────────────────────
+          Til að breyta hero mynd: skiptu út src= URL hér að neðan.
+          Nota má /public/mynd.jpg eða ytri URL. */}
       <section className="relative flex items-center overflow-hidden" style={{ minHeight: 'min(60vh, 520px)' }}>
         <div className="absolute inset-0">
           <Image
@@ -21,14 +35,17 @@ export default function AboutPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full py-12 sm:py-16">
           {/* Glass Card */}
           <div className="max-w-2xl bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl animate-fade-in">
+            {/* ── HERO TITILL ───────────────────────────────────── */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5 leading-tight text-gray-900">
               Garðlausnir sem endast
             </h1>
             
+            {/* ── HERO UNDIRTEXTI ───────────────────────────────── */}
             <p className="border-l-4 border-green-600 pl-4 text-lg sm:text-xl text-gray-700 mb-6 sm:mb-8 leading-relaxed">
               Við hönnum lausnir fyrir íslenskar aðstæður. 50+ ára reynsla í garðyrkju og fagleg ráðgjöf frá upphafi.
             </p>
 
+            {/* ── HNAPPAR (breyttu href og texta) ───────────────── */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <a 
                 href="/contact" 
@@ -47,7 +64,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Trust Strip - STRAX undir hero */}
+      {/* ── TRAUST-RÆMA ─────────────────────────────────────────
+          4 checkmark textar rétt undir hero. Breyttu textanum
+          í hverri <span> til að uppfæra þessa lið. */}
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
@@ -175,6 +194,10 @@ export default function AboutPage() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+            {/* ── TEYMISMEÐLIMUR 1 ────────────────────────────────
+                Breyttu: src= (mynd), alt=, nafn (<h3>),
+                         titill (<p> í grænt), tilvitnun (<p> italic),
+                         lýsing (neðsta <p>) */}
             {/* Guðmundur */}
             <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up">
               <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
@@ -202,6 +225,10 @@ export default function AboutPage() {
               </div>
             </div>
 
+            {/* ── TEYMISMEÐLIMUR 2 ────────────────────────────────
+                Breyttu: src= (mynd), alt=, nafn (<h3>),
+                         titill (<p> í grænt), tilvitnun (<p> italic),
+                         lýsing (neðsta <p>) */}
             {/* Ólafur */}
             <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up" style={{ animationDelay: '100ms' }}>
               <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
@@ -291,6 +318,8 @@ export default function AboutPage() {
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 text-center">
+            {/* ── SAMBANDSUPPLÝSINGAR NEÐST ────────────────────────
+                Breyttu heimilisfangi og síma/netfangi hér */}
             <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 text-white">
               <div>
                 <p className="text-xs sm:text-sm font-semibold">Lambhagavegur 9, 110 Reykjavík</p>
