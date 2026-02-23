@@ -1,7 +1,7 @@
 'use client';
 
 import ProductCard from '@/components/ProductCard';
-import { supabase } from '@/lib/supabase';
+import { products as allProducts } from '@/lib/products';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -109,7 +109,7 @@ export default function ProductsClient() {
     loadProducts();
   }, [selectedCategory, selectedSubcategory]);
 
-  async function loadProducts() {
+  function loadProducts() {
     if (!selectedSubcategory) {
       setProducts([]);
       setLoading(false);
@@ -117,15 +117,10 @@ export default function ProductsClient() {
     }
 
     setLoading(true);
-    
-    const { data } = await supabase
-      .from('products')
-      .select('*')
-      .eq('category', selectedCategory)
-      .eq('subcategory', selectedSubcategory)
-      .order('title');
-    
-    if (data) setProducts(data);
+    const filtered = allProducts.filter(
+      (p) => p.category === selectedCategory && p.subcategory === selectedSubcategory
+    );
+    setProducts(filtered);
     setLoading(false);
   }
 

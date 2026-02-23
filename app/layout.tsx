@@ -1,5 +1,3 @@
-import AdminEditButton from "@/components/admin/AdminEditButton";
-import AnnouncementBanner from "@/components/AnnouncementBanner";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
@@ -16,10 +14,7 @@ export default function RootLayout({
   return (
     <html lang="is" className="scroll-smooth">
       <body className="min-h-screen flex flex-col">
-        {/* Announcement Banner */}
-        <AnnouncementBanner />
-        
-        {/* Navbar with Hamburger Menu */}
+        {/* Navbar */}
         <Navbar />
 
         <main className="flex-1">{children}</main>
@@ -54,8 +49,6 @@ export default function RootLayout({
           </div>
         </footer>
 
-        {/* Admin edit button - only visible to authenticated admins */}
-        <AdminEditButton />
       </body>
     </html>
   );

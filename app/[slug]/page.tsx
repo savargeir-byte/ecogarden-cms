@@ -1,7 +1,16 @@
-import PageViewTracker from "@/components/PageViewTracker";
-import SectionRenderer from "@/components/SectionRenderer";
-import { getPage } from "@/lib/cms";
-import type { Metadata } from "next";
+import { redirect } from 'next/navigation';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Síða finnst ekki – Eco Garden',
+};
+
+// This catch-all route is no longer used (CMS removed).
+// Redirect any unknown slugs to the home page.
+export default function CatchAllPage() {
+  redirect('/');
+}
+
 
 // ISR - Revalidate every 60 seconds
 export const revalidate = 60;

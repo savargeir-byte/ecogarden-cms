@@ -1,53 +1,31 @@
-import PageRenderer from '@/components/PageRenderer';
 import ProductsSection from '@/components/sections/ProductsSection';
 import StatsSection from '@/components/sections/StatsSection';
 import MissionSection from '@/components/sections/MissionSection';
-import { getPage } from '@/lib/cms';
-import { supabase } from '@/lib/supabase';
+import Hero from '@/components/sections/Hero';
+import { getFeaturedProducts } from '@/lib/products';
 
-export default async function Home({ searchParams }: any) {
-  const params = await searchParams;
-  const preview = params?.preview === "true";
+export default function Home() {
+  const products = getFeaturedProducts();
 
-  const page = await getPage('home', preview);
-
-  const { data: products } = await supabase
-    .from('products')
-    .select('*')
-    .eq('status', 'published')
-    .limit(6)
-    .order('created_at', { ascending: false });
-
-  if (page && page.sections && page.sections.length > 0) {
-    const heroSection = page.sections.find((s: any) => s.type === 'hero');
-    const imageGridSection = page.sections.find((s: any) => s.type === 'imageGrid');
-    const otherSections = page.sections.filter((s: any) => s.type !== 'hero' && s.type !== 'imageGrid');
-
-    return (
-      <div className="min-h-screen">
-        {preview && (
-          <div className="bg-yellow-100 border-b-2 border-yellow-400 text-yellow-800 px-4 py-2 text-center text-sm font-medium">
-            👀 Preview Mode - Showing draft content
-          </div>
-        )}
-        
-        {heroSection && <PageRenderer sections={[heroSection]} mode="public" />}
-        {imageGridSection && <PageRenderer sections={[imageGridSection]} mode="public" />}
-        
-        <ProductsSection products={products || []} />
-        <MissionSection />
-        <StatsSection />
-        
-        {otherSections.length > 0 && <PageRenderer sections={otherSections} mode="public" />}
-      </div>
-    );
-  }
+  const heroData = {
+    title: 'Garðlausnir sem endast',
+    title_en: 'Garden Solutions That Last',
+    subtitle: 'Við hönnum og segjum lausnir fyrir íslenskar aðstæður – með 50+ ára reynslu.',
+    subtitle_en: 'We design and supply solutions for Icelandic conditions – with 50+ years of experience.',
+    image: 'https://static.wixstatic.com/media/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg/v1/fill/w_1960,h_1040,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg',
+    imageAlt: 'Eco Garden – Sjálfbær garðyrkja',
+    imageAlt_en: 'Eco Garden – Sustainable Horticulture',
+    ctaText: 'Sjá vörur',
+    ctaText_en: 'View Products',
+    ctaLink: '/products',
+  };
 
   return (
-    <>
-      <ProductsSection products={products || []} />
+    <div className="min-h-screen">
+      <Hero data={heroData} />
+      <ProductsSection products={products} />
       <MissionSection />
       <StatsSection />
-    </>
+    </div>
   );
 }
