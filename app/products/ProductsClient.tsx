@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
 import EditBadge from '@/components/EditBadge';
+import TiltCard from '@/components/TiltCard';
 
 interface Product {
   id: string;
@@ -202,13 +203,13 @@ export default function ProductsClient() {
             {subcategories[selectedCategory]?.map((sub) => {
               const displayName = language === 'en' ? sub.name_en : sub.name;
               return (
+                <TiltCard key={sub.id} maxTilt={8} scale={1.03} glare={false}>
                 <button
-                  key={sub.id}
                   onClick={() => {
                     setSelectedSubcategory(sub.id);
                     setShowSubcategoryTiles(false);
                   }}
-                  className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 z-10"
+                  className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 w-full block"
                 >
                   {/* [80-97] Undirflokkur: nafn (name/name_en) og mynd (subcategoryImages) */}
                   <EditBadge n={sub.badge} />
@@ -237,6 +238,7 @@ export default function ProductsClient() {
                     </div>
                   </div>
                 </button>
+                </TiltCard>
               );
             })}
           </div>

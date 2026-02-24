@@ -2,6 +2,7 @@
 
 import { useTranslation } from '@/hooks/useTranslation';
 import EditBadge from '@/components/EditBadge';
+import TiltCard from '@/components/TiltCard';
 
 const categories = [
   {
@@ -51,10 +52,10 @@ export default function HomeCategoriesSection() {
           {categories.map((cat) => {
             const name = language === 'en' ? cat.name_en : cat.name;
             return (
+              <TiltCard key={cat.id} maxTilt={8} scale={1.03} glare={false}>
               <a
-                key={cat.id}
                 href={`/products?category=${cat.id}`}
-                className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 block"
               >
                 {/* [69/70/71] Tile: mynd (src=) og nafn (name/name_en í categories array) */}
                 <EditBadge n={cat.badge} />
@@ -78,9 +79,10 @@ export default function HomeCategoriesSection() {
                   </div>
                 </div>
               </a>
+              </TiltCard>
             );
           })}
-        </div>
+          </div>
 
         <div className="text-center mt-12">
           {/* [72] FORSÍÐA — "Skoða allar lausnir" hnappur texti → lib/i18n.ts → viewAllProducts */}
