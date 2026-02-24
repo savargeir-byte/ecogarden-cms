@@ -29,8 +29,7 @@ export default function RootLayout({
                 <h3 className="text-base font-bold mb-2">Eco Garden</h3>
                 <p className="text-gray-400 text-xs">Vistvænar lausnir fyrir garð og ræktun</p>
               </div>
-              <div>
-                <h4 className="font-semibold mb-2 text-xs">Flýtileiðir</h4>
+              <div>                {/* [100] FOOTER — Flýtileðir: Heim / Vörur / Um okkur / Hafa samband */}                <h4 className="font-semibold mb-2 text-xs">Flýtileiðir</h4>
                 <ul className="space-y-1 text-gray-400 text-xs">
                   <li><a href="/" className="hover:text-white transition">Heim</a></li>
                   <li><a href="/products" className="hover:text-white transition">Vörur</a></li>

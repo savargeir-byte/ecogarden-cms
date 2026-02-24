@@ -353,8 +353,8 @@ export default function AboutPage() {
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 text-center">
-            {/* ── SAMBANDSUPPLÝSINGAR NEÐST ────────────────────────
-                Breyttu heimilisfangi og síma/netfangi hér */}
+            {/* [99] UM OKKUR — Sambandsupplýsingar neðst (heimilisfang + sími/netfang) */}
+            <EditBadge n={99} />
             <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 text-white">
               <div>
                 <p className="text-xs sm:text-sm font-semibold">Lambhagavegur 9, 110 Reykjavík</p>
