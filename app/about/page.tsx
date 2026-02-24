@@ -51,17 +51,15 @@ export default function AboutPage() {
               Við hönnum lausnir fyrir íslenskar aðstæður. 50+ ára reynsla í garðyrkju og fagleg ráðgjöf frá upphafi.
             </p>
 
+            {/* [20] UM OKKUR — Hnappur 1 texti / [21] Hnappur 2 texti */}
+            <EditBadge n="20–21" />
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              {/* [20] UM OKKUR — Hnappur 1 texti */}
-              <EditBadge n={20} />
               <a 
                 href="/contact" 
                 className="inline-block text-center bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-102"
               >
                 Fá ókeypis ráðgjöf
               </a>
-              {/* [21] UM OKKUR — Hnappur 2 texti */}
-              <EditBadge n={21} />
               <a 
                 href="/products" 
                 className="inline-block text-center bg-white hover:bg-gray-50 text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-200 border-2 border-gray-200 hover:border-green-600 hover:scale-102"

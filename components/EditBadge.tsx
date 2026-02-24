@@ -8,6 +8,8 @@ export default function EditBadge({ n }: { n: number | string }) {
       aria-hidden="true"
       style={{
         display: 'none',
+        position: 'relative',
+        zIndex: 9999,
         background: '#16a34a',
         color: 'white',
         fontWeight: 900,
@@ -23,7 +25,6 @@ export default function EditBadge({ n }: { n: number | string }) {
         lineHeight: 1.6,
         letterSpacing: '0.03em',
         whiteSpace: 'nowrap',
-        zIndex: 9999,
       }}
     >
       [{n}]

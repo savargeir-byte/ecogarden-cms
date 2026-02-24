@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import SmartImage from './SmartImage';
+import EditBadge from '@/components/EditBadge';
 
 interface ProductCardProps {
   product: {
@@ -21,6 +22,8 @@ export default function ProductCard({ product }: ProductCardProps) {
       href={`/products/${product.slug}`}
       className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 relative z-10"
     >
+      {/* [98] VARA KORT — mynd, titill, lýsing, verð → lib/products.ts */}
+      <EditBadge n={98} />
       {/* Product Image */}
       <div className="relative h-80 overflow-hidden bg-gray-100">
         <SmartImage
