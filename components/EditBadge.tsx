@@ -1,36 +1,29 @@
-'use client';
 // ── TÍMABUNDINN HJÁLPARI — hægt að eyða þessum skrá og öllum <EditBadge> tögum þegar þörf er liðin ──
-import { useEffect, useState } from 'react';
-
+// Badge is hidden by default; becomes visible when <body> has class "edit-mode"
+// (toggled by the floating EditToggle button)
 export default function EditBadge({ n }: { n: number | string }) {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    setShow(new URLSearchParams(window.location.search).get('edit') === '1');
-  }, []);
-
-  if (!show) return null;
-
   return (
     <div
+      className="edit-badge"
       aria-hidden="true"
       style={{
-        display: 'block',
+        display: 'none',
         background: '#16a34a',
         color: 'white',
         fontWeight: 900,
-        fontSize: '14px',
+        fontSize: '15px',
         borderRadius: '6px',
-        padding: '4px 12px',
+        padding: '4px 14px',
         fontFamily: 'monospace',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.4)',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.5)',
         pointerEvents: 'none',
         userSelect: 'none',
-        margin: '4px 0',
+        margin: '6px 0',
         width: 'fit-content',
-        lineHeight: 1.5,
+        lineHeight: 1.6,
         letterSpacing: '0.03em',
         whiteSpace: 'nowrap',
+        zIndex: 9999,
       }}
     >
       [{n}]

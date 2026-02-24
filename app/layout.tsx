@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import EditToggle from "@/components/EditToggle";
 import "./globals.css";
 
 export const metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
         <Navbar />
 
         <main className="flex-1">{children}</main>
+        <EditToggle />
 
         <footer className="bg-gray-900 text-white mt-8">
           <div className="max-w-7xl mx-auto px-6 py-6">
