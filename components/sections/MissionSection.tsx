@@ -2,7 +2,6 @@
 
 import { useTranslation } from '@/hooks/useTranslation';
 import IntersectionAnimate from '@/components/IntersectionAnimate';
-import TextReveal from '@/components/TextReveal';
 
 export default function MissionSection() {
   const { t } = useTranslation();
@@ -17,11 +16,7 @@ export default function MissionSection() {
           <div className="flex items-center justify-center gap-3 mb-5">
             <div className="h-1 w-12 bg-gradient-to-r from-transparent to-green-500 rounded-full" />
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight text-center max-w-4xl mx-auto">
-              <TextReveal text={t('missionHeading').split(' ').slice(0, -3).join(' ') + ' '} speed={40} />
-              <span className="text-green-600 relative inline-block hover:scale-105 transition-transform duration-300">
-                <TextReveal text={t('missionHeading').split(' ').slice(-3).join(' ')} speed={40} delay={1200} />
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-green-400/30 rounded-full" />
-              </span>
+              {t('missionHeading')}
             </h2>
             <div className="h-1 w-12 bg-gradient-to-l from-transparent to-green-500 rounded-full" />
           </div>
