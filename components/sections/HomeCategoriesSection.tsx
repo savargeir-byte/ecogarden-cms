@@ -1,22 +1,26 @@
 'use client';
 
 import { useTranslation } from '@/hooks/useTranslation';
+import EditBadge from '@/components/EditBadge';
 
 const categories = [
   {
     id: 'gardyrkjubaendur',
+    badge: 69,
     name: 'Garðyrkjubændur',
     name_en: 'Horticulture Farmers',
     image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80',
   },
   {
     id: 'landbunadur',
+    badge: 70,
     name: 'Landbúnaður',
     name_en: 'Agriculture',
     image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
   },
   {
     id: 'almennar-gardyrkjuvorur',
+    badge: 71,
     name: 'Almennar Garðyrkjuvörur',
     name_en: 'General Garden Products',
     image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80',
@@ -30,9 +34,13 @@ export default function HomeCategoriesSection() {
     <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="mb-12 text-center">
+          {/* [67] FORSÍÐA — Vörur hluti fyrirsögn → lib/i18n.ts → productsHeading */}
+          <EditBadge n={67} />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             {t('productsHeading')}
           </h2>
+          {/* [68] FORSÍÐA — Vörur hluti undirtexti → lib/i18n.ts → productsSubheading */}
+          <EditBadge n={68} />
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             {t('productsSubheading')}
           </p>
@@ -48,6 +56,8 @@ export default function HomeCategoriesSection() {
                 href={`/products?category=${cat.id}`}
                 className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
               >
+                {/* [69/70/71] Tile: mynd (src=) og nafn (name/name_en í categories array) */}
+                <EditBadge n={cat.badge} />
                 <img
                   src={cat.image}
                   alt={name}
@@ -73,6 +83,8 @@ export default function HomeCategoriesSection() {
         </div>
 
         <div className="text-center mt-12">
+          {/* [72] FORSÍÐA — "Skoða allar lausnir" hnappur texti → lib/i18n.ts → viewAllProducts */}
+          <EditBadge n={72} />
           <a
             href="/products"
             className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-2xl hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold text-lg group"

@@ -53,6 +53,7 @@ export default function AboutPage() {
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               {/* [20] UM OKKUR — Hnappur 1 texti */}
+              <EditBadge n={20} />
               <a 
                 href="/contact" 
                 className="inline-block text-center bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-102"
@@ -60,6 +61,7 @@ export default function AboutPage() {
                 Fá ókeypis ráðgjöf
               </a>
               {/* [21] UM OKKUR — Hnappur 2 texti */}
+              <EditBadge n={21} />
               <a 
                 href="/products" 
                 className="inline-block text-center bg-white hover:bg-gray-50 text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-200 border-2 border-gray-200 hover:border-green-600 hover:scale-102"
@@ -101,6 +103,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 lg:mb-14 animate-fade-in">
             {/* [26] UM OKKUR — "Af hverju" fyrirsögn */}
+            <EditBadge n={26} />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
               Af hverju Eco Garden?
             </h2>
@@ -144,6 +147,7 @@ export default function AboutPage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* [30] UM OKKUR — "Okkar lausnir" fyrirsögn */}
+          <EditBadge n={30} />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-10 lg:mb-14 animate-fade-in">
             Okkar lausnir
           </h2>
@@ -295,14 +299,20 @@ export default function AboutPage() {
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="text-center mb-8 sm:mb-10 lg:mb-12 animate-fade-in">
+            {/* [64] UM OKKUR — CTA fyrirsögn neðst */}
+            <EditBadge n={64} />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
               Tilbúin(n) að bæta garðinn?
             </h2>
+            {/* [65] UM OKKUR — CTA undirtexti neðst */}
+            <EditBadge n={65} />
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto">
               Hafðu samband og fáðu persónulega ráðgjöf eða ókeypis tilboð.
             </p>
           </div>
 
+          {/* [66] UM OKKUR — CTA 3 kort (Skoða vörur / Hafa samband / Fá ráðgjöf) */}
+          <EditBadge n={66} />
           <div className="grid sm:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
             <a
               href="/products"

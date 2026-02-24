@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from '@/hooks/useTranslation';
+import EditBadge from '@/components/EditBadge';
 
 // ============================================================
 // NAVBAR
@@ -46,6 +47,8 @@ export default function Navbar() {
                 </div>
                 {/* ── LOGO TEXTI ─────────────────────────────────
                     Breyttu "Eco" og "Garden" til að endurnefna logo */}
+                {/* [73] NAVBAR — Logo texti ("EcoGarden") */}
+                <EditBadge n={73} />
                 <span className={`font-bold text-gray-800 transition-all duration-300 ${scrolled ? 'text-lg' : 'text-xl'}`}>
                   Eco<span className="text-green-600">Garden</span>
                 </span>
@@ -53,6 +56,7 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Menu - Center */}
+            {/* [74] NAVBAR — Valmynd liðir texti → lib/i18n.ts → home/products/about/contact */}
             <div className="hidden lg:flex items-center gap-8">
               <Link href="/" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
                 {t('home')}
@@ -74,6 +78,8 @@ export default function Navbar() {
                 <LanguageSwitcher />
               </div>
               
+              {/* [75] NAVBAR — "Fá tilboð" hnappur texti → lib/i18n.ts → getQuote */}
+              <EditBadge n={75} />
               <Link 
                 href="/contact" 
                 className="hidden lg:inline-block px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-102 uppercase text-sm"

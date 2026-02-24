@@ -2,6 +2,7 @@
 
 import { useTranslation } from '@/hooks/useTranslation';
 import NumberCounter from '@/components/NumberCounter';
+import EditBadge from '@/components/EditBadge';
 
 export default function StatsSection() {
   const { t } = useTranslation();
@@ -13,9 +14,13 @@ export default function StatsSection() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-12 lg:mb-16">
+          {/* [9] FORSÍÐA — Stats fyrirsögn → lib/i18n.ts → statsHeading */}
+          <EditBadge n={9} />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             {t('statsHeading')}
           </h2>
+          {/* [10] FORSÍÐA — Stats undirtexti → lib/i18n.ts → statsSubheading */}
+          <EditBadge n={10} />
           <p className="text-lg sm:text-xl text-green-100 max-w-2xl mx-auto">
             {t('statsSubheading')}
           </p>
@@ -24,6 +29,7 @@ export default function StatsSection() {
         <div className="grid gap-8 sm:gap-12 md:grid-cols-3 text-center text-white">
           {/* [14] STATS — 1. tala: breyttu end={200} og suffix="+" og t('projects') / t('projectsDesc') í lib/i18n.ts */}
           <div className="relative group">
+            <EditBadge n={14} />
             <div className="absolute inset-0 bg-white/5 rounded-3xl transform group-hover:scale-105 transition-transform duration-300" />
             <div className="relative p-8 sm:p-10">
               <div className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-3 text-green-300">
@@ -36,6 +42,7 @@ export default function StatsSection() {
 
           {/* [15] STATS — 2. tala: breyttu end={50} og suffix="+" og t('yearsExperience') / t('yearsDesc') í lib/i18n.ts */}
           <div className="relative group">
+            <EditBadge n={15} />
             <div className="absolute inset-0 bg-white/5 rounded-3xl transform group-hover:scale-105 transition-transform duration-300" />
             <div className="relative p-8 sm:p-10">
               <div className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-3 text-green-300">
@@ -48,6 +55,7 @@ export default function StatsSection() {
 
           {/* [16] STATS — 3. tala: breyttu end={95} og suffix="%" og t('satisfaction') / t('satisfactionDesc') í lib/i18n.ts */}
           <div className="relative group">
+            <EditBadge n={16} />
             <div className="absolute inset-0 bg-white/5 rounded-3xl transform group-hover:scale-105 transition-transform duration-300" />
             <div className="relative p-8 sm:p-10">
               <div className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-3 text-green-300">

@@ -25,6 +25,7 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto px-6 py-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
+                {/* [76] FOOTER — Nafn og tagline ("Vistvænar lausnir...") */}
                 <h3 className="text-base font-bold mb-2">Eco Garden</h3>
                 <p className="text-gray-400 text-xs">Vistvænar lausnir fyrir garð og ræktun</p>
               </div>
@@ -45,6 +46,7 @@ export default function RootLayout({
                 </a>
               </div>
             </div>
+            {/* [77] FOOTER — Copyright texti (árstal, nafn) */}
             <div className="border-t border-gray-800 mt-5 pt-4 text-center text-gray-400 text-xs">
               © 2024 Eco Garden. Allur réttur áskilinn.
             </div>
