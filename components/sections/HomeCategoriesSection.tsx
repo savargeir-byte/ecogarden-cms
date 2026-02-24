@@ -46,7 +46,7 @@ export default function HomeCategoriesSection() {
               <a
                 key={cat.id}
                 href={`/products?category=${cat.id}`}
-                className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+                className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
               >
                 <img
                   src={cat.image}
