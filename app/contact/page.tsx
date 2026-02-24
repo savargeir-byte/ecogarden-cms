@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import EditBadge from '@/components/EditBadge';
 
 // ============================================================
 // HAFA SAMBAND SÍÐA (Contact page)
@@ -49,6 +50,7 @@ export default function ContactPage() {
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section className="relative h-[300px] sm:h-[400px] overflow-hidden">
         {/* [46] SAMBAND — Hero bakgrunnsmynd (src=) */}
+        <EditBadge n={46} />
         <Image
           src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=1920&q=80"
           alt="Hafa samband"
@@ -60,13 +62,19 @@ export default function ContactPage() {
         
         <div className="relative z-10 h-full flex flex-col justify-center items-start max-w-7xl mx-auto px-4 sm:px-6">
           {/* [47] SAMBAND — Hero titill */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-2xl animate-fade-in">
-            Við eigum lausnina fyrir þg
-          </h1>
+          <div style={{ position: 'relative' }}>
+            <EditBadge n={47} />
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-2xl animate-fade-in">
+              Við eigum lausnina fyrir þg
+            </h1>
+          </div>
           {/* [48] SAMBAND — Hero undirtexti */}
-          <p className="text-xl sm:text-2xl text-white/90 drop-shadow-lg animate-fade-in">
-            Hringdu eða sendu okkur línu!
-          </p>
+          <div style={{ position: 'relative' }}>
+            <EditBadge n={48} />
+            <p className="text-xl sm:text-2xl text-white/90 drop-shadow-lg animate-fade-in">
+              Hringdu eða sendu okkur línu!
+            </p>
+          </div>
         </div>
       </section>
 
@@ -88,7 +96,8 @@ export default function ContactPage() {
                 
                 <div className="space-y-4">
                   {/* ── HEIMILISFANG ────────────────────────────── */}
-                  <div>
+                  <div style={{ position: 'relative' }}>
+                    <EditBadge n={49} />
                     <h3 className="font-semibold text-gray-900 mb-2">Heimilisfang</h3>
                     <p className="text-gray-600">
                       Laugarásvegi 9<br />
@@ -97,7 +106,8 @@ export default function ContactPage() {
                   </div>
 
                   {/* ── SÍMI ────────────────────────────────────── */}
-                  <div>
+                  <div style={{ position: 'relative' }}>
+                    <EditBadge n={50} />
                     <h3 className="font-semibold text-gray-900 mb-2">Sími</h3>
                     <a href="tel:4874870" className="text-green-600 hover:text-green-700 font-medium">
                       487 4870
@@ -105,7 +115,8 @@ export default function ContactPage() {
                   </div>
 
                   {/* ── NETFANG ─────────────────────────────────── */}
-                  <div>
+                  <div style={{ position: 'relative' }}>
+                    <EditBadge n={51} />
                     <h3 className="font-semibold text-gray-900 mb-2">Netfang</h3>
                     <a href="mailto:ecogarden@ecogarden.is" className="text-green-600 hover:text-green-700 font-medium break-all">
                       ecogarden@ecogarden.is
@@ -118,12 +129,18 @@ export default function ContactPage() {
                   {/* [52] SAMBAND — Facebook slóð (breyttu href="#") */}
                   {/* [53] SAMBAND — Instagram/LinkedIn slóð (breyttu href="#") */}
                   <div className="flex gap-4">
-                    <a href="#" className="w-10 h-10 bg-gray-100 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors group">
-                      <span className="text-gray-600 group-hover:text-white">f</span>
-                    </a>
-                    <a href="#" className="w-10 h-10 bg-gray-100 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors group">
-                      <span className="text-gray-600 group-hover:text-white">in</span>
-                    </a>
+                    <div style={{ position: 'relative' }}>
+                      <EditBadge n={52} />
+                      <a href="#" className="w-10 h-10 bg-gray-100 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors group">
+                        <span className="text-gray-600 group-hover:text-white">f</span>
+                      </a>
+                    </div>
+                    <div style={{ position: 'relative' }}>
+                      <EditBadge n={53} />
+                      <a href="#" className="w-10 h-10 bg-gray-100 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors group">
+                        <span className="text-gray-600 group-hover:text-white">in</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -239,7 +256,8 @@ export default function ContactPage() {
       </section>
 
       {/* [54] SAMBAND — Google Maps (breyttu src= í iframe hér að neðan) */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white" style={{ position: 'relative' }}>
+        <EditBadge n={54} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-8">
             Staðsetning

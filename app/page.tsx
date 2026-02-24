@@ -3,6 +3,7 @@ import StatsSection from '@/components/sections/StatsSection';
 import MissionSection from '@/components/sections/MissionSection';
 import Hero from '@/components/sections/Hero';
 import { getFeaturedProducts } from '@/lib/products';
+import EditBadge from '@/components/EditBadge';
 
 // ============================================================
 // FORSÍÐA (Home page)
@@ -36,10 +37,22 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <Hero data={heroData} />
+      {/* [1]titill [2]titill-EN [3]undirtexti [4]undirtexti-EN [5]mynd [6]hnappur [7]hnappur-EN [8]hnappur-slóð */}
+      <div style={{ position: 'relative' }}>
+        <EditBadge n="1–8 (hero)" />
+        <Hero data={heroData} />
+      </div>
       <ProductsSection products={products} />
-      <MissionSection />
-      <StatsSection />
+      {/* [11]fyrirsögn [12]meginmál [13]lýsing */}
+      <div style={{ position: 'relative' }}>
+        <EditBadge n="11–13 (mission)" />
+        <MissionSection />
+      </div>
+      {/* [14]tala1 [15]tala2 [16]tala3 */}
+      <div style={{ position: 'relative' }}>
+        <EditBadge n="14–16 (stats)" />
+        <StatsSection />
+      </div>
     </div>
   );
 }
