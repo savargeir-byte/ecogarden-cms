@@ -50,30 +50,30 @@ export default function ProductsClient() {
   ];
 
   // Subcategories with translations
-  const subcategories: Record<string, Array<{ id: string; name: string; name_en: string }>> = {
+  const subcategories: Record<string, Array<{ id: string; name: string; name_en: string; badge: number }>> = {
     'gardyrkjubaendur': [
-      { id: 'grodur hus', name: 'Gróðurhús', name_en: 'Greenhouses' },
-      { id: 'varmast yring', name: 'Varmastýring', name_en: 'Climate Control' },
-      { id: 'raektunarkassar', name: 'Ræktunarkassar', name_en: 'Growing Systems' },
-      { id: 'vokvunarkerfi', name: 'Vökvunarkerfi', name_en: 'Irrigation Systems' },
-      { id: 'led-ljosabunadur', name: 'LED ljósabúnaður', name_en: 'LED Grow Lights' },
-      { id: 'hitastigar-og-maelar', name: 'Hitastigar og mælar', name_en: 'Sensors & Meters' },
+      { id: 'grodur hus', name: 'Gróðurhús', name_en: 'Greenhouses', badge: 80 },
+      { id: 'varmast yring', name: 'Varmastýring', name_en: 'Climate Control', badge: 81 },
+      { id: 'raektunarkassar', name: 'Ræktunarkassar', name_en: 'Growing Systems', badge: 82 },
+      { id: 'vokvunarkerfi', name: 'Vökvunarkerfi', name_en: 'Irrigation Systems', badge: 83 },
+      { id: 'led-ljosabunadur', name: 'LED ljósabúnaður', name_en: 'LED Grow Lights', badge: 84 },
+      { id: 'hitastigar-og-maelar', name: 'Hitastigar og mælar', name_en: 'Sensors & Meters', badge: 85 },
     ],
     'landbunadur': [
-      { id: 'gardyrkjuvelar', name: 'Garðyrkjuvélar', name_en: 'Garden Machinery' },
-      { id: 'slatturvelar', name: 'Slátturvélar', name_en: 'Lawn Mowers' },
-      { id: 'saningabunadur', name: 'Sáningabúnaður', name_en: 'Seeding Equipment' },
-      { id: 'heyvinnsla', name: 'Heyvinnsla', name_en: 'Hay Processing' },
-      { id: 'girdingaefni', name: 'Girðingaefni', name_en: 'Fencing Materials' },
-      { id: 'hladabunadur', name: 'Hlaðabúnaður', name_en: 'Barn Equipment' },
+      { id: 'gardyrkjuvelar', name: 'Garðyrkjuvélar', name_en: 'Garden Machinery', badge: 86 },
+      { id: 'slatturvelar', name: 'Slátturvélar', name_en: 'Lawn Mowers', badge: 87 },
+      { id: 'saningabunadur', name: 'Sáningabúnaður', name_en: 'Seeding Equipment', badge: 88 },
+      { id: 'heyvinnsla', name: 'Heyvinnsla', name_en: 'Hay Processing', badge: 89 },
+      { id: 'girdingaefni', name: 'Girðingaefni', name_en: 'Fencing Materials', badge: 90 },
+      { id: 'hladabunadur', name: 'Hlaðabúnaður', name_en: 'Barn Equipment', badge: 91 },
     ],
     'almennar-gardyrkjuvorur': [
-      { id: 'gardverkfaeri', name: 'Garðverkfæri', name_en: 'Garden Tools' },
-      { id: 'gardhusgo gn', name: 'Garðhúsgögn', name_en: 'Garden Furniture' },
-      { id: 'pottaplantur', name: 'Pottaplöntur', name_en: 'Potted Plants' },
-      { id: 'jardvegur-aburur', name: 'Jarðvegur og áburður', name_en: 'Soil & Fertilizer' },
-      { id: 'girdingar-skreyting', name: 'Girðingar og skreyting', name_en: 'Fences & Decorations' },
-      { id: 'vatnsslongur', name: 'Vatnsslöngur', name_en: 'Hoses' },
+      { id: 'gardverkfaeri', name: 'Garðverkfæri', name_en: 'Garden Tools', badge: 92 },
+      { id: 'gardhusgo gn', name: 'Garðhúsgögn', name_en: 'Garden Furniture', badge: 93 },
+      { id: 'pottaplantur', name: 'Pottaplöntur', name_en: 'Potted Plants', badge: 94 },
+      { id: 'jardvegur-aburur', name: 'Jarðvegur og áburður', name_en: 'Soil & Fertilizer', badge: 95 },
+      { id: 'girdingar-skreyting', name: 'Girðingar og skreyting', name_en: 'Fences & Decorations', badge: 96 },
+      { id: 'vatnsslongur', name: 'Vatnsslöngur', name_en: 'Hoses', badge: 97 },
     ],
   };
 
@@ -161,6 +161,8 @@ export default function ProductsClient() {
       </div>
 
       {/* Category Tabs */}
+      {/* [78] VÖRUR — Yfirflokka-flipar texti (nafn/nafn_en í categories array) */}
+      <EditBadge n={78} />
       <div className="bg-white border-b border-gray-200 sticky top-20 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex gap-2 overflow-x-auto py-4">
@@ -191,6 +193,8 @@ export default function ProductsClient() {
       {/* Subcategory Tiles Grid */}
       {showSubcategoryTiles && !selectedSubcategory && (
         <div className="max-w-7xl mx-auto px-6 py-16">
+          {/* [79] VÖRUR — Undirflokkar fyrirsögn */}
+          <EditBadge n={79} />
           <h2 className="text-3xl font-bold text-gray-900 mb-8">
             {language === 'en' ? 'Choose subcategory' : 'Veldu undirflokk'}
           </h2>
@@ -206,6 +210,8 @@ export default function ProductsClient() {
                   }}
                   className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 z-10"
                 >
+                  {/* [80-97] Undirflokkur: nafn (name/name_en) og mynd (subcategoryImages) */}
+                  <EditBadge n={sub.badge} />
                   {/* Background Image */}
                   <img 
                     src={subcategoryImages[sub.id] || subcategoryImages['vatnsslongur']}
