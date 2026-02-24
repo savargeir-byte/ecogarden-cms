@@ -1,8 +1,7 @@
-import ProductsSection from '@/components/sections/ProductsSection';
+import HomeCategoriesSection from '@/components/sections/HomeCategoriesSection';
 import StatsSection from '@/components/sections/StatsSection';
 import MissionSection from '@/components/sections/MissionSection';
 import Hero from '@/components/sections/Hero';
-import { getFeaturedProducts } from '@/lib/products';
 import EditBadge from '@/components/EditBadge';
 
 // ============================================================
@@ -16,8 +15,6 @@ import EditBadge from '@/components/EditBadge';
 // ============================================================
 
 export default function Home() {
-  const products = getFeaturedProducts();
-
   const heroData = {
     title:     'Garðlausnir sem endast',          // [1]  FORSÍÐA — Hero titill (IS)
     title_en:  'Garden Solutions That Last',       // [2]  FORSÍÐA — Hero titill (EN)
@@ -42,7 +39,7 @@ export default function Home() {
         <EditBadge n="1–8 (hero)" />
         <Hero data={heroData} />
       </div>
-      <ProductsSection products={products} />
+      <HomeCategoriesSection />
       {/* [11]fyrirsögn [12]meginmál [13]lýsing */}
       <div style={{ position: 'relative' }}>
         <EditBadge n="11–13 (mission)" />
