@@ -5,6 +5,7 @@ import { products as allProducts } from '@/lib/products';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
+import EditBadge from '@/components/EditBadge';
 
 interface Product {
   id: string;
@@ -145,9 +146,11 @@ export default function ProductsClient() {
         <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
         
         <div className="relative max-w-7xl mx-auto px-6 h-full flex flex-col justify-center items-center text-center z-10">
+          <EditBadge n="55 (vörur hero titill)" />
           <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-2xl">
             {language === 'en' ? 'Products' : 'Vörur'}
           </h1>
+          <EditBadge n="56 (vörur hero undirtexti)" />
           <p className="text-xl text-white/95 max-w-2xl drop-shadow-lg leading-relaxed">
             {language === 'en' 
               ? 'Everything for horticulture and agriculture - Selected by professionals'

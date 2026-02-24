@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import EditBadge from '@/components/EditBadge';
 
 interface ProductPageProps {
   product: {
@@ -45,6 +46,7 @@ export default function ProductPage({ product }: ProductPageProps) {
           <div className="space-y-4">
             {/* Main Image */}
             <div className="relative aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-lg">
+              <EditBadge n="63 (vara: aðalmynd)" />
               <Image
                 src={mainImage}
                 alt={product.title}
@@ -81,18 +83,21 @@ export default function ProductPage({ product }: ProductPageProps) {
 
           {/* Right: Product Info */}
           <div>
+            <EditBadge n="57 (vara: heiti)" />
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {product.title}
             </h1>
 
             {product.price && (
               <div className="text-3xl font-bold text-green-600 mb-6">
+                <EditBadge n="58 (vara: verð)" />
                 {product.price.toLocaleString('is-IS')} kr.
               </div>
             )}
 
             {product.description && (
               <div className="prose prose-lg mb-8 text-gray-700 leading-relaxed">
+                <EditBadge n="59 (vara: lýsing)" />
                 <p>{product.description}</p>
               </div>
             )}
@@ -110,6 +115,7 @@ export default function ProductPage({ product }: ProductPageProps) {
             {/* Quick Features */}
             {product.features && product.features.length > 0 && (
               <div className="bg-green-50 rounded-xl p-6 border border-green-200">
+                <EditBadge n="60 (vara: kostir/features)" />
                 <h3 className="font-bold text-lg mb-4 text-gray-900">Key Features</h3>
                 <ul className="space-y-2">
                   {product.features.map((feature, idx) => (
@@ -231,7 +237,9 @@ export default function ProductPage({ product }: ProductPageProps) {
 
         {/* Related Products / CTA Section */}
         <div className="mt-16 bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-12 text-center text-white">
+          <EditBadge n="61 (vara: CTA titill)" />
           <h2 className="text-3xl font-bold mb-4">Áhugasamur?</h2>
+          <EditBadge n="62 (vara: CTA texti)" />
           <p className="text-xl mb-8 text-green-100">
             Hafðu samband við okkur fyrir frekari upplýsingar og tilboð
           </p>
