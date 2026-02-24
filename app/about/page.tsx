@@ -40,20 +40,16 @@ export default function AboutPage() {
           {/* Glass Card */}
           <div className="max-w-2xl bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl animate-fade-in">
             {/* [18] UM OKKUR — Hero titill */}
-            <div style={{ position: 'relative' }}>
-              <EditBadge n={18} />
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5 leading-tight text-gray-900">
-                Garðlausnir sem endast
-              </h1>
-            </div>
+            <EditBadge n={18} />
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5 leading-tight text-gray-900">
+              Garðlausnir sem endast
+            </h1>
             
             {/* [19] UM OKKUR — Hero undirtexti */}
-            <div style={{ position: 'relative' }}>
-              <EditBadge n={19} />
-              <p className="border-l-4 border-green-600 pl-4 text-lg sm:text-xl text-gray-700 mb-6 sm:mb-8 leading-relaxed">
-                Við hönnum lausnir fyrir íslenskar aðstæður. 50+ ára reynsla í garðyrkju og fagleg ráðgjöf frá upphafi.
-              </p>
-            </div>
+            <EditBadge n={19} />
+            <p className="border-l-4 border-green-600 pl-4 text-lg sm:text-xl text-gray-700 mb-6 sm:mb-8 leading-relaxed">
+              Við hönnum lausnir fyrir íslenskar aðstæður. 50+ ára reynsla í garðyrkju og fagleg ráðgjöf frá upphafi.
+            </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               {/* [20] UM OKKUR — Hnappur 1 texti */}
@@ -76,7 +72,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── TRAUST-RÆMA [22–25] ─────────────────────────────── */}
-      <section className="bg-white border-b border-gray-200" style={{ position: 'relative' }}>
+      <section className="bg-white border-b border-gray-200">
         <EditBadge n="22–25" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
@@ -112,7 +108,7 @@ export default function AboutPage() {
 
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
             {/* [27] UM OKKUR — Af hverju kort 1: emoji 🌿, titill, texti */}
-            <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ position: 'relative' }}>
+            <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up">
               <EditBadge n={27} />
               <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🌿</div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Vistvæn nálgun</h3>
@@ -122,7 +118,7 @@ export default function AboutPage() {
             </div>
 
             {/* [28] UM OKKUR — Af hverju kort 2: emoji 🏆, titill, texti */}
-            <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '100ms', position: 'relative' }}>
+            <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '100ms' }}>
               <EditBadge n={28} />
               <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🏆</div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Reynsla sem skiptir máli</h3>
@@ -132,7 +128,7 @@ export default function AboutPage() {
             </div>
 
             {/* [29] UM OKKUR — Af hverju kort 3: emoji 💼, titill, texti */}
-            <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '200ms', position: 'relative' }}>
+            <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '200ms' }}>
               <EditBadge n={29} />
               <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">💼</div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Lausnir sem endast</h3>
@@ -211,12 +207,10 @@ export default function AboutPage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-green-50/30 to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* [34] UM OKKUR — Teymi fyrirsögn */}
-          <div style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
-            <EditBadge n="34–35" />
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-3 sm:mb-4 animate-fade-in">
-              Teymið okkar
-            </h2>
-          </div>
+          <EditBadge n="34–35" />
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-3 sm:mb-4 animate-fade-in">
+            Teymið okkar
+          </h2>
           {/* [35] UM OKKUR — Teymi undirtexti */}
           <p className="text-center text-gray-600 mb-10 lg:mb-14 max-w-2xl mx-auto text-base sm:text-lg">
             Reynslumiklir sérfræðingar með brennandi áhuga á garðyrkju
@@ -224,7 +218,7 @@ export default function AboutPage() {
 
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
             {/* ══ MAÐUR 1 ══════════════════════════════════════ */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up" style={{ position: 'relative' }}>
+            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up">
               <EditBadge n="36–40" />
               <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
                 {/* [36] UM OKKUR — Maður 1: mynd (src=) */}
@@ -257,7 +251,7 @@ export default function AboutPage() {
             </div>
 
             {/* ══ MAÐUR 2 ══════════════════════════════════════ */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up" style={{ animationDelay: '100ms', position: 'relative' }}>
+            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up" style={{ animationDelay: '100ms' }}>
               <EditBadge n="41–45" />
               <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
                 {/* [41] UM OKKUR — Maður 2: mynd (src=) */}
