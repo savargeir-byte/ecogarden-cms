@@ -97,11 +97,16 @@ export default function ProductsClient() {
     'vatnsslongur': 'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=80',
   };
 
-  // Read category from URL on mount
+  // Read category and subcategory from URL on mount
   useEffect(() => {
     const urlCategory = searchParams.get('category');
+    const urlSub = searchParams.get('sub');
     if (urlCategory) {
       setSelectedCategory(urlCategory);
+    }
+    if (urlSub) {
+      setSelectedSubcategory(urlSub);
+      setShowSubcategoryTiles(false);
     }
   }, [searchParams]);
 
