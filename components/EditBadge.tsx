@@ -12,29 +12,28 @@ export default function EditBadge({ n }: { n: number | string }) {
   if (!show) return null;
 
   return (
-    <span
+    <div
       aria-hidden="true"
       style={{
-        position: 'absolute',
-        top: 6,
-        left: 6,
-        zIndex: 9999,
+        display: 'block',
         background: '#16a34a',
         color: 'white',
-        fontWeight: 800,
-        fontSize: '12px',
+        fontWeight: 900,
+        fontSize: '14px',
         borderRadius: '6px',
-        padding: '3px 8px',
+        padding: '4px 12px',
         fontFamily: 'monospace',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.5)',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.4)',
         pointerEvents: 'none',
         userSelect: 'none',
+        margin: '4px 0',
+        width: 'fit-content',
         lineHeight: 1.5,
         letterSpacing: '0.03em',
         whiteSpace: 'nowrap',
       }}
     >
       [{n}]
-    </span>
+    </div>
   );
 }
