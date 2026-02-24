@@ -208,7 +208,7 @@ export default function ProductsClient() {
                     setSelectedSubcategory(sub.id);
                     setShowSubcategoryTiles(false);
                   }}
-                  className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 z-10"
+                  className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 z-10"
                 >
                   {/* [80-97] Undirflokkur: nafn (name/name_en) og mynd (subcategoryImages) */}
                   <EditBadge n={sub.badge} />
