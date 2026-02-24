@@ -46,9 +46,9 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* ── HERO BAKGRUNNSMYND ──────────────────────────────────
-          Skiptu út src= URL hér til að breyta hero mynd. */}
+      {/* ── HERO ──────────────────────────────────────────────── */}
       <section className="relative h-[300px] sm:h-[400px] overflow-hidden">
+        {/* [46] SAMBAND — Hero bakgrunnsmynd (src=) */}
         <Image
           src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=1920&q=80"
           alt="Hafa samband"
@@ -59,11 +59,11 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent"></div>
         
         <div className="relative z-10 h-full flex flex-col justify-center items-start max-w-7xl mx-auto px-4 sm:px-6">
-          {/* ── HERO TITILL ───────────────────────────────────── */}
+          {/* [47] SAMBAND — Hero titill */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-2xl animate-fade-in">
-            Við eigum lausnina fyrir þig
+            Við eigum lausnina fyrir þg
           </h1>
-          {/* ── HERO UNDIRTEXTI ───────────────────────────────── */}
+          {/* [48] SAMBAND — Hero undirtexti */}
           <p className="text-xl sm:text-2xl text-white/90 drop-shadow-lg animate-fade-in">
             Hringdu eða sendu okkur línu!
           </p>
@@ -115,10 +115,8 @@ export default function ContactPage() {
 
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <h3 className="font-semibold text-gray-900 mb-3">Fylgdu okkur</h3>
-                  {/* ── SAMFÉLAGSMIÐLAR ──────────────────────────── 
-                      Breyttu href="#" yfir í raunveruleg slóð, t.d.:
-                      href="https://www.facebook.com/ecogarden"
-                      href="https://www.instagram.com/ecogarden" */}
+                  {/* [52] SAMBAND — Facebook slóð (breyttu href="#") */}
+                  {/* [53] SAMBAND — Instagram/LinkedIn slóð (breyttu href="#") */}
                   <div className="flex gap-4">
                     <a href="#" className="w-10 h-10 bg-gray-100 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors group">
                       <span className="text-gray-600 group-hover:text-white">f</span>
@@ -240,10 +238,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── GOOGLE MAPS ─────────────────────────────────────────
-          Til að breyta kortinu: farðu á maps.google.com, finndu
-          staðsetninguna, smelltu á "Share" → "Embed a map" og
-          afritaðu nýja src= URL inn í iframe hér að neðan. */}
+      {/* [54] SAMBAND — Google Maps (breyttu src= í iframe hér að neðan) */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-8">

@@ -22,6 +22,7 @@ export default function AboutPage() {
           Nota má /public/mynd.jpg eða ytri URL. */}
       <section className="relative flex items-center overflow-hidden" style={{ minHeight: 'min(60vh, 520px)' }}>
         <div className="absolute inset-0">
+          {/* [17] UM OKKUR — Hero bakgrunnsmynd (skiptu út src= URL) */}
           <Image
             src="https://static.wixstatic.com/media/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg/v1/fill/w_1960,h_1040,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg"
             alt="Eco Garden - Sjálfbær garðyrkja"
@@ -35,24 +36,25 @@ export default function AboutPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full py-12 sm:py-16">
           {/* Glass Card */}
           <div className="max-w-2xl bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl animate-fade-in">
-            {/* ── HERO TITILL ───────────────────────────────────── */}
+            {/* [18] UM OKKUR — Hero titill */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5 leading-tight text-gray-900">
               Garðlausnir sem endast
             </h1>
             
-            {/* ── HERO UNDIRTEXTI ───────────────────────────────── */}
+            {/* [19] UM OKKUR — Hero undirtexti */}
             <p className="border-l-4 border-green-600 pl-4 text-lg sm:text-xl text-gray-700 mb-6 sm:mb-8 leading-relaxed">
               Við hönnum lausnir fyrir íslenskar aðstæður. 50+ ára reynsla í garðyrkju og fagleg ráðgjöf frá upphafi.
             </p>
 
-            {/* ── HNAPPAR (breyttu href og texta) ───────────────── */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              {/* [20] UM OKKUR — Hnappur 1 texti */}
               <a 
                 href="/contact" 
                 className="inline-block text-center bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-102"
               >
                 Fá ókeypis ráðgjöf
               </a>
+              {/* [21] UM OKKUR — Hnappur 2 texti */}
               <a 
                 href="/products" 
                 className="inline-block text-center bg-white hover:bg-gray-50 text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-200 border-2 border-gray-200 hover:border-green-600 hover:scale-102"
@@ -72,19 +74,19 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
             <div className="flex items-center justify-center gap-2">
               <span className="text-green-600 font-bold text-lg">✔</span>
-              <span className="text-sm sm:text-base text-gray-700">50+ ára reynsla</span>
+              <span className="text-sm sm:text-base text-gray-700">{/* [22] */}50+ ára reynsla</span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <span className="text-green-600 font-bold text-lg">✔</span>
-              <span className="text-sm sm:text-base text-gray-700">Vistvæn efni</span>
+              <span className="text-sm sm:text-base text-gray-700">{/* [23] */}Vistvæn efni</span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <span className="text-green-600 font-bold text-lg">✔</span>
-              <span className="text-sm sm:text-base text-gray-700">Lausnir fyrir heimili & fyrirtæki</span>
+              <span className="text-sm sm:text-base text-gray-700">{/* [24] */}Lausnir fyrir heimili & fyrirtæki</span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <span className="text-green-600 font-bold text-lg">✔</span>
-              <span className="text-sm sm:text-base text-gray-700">Þjónusta um allt land</span>
+              <span className="text-sm sm:text-base text-gray-700">{/* [25] */}Þjónusta um allt land</span>
             </div>
           </div>
         </div>
@@ -94,12 +96,14 @@ export default function AboutPage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-green-50/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 lg:mb-14 animate-fade-in">
+            {/* [26] UM OKKUR — "Af hverju" fyrirsögn */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
               Af hverju Eco Garden?
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
+            {/* [27] UM OKKUR — Af hverju kort 1: emoji 🌿, titill, texti */}
             <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up">
               <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🌿</div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Vistvæn nálgun</h3>
@@ -108,6 +112,7 @@ export default function AboutPage() {
               </p>
             </div>
 
+            {/* [28] UM OKKUR — Af hverju kort 2: emoji 🏆, titill, texti */}
             <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '100ms' }}>
               <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🏆</div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Reynsla sem skiptir máli</h3>
@@ -116,6 +121,7 @@ export default function AboutPage() {
               </p>
             </div>
 
+            {/* [29] UM OKKUR — Af hverju kort 3: emoji 💼, titill, texti */}
             <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '200ms' }}>
               <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">💼</div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Lausnir sem endast</h3>
@@ -130,11 +136,13 @@ export default function AboutPage() {
       {/* Solutions - Updated Copy with Preview Hover */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          {/* [30] UM OKKUR — "Okkar lausnir" fyrirsögn */}
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-10 lg:mb-14 animate-fade-in">
             Okkar lausnir
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
+            {/* [31] UM OKKUR — Lausn kort 1: emoji 🎨, titill, texti */}
             <div className="group relative bg-gradient-to-br from-green-50 to-teal-50 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-slide-up">
               <div className="relative z-10">
                 <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🎨</div>
@@ -150,6 +158,7 @@ export default function AboutPage() {
               </div>
             </div>
 
+            {/* [32] UM OKKUR — Lausn kort 2: emoji 🌱, titill, texti */}
             <div className="group relative bg-gradient-to-br from-green-50 to-teal-50 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-slide-up" style={{ animationDelay: '100ms' }}>
               <div className="relative z-10">
                 <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🌱</div>
@@ -165,6 +174,7 @@ export default function AboutPage() {
               </div>
             </div>
 
+            {/* [33] UM OKKUR — Lausn kort 3: emoji 🛠️, titill, texti */}
             <div className="group relative bg-gradient-to-br from-green-50 to-teal-50 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-slide-up" style={{ animationDelay: '200ms' }}>
               <div className="relative z-10">
                 <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🛠️</div>
@@ -186,21 +196,20 @@ export default function AboutPage() {
       {/* Team Section - Personalized */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-green-50/30 to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          {/* [34] UM OKKUR — Teymi fyrirsögn */}
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-3 sm:mb-4 animate-fade-in">
             Teymið okkar
           </h2>
+          {/* [35] UM OKKUR — Teymi undirtexti */}
           <p className="text-center text-gray-600 mb-10 lg:mb-14 max-w-2xl mx-auto text-base sm:text-lg">
             Reynslumiklir sérfræðingar með brennandi áhuga á garðyrkju
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
-            {/* ── TEYMISMEÐLIMUR 1 ────────────────────────────────
-                Breyttu: src= (mynd), alt=, nafn (<h3>),
-                         titill (<p> í grænt), tilvitnun (<p> italic),
-                         lýsing (neðsta <p>) */}
-            {/* Guðmundur */}
+            {/* ══ MAÐUR 1 ══════════════════════════════════════ */}
             <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up">
               <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
+                {/* [36] UM OKKUR — Maður 1: mynd (src=) */}
                 <Image
                   src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80"
                   alt="Guðmundur"
@@ -210,28 +219,29 @@ export default function AboutPage() {
                 />
               </div>
               <div className="p-6 sm:p-8">
+                {/* [37] UM OKKUR — Maður 1: nafn */}
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Guðmundur</h3>
+                {/* [38] UM OKKUR — Maður 1: titill */}
                 <p className="text-green-600 font-semibold mb-4 text-base sm:text-lg">Sérfræðingur í garðyrkju</p>
                 
                 <div className="mb-6 p-4 bg-green-50 rounded-xl border-l-4 border-green-600">
+                  {/* [39] UM OKKUR — Maður 1: tilvitnun */}
                   <p className="text-gray-700 italic text-sm sm:text-base">
                     "Ég trúi því að góð garðyrkja byrji á réttum lausnum."
                   </p>
                 </div>
                 
+                {/* [40] UM OKKUR — Maður 1: lýsing */}
                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                   Með áratuga reynslu og brennandi áhuga hjálpar hann viðskiptavinum að ná árangri.
                 </p>
               </div>
             </div>
 
-            {/* ── TEYMISMEÐLIMUR 2 ────────────────────────────────
-                Breyttu: src= (mynd), alt=, nafn (<h3>),
-                         titill (<p> í grænt), tilvitnun (<p> italic),
-                         lýsing (neðsta <p>) */}
-            {/* Ólafur */}
+            {/* ══ MAÐUR 2 ══════════════════════════════════════ */}
             <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up" style={{ animationDelay: '100ms' }}>
               <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
+                {/* [41] UM OKKUR — Maður 2: mynd (src=) */}
                 <Image
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80"
                   alt="Ólafur"
@@ -241,15 +251,19 @@ export default function AboutPage() {
                 />
               </div>
               <div className="p-6 sm:p-8">
+                {/* [42] UM OKKUR — Maður 2: nafn */}
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Ólafur</h3>
+                {/* [43] UM OKKUR — Maður 2: titill */}
                 <p className="text-green-600 font-semibold mb-4 text-base sm:text-lg">Þjónustustjóri</p>
                 
                 <div className="mb-6 p-4 bg-green-50 rounded-xl border-l-4 border-green-600">
+                  {/* [44] UM OKKUR — Maður 2: tilvitnun */}
                   <p className="text-gray-700 italic text-sm sm:text-base">
                     "Með reynslu og þekkingu hjálpum við viðskiptavinum að velja rétt."
                   </p>
                 </div>
                 
+                {/* [45] UM OKKUR — Maður 2: lýsing */}
                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                   Áhersla á persónulega þjónustu og að finna réttu lausnina fyrir hvern og einn.
                 </p>

@@ -37,8 +37,8 @@ export const translations = {
     yearsDesc: 'Í íslenskri garðyrkju',
     satisfaction: 'Ánægðir viðskiptavinir',
     satisfactionDesc: 'Endurtaka viðskipti við okkur',
-    statsHeading: 'Reynsla sem skiptir máli',
-    statsSubheading: 'Tölur sem segja söguna',
+    statsHeading: 'Reynsla sem skiptir máli',    // [9]  STATS — Fyrirsögn (sjá einnig [14-16] fyrir tölurnar sjálfar)
+    statsSubheading: 'Tölur sem segja söguna',   // [10] STATS — Undirtexti
     
     // Products
     productsHeading: 'Vörur sem virka í íslenskum görðum',
@@ -47,8 +47,11 @@ export const translations = {
     viewMore: 'Skoða nánar',
     
     // Mission
+    // [11] FORSÍÐA — Mission fyrirsögn  (components/sections/MissionSection.tsx les þetta)
     missionHeading: 'Garðlausnir sem endast í íslenskum aðstæðum',
+    // [12] FORSÍÐA — Mission texti (meginmál)
     missionText: 'Við hönnum og veljum lausnir sem standast veður, tíma og raunverulega notkun.',
+    // [13] FORSÍÐA — Mission lýsing (minni texti neðar)
     missionDesc: 'Hvort sem um er að ræða heildarlausnir fyrir garða, ræktun eða sérhæfðar vörur, þá byggjum við á reynslu, þekkingu og gæðum sem endast. Öll vörumerki og verkfæri eru valin af fagfólki með áratuga reynslu í íslenskri garðyrkju og landbúnaði.',
     
     // CTA

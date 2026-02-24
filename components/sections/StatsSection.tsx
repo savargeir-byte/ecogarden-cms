@@ -22,6 +22,7 @@ export default function StatsSection() {
         </div>
 
         <div className="grid gap-8 sm:gap-12 md:grid-cols-3 text-center text-white">
+          {/* [14] STATS — 1. tala: breyttu end={200} og suffix="+" og t('projects') / t('projectsDesc') í lib/i18n.ts */}
           <div className="relative group">
             <div className="absolute inset-0 bg-white/5 rounded-3xl transform group-hover:scale-105 transition-transform duration-300" />
             <div className="relative p-8 sm:p-10">
@@ -33,6 +34,7 @@ export default function StatsSection() {
             </div>
           </div>
 
+          {/* [15] STATS — 2. tala: breyttu end={50} og suffix="+" og t('yearsExperience') / t('yearsDesc') í lib/i18n.ts */}
           <div className="relative group">
             <div className="absolute inset-0 bg-white/5 rounded-3xl transform group-hover:scale-105 transition-transform duration-300" />
             <div className="relative p-8 sm:p-10">
@@ -44,6 +46,7 @@ export default function StatsSection() {
             </div>
           </div>
 
+          {/* [16] STATS — 3. tala: breyttu end={95} og suffix="%" og t('satisfaction') / t('satisfactionDesc') í lib/i18n.ts */}
           <div className="relative group">
             <div className="absolute inset-0 bg-white/5 rounded-3xl transform group-hover:scale-105 transition-transform duration-300" />
             <div className="relative p-8 sm:p-10">

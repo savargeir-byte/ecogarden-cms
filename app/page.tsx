@@ -18,25 +18,20 @@ export default function Home() {
   const products = getFeaturedProducts();
 
   const heroData = {
-    // ── HERO TITILL ─────────────────────────────────────────
-    title: 'Garðlausnir sem endast',          // Titillinn á íslensku
-    title_en: 'Garden Solutions That Last',   // Titillinn á ensku
+    title:     'Garðlausnir sem endast',          // [1]  FORSÍÐA — Hero titill (IS)
+    title_en:  'Garden Solutions That Last',       // [2]  FORSÍÐA — Hero titill (EN)
 
-    // ── HERO TEXTI UNDIR TITLI ───────────────────────────────
-    subtitle: 'Við hönnum og segjum lausnir fyrir íslenskar aðstæður – með 50+ ára reynslu.',
-    subtitle_en: 'We design and supply solutions for Icelandic conditions – with 50+ years of experience.',
+    subtitle:    'Við hönnum og segjum lausnir fyrir íslenskar aðstæður – með 50+ ára reynslu.', // [3] FORSÍÐA — Hero undirtexti (IS)
+    subtitle_en: 'We design and supply solutions for Icelandic conditions – with 50+ years of experience.', // [4] FORSÍÐA — Hero undirtexti (EN)
 
-    // ── HERO BAKGRUNNSMYND ───────────────────────────────────
-    // Skiptu út URL-inu hér til að breyta myndinni á forsíðunni.
-    // Nota má Unsplash, eigin mynd á /public/... eða Wix CDN.
+    // [5] FORSÍÐA — Hero bakgrunnsmynd (skiptu út URL)
     image: 'https://static.wixstatic.com/media/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg/v1/fill/w_1960,h_1040,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg',
-    imageAlt: 'Eco Garden – Sjálfbær garðyrkja',
+    imageAlt:    'Eco Garden – Sjálfbær garðyrkja',
     imageAlt_en: 'Eco Garden – Sustainable Horticulture',
 
-    // ── HNAPPUR (Call to Action) ─────────────────────────────
-    ctaText: 'Sjá vörur',       // Texti á hnappinum á íslensku
-    ctaText_en: 'View Products', // Texti á hnappinum á ensku
-    ctaLink: '/products',        // Hvert hnappur vísar
+    ctaText:    'Sjá vörur',       // [6]  FORSÍÐA — CTA hnappur texti (IS)
+    ctaText_en: 'View Products',   // [7]  FORSÍÐA — CTA hnappur texti (EN)
+    ctaLink:    '/products',       // [8]  FORSÍÐA — CTA hnappur slóð (href)
   };
 
   return (

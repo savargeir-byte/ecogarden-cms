@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Garden — Breytingalykill</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0fdf4; color: #111; }
+
+    header {
+      background: linear-gradient(135deg, #15803d, #166534);
+      color: white;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 800; }
+    header p  { font-size: 0.95rem; opacity: 0.85; margin-top: 4px; }
+    .logo { font-size: 2.2rem; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+    .instructions {
+      background: #fff;
+      border: 2px solid #16a34a;
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .instructions strong { color: #15803d; }
+    .instructions .ex { background: #f0fdf4; border-left: 4px solid #16a34a; padding: 8px 14px; border-radius: 6px; margin-top: 10px; font-size: 0.9rem; }
+
+    h2.section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #15803d;
+      margin: 40px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #bbf7d0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      border: 1.5px solid #e5e7eb;
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      cursor: default;
+    }
+    .card:hover { box-shadow: 0 4px 14px rgba(21,128,61,0.15); border-color: #86efac; }
+
+    .card .num {
+      min-width: 44px;
+      height: 44px;
+      background: #15803d;
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .card.image .num  { background: #0369a1; }
+    .card.product .num { background: #7c3aed; font-size: 0.78rem; }
+
+    .card .info { flex: 1; min-width: 0; }
+    .card .info .where { font-size: 0.71rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; margin-bottom: 2px; }
+    .card .info .label { font-size: 0.93rem; font-weight: 600; color: #111; line-height: 1.35; }
+    .card .info .type  { font-size: 0.76rem; margin-top: 4px; color: #6b7280; }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge.texti  { background: #dcfce7; color: #15803d; }
+    .badge.mynd   { background: #dbeafe; color: #1d4ed8; }
+    .badge.tala   { background: #fef9c3; color: #854d0e; }
+    .badge.slod   { background: #fce7f3; color: #9d174d; }
+
+    .file-ref {
+      font-size: 0.72rem;
+      color: #9ca3af;
+      margin-top: 5px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.83rem;
+      color: #374151;
+    }
+    .legend-dot {
+      width: 26px; height: 26px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 0.7rem; font-weight: 800;
+    }
+    .dot-text   { background: #15803d; }
+    .dot-image  { background: #0369a1; }
+    .dot-prod   { background: #7c3aed; }
+
+    footer { text-align: center; padding: 32px; color: #9ca3af; font-size: 0.82rem; }
+
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🌿</div>
+  <div>
+    <h1>Eco Garden — Breytingalykill</h1>
+    <p>Segjum viðskiptavinum: „Segjum mér númerið og við breytum því."</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="instructions">
+    <strong>Hvernig virkar þetta?</strong><br>
+    Hvert tölusettur liður hér að neðan samsvarar einum breytanlegum hlut á vefnum.<br>
+    Þegar viðskiptavinur vill breyta einhverju segjum við: <em>„Segjum mér númerið"</em> — og við vitum nákvæmlega hvert á að fara í kóðanum.
+    <div class="ex">
+      Dæmi: „Breyttu <strong>nr. 36</strong>" → Mynd af Manninum 1 á Um okkur síðunni<br>
+      Dæmi: „Breyttu <strong>nr. 1</strong>" → Titillinn á forsíðunni (IS)
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot dot-text">#</div> Texti eða tala</div>
+    <div class="legend-item"><div class="legend-dot dot-image">#</div> Mynd (URL)</div>
+    <div class="legend-item"><div class="legend-dot dot-prod">#</div> Vara í vörulista</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 class="section-title">🏠 Forsíða — app/page.tsx</h2>
+  <div class="grid">
+    <div class="card"><div class="num">1</div><div class="info"><div class="where">Forsíða · Hero</div><div class="label">Titill á íslensku</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">app/page.tsx → title:</div></div></div>
+    <div class="card"><div class="num">2</div><div class="info"><div class="where">Forsíða · Hero</div><div class="label">Titill á ensku</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">app/page.tsx → title_en:</div></div></div>
+    <div class="card"><div class="num">3</div><div class="info"><div class="where">Forsíða · Hero</div><div class="label">Undirtexti á íslensku</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">app/page.tsx → subtitle:</div></div></div>
+    <div class="card"><div class="num">4</div><div class="info"><div class="where">Forsíða · Hero</div><div class="label">Undirtexti á ensku</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">app/page.tsx → subtitle_en:</div></div></div>
+    <div class="card image"><div class="num">5</div><div class="info"><div class="where">Forsíða · Hero</div><div class="label">Bakgrunnsmynd</div><div class="type"><span class="badge mynd">Mynd</span></div><div class="file-ref">app/page.tsx → image:</div></div></div>
+    <div class="card"><div class="num">6</div><div class="info"><div class="where">Forsíða · CTA Hnappur</div><div class="label">Hnappur texti (IS)</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">app/page.tsx → ctaText:</div></div></div>
+    <div class="card"><div class="num">7</div><div class="info"><div class="where">Forsíða · CTA Hnappur</div><div class="label">Hnappur texti (EN)</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">app/page.tsx → ctaText_en:</div></div></div>
+    <div class="card"><div class="num">8</div><div class="info"><div class="where">Forsíða · CTA Hnappur</div><div class="label">Hvert hnappur vísar (slóð)</div><div class="type"><span class="badge slod">Slóð</span></div><div class="file-ref">app/page.tsx → ctaLink:</div></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 class="section-title">📊 Stats &amp; Mission hluti — lib/i18n.ts</h2>
+  <div class="grid">
+    <div class="card"><div class="num">9</div><div class="info"><div class="where">Stats hluti · Fyrirsögn</div><div class="label">„Reynsla sem skiptir máli"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">lib/i18n.ts → statsHeading:</div></div></div>
+    <div class="card"><div class="num">10</div><div class="info"><div class="where">Stats hluti · Undirtexti</div><div class="label">„Tölur sem segja söguna"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">lib/i18n.ts → statsSubheading:</div></div></div>
+    <div class="card"><div class="num">11</div><div class="info"><div class="where">Forsíða · Mission</div><div class="label">Mission fyrirsögn</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">lib/i18n.ts → missionHeading:</div></div></div>
+    <div class="card"><div class="num">12</div><div class="info"><div class="where">Forsíða · Mission</div><div class="label">Mission meginmál</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">lib/i18n.ts → missionText:</div></div></div>
+    <div class="card"><div class="num">13</div><div class="info"><div class="where">Forsíða · Mission</div><div class="label">Mission lýsing (lítill texti)</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">lib/i18n.ts → missionDesc:</div></div></div>
+    <div class="card"><div class="num">14</div><div class="info"><div class="where">Stats hluti · Tala 1</div><div class="label">1. tala: „200+ Verkefni"</div><div class="type"><span class="badge tala">Tala</span> <span class="badge texti">Texti</span></div><div class="file-ref">StatsSection.tsx → end={200} + i18n: projects</div></div></div>
+    <div class="card"><div class="num">15</div><div class="info"><div class="where">Stats hluti · Tala 2</div><div class="label">2. tala: „50+ Ára reynsla"</div><div class="type"><span class="badge tala">Tala</span> <span class="badge texti">Texti</span></div><div class="file-ref">StatsSection.tsx → end={50} + i18n: yearsExperience</div></div></div>
+    <div class="card"><div class="num">16</div><div class="info"><div class="where">Stats hluti · Tala 3</div><div class="label">3. tala: „95% Ánægðir"</div><div class="type"><span class="badge tala">Tala</span> <span class="badge texti">Texti</span></div><div class="file-ref">StatsSection.tsx → end={95} + i18n: satisfaction</div></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 class="section-title">👥 Um okkur síða — app/about/page.tsx</h2>
+  <div class="grid">
+    <div class="card image"><div class="num">17</div><div class="info"><div class="where">Um okkur · Hero</div><div class="label">Bakgrunnsmynd</div><div class="type"><span class="badge mynd">Mynd</span></div><div class="file-ref">about/page.tsx → Hero Image src=</div></div></div>
+    <div class="card"><div class="num">18</div><div class="info"><div class="where">Um okkur · Hero</div><div class="label">Titill: „Garðlausnir sem endast"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → &lt;h1&gt;</div></div></div>
+    <div class="card"><div class="num">19</div><div class="info"><div class="where">Um okkur · Hero</div><div class="label">Undirtexti undir titli</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → &lt;p&gt; border-l-4</div></div></div>
+    <div class="card"><div class="num">20</div><div class="info"><div class="where">Um okkur · Hero Hnappar</div><div class="label">Hnappur 1: „Fá ókeypis ráðgjöf"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → Hnappur 1</div></div></div>
+    <div class="card"><div class="num">21</div><div class="info"><div class="where">Um okkur · Hero Hnappar</div><div class="label">Hnappur 2: „Skoða vörur"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → Hnappur 2</div></div></div>
+    <div class="card"><div class="num">22</div><div class="info"><div class="where">Um okkur · Traust-ræma</div><div class="label">✔ Texti 1: „50+ ára reynsla"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [22] */}</div></div></div>
+    <div class="card"><div class="num">23</div><div class="info"><div class="where">Um okkur · Traust-ræma</div><div class="label">✔ Texti 2: „Vistvæn efni"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [23] */}</div></div></div>
+    <div class="card"><div class="num">24</div><div class="info"><div class="where">Um okkur · Traust-ræma</div><div class="label">✔ Texti 3: „Heimili &amp; fyrirtæki"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [24] */}</div></div></div>
+    <div class="card"><div class="num">25</div><div class="info"><div class="where">Um okkur · Traust-ræma</div><div class="label">✔ Texti 4: „Þjónusta um allt land"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [25] */}</div></div></div>
+    <div class="card"><div class="num">26</div><div class="info"><div class="where">Um okkur · Af hverju</div><div class="label">Fyrirsögn: „Af hverju Eco Garden?"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [26] */}</div></div></div>
+    <div class="card"><div class="num">27</div><div class="info"><div class="where">Um okkur · Af hverju</div><div class="label">Kort 1: 🌿 Vistvæn nálgun</div><div class="type"><span class="badge texti">Emoji + Titill + Texti</span></div><div class="file-ref">about/page.tsx → {/* [27] */}</div></div></div>
+    <div class="card"><div class="num">28</div><div class="info"><div class="where">Um okkur · Af hverju</div><div class="label">Kort 2: 🏆 Reynsla sem skiptir máli</div><div class="type"><span class="badge texti">Emoji + Titill + Texti</span></div><div class="file-ref">about/page.tsx → {/* [28] */}</div></div></div>
+    <div class="card"><div class="num">29</div><div class="info"><div class="where">Um okkur · Af hverju</div><div class="label">Kort 3: 💼 Lausnir sem endast</div><div class="type"><span class="badge texti">Emoji + Titill + Texti</span></div><div class="file-ref">about/page.tsx → {/* [29] */}</div></div></div>
+    <div class="card"><div class="num">30</div><div class="info"><div class="where">Um okkur · Okkar lausnir</div><div class="label">Fyrirsögn: „Okkar lausnir"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [30] */}</div></div></div>
+    <div class="card"><div class="num">31</div><div class="info"><div class="where">Um okkur · Lausnir</div><div class="label">Lausn 1: 🎨 Hönnun sem virkar</div><div class="type"><span class="badge texti">Emoji + Titill + Texti</span></div><div class="file-ref">about/page.tsx → {/* [31] */}</div></div></div>
+    <div class="card"><div class="num">32</div><div class="info"><div class="where">Um okkur · Lausnir</div><div class="label">Lausn 2: 🌱 Ræktunarlausnir</div><div class="type"><span class="badge texti">Emoji + Titill + Texti</span></div><div class="file-ref">about/page.tsx → {/* [32] */}</div></div></div>
+    <div class="card"><div class="num">33</div><div class="info"><div class="where">Um okkur · Lausnir</div><div class="label">Lausn 3: 🛠️ Garðvörur</div><div class="type"><span class="badge texti">Emoji + Titill + Texti</span></div><div class="file-ref">about/page.tsx → {/* [33] */}</div></div></div>
+    <div class="card"><div class="num">34</div><div class="info"><div class="where">Um okkur · Teymið</div><div class="label">Fyrirsögn: „Teymið okkar"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [34] */}</div></div></div>
+    <div class="card"><div class="num">35</div><div class="info"><div class="where">Um okkur · Teymið</div><div class="label">Undirtexti undir teymi</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [35] */}</div></div></div>
+    <div class="card image"><div class="num">36</div><div class="info"><div class="where">Um okkur · Maður 1</div><div class="label">Mynd af Manni 1</div><div class="type"><span class="badge mynd">Mynd</span></div><div class="file-ref">about/page.tsx → {/* [36] */}</div></div></div>
+    <div class="card"><div class="num">37</div><div class="info"><div class="where">Um okkur · Maður 1</div><div class="label">Nafn: „Guðmundur"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [37] */}</div></div></div>
+    <div class="card"><div class="num">38</div><div class="info"><div class="where">Um okkur · Maður 1</div><div class="label">Titill: „Sérfræðingur í garðyrkju"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [38] */}</div></div></div>
+    <div class="card"><div class="num">39</div><div class="info"><div class="where">Um okkur · Maður 1</div><div class="label">Tilvitnun (gæsalappir)</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [39] */}</div></div></div>
+    <div class="card"><div class="num">40</div><div class="info"><div class="where">Um okkur · Maður 1</div><div class="label">Lýsing (neðsti texti)</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [40] */}</div></div></div>
+    <div class="card image"><div class="num">41</div><div class="info"><div class="where">Um okkur · Maður 2</div><div class="label">Mynd af Manni 2</div><div class="type"><span class="badge mynd">Mynd</span></div><div class="file-ref">about/page.tsx → {/* [41] */}</div></div></div>
+    <div class="card"><div class="num">42</div><div class="info"><div class="where">Um okkur · Maður 2</div><div class="label">Nafn: „Ólafur"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [42] */}</div></div></div>
+    <div class="card"><div class="num">43</div><div class="info"><div class="where">Um okkur · Maður 2</div><div class="label">Titill: „Þjónustustjóri"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [43] */}</div></div></div>
+    <div class="card"><div class="num">44</div><div class="info"><div class="where">Um okkur · Maður 2</div><div class="label">Tilvitnun (gæsalappir)</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [44] */}</div></div></div>
+    <div class="card"><div class="num">45</div><div class="info"><div class="where">Um okkur · Maður 2</div><div class="label">Lýsing (neðsti texti)</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">about/page.tsx → {/* [45] */}</div></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 class="section-title">📞 Hafa samband síða — app/contact/page.tsx</h2>
+  <div class="grid">
+    <div class="card image"><div class="num">46</div><div class="info"><div class="where">Samband · Hero</div><div class="label">Hero bakgrunnsmynd</div><div class="type"><span class="badge mynd">Mynd</span></div><div class="file-ref">contact/page.tsx → {/* [46] */}</div></div></div>
+    <div class="card"><div class="num">47</div><div class="info"><div class="where">Samband · Hero</div><div class="label">Titill: „Við eigum lausnina…"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">contact/page.tsx → {/* [47] */}</div></div></div>
+    <div class="card"><div class="num">48</div><div class="info"><div class="where">Samband · Hero</div><div class="label">Undirtexti: „Hringdu eða…"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">contact/page.tsx → {/* [48] */}</div></div></div>
+    <div class="card"><div class="num">49</div><div class="info"><div class="where">Samband · Upplýsingar</div><div class="label">Heimilisfang</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">contact/page.tsx → {/* [49] */}</div></div></div>
+    <div class="card"><div class="num">50</div><div class="info"><div class="where">Samband · Upplýsingar</div><div class="label">Símanúmer (href + texti)</div><div class="type"><span class="badge texti">Texti</span> <span class="badge slod">Slóð</span></div><div class="file-ref">contact/page.tsx → {/* [50] */}</div></div></div>
+    <div class="card"><div class="num">51</div><div class="info"><div class="where">Samband · Upplýsingar</div><div class="label">Netfang (href + texti)</div><div class="type"><span class="badge texti">Texti</span> <span class="badge slod">Slóð</span></div><div class="file-ref">contact/page.tsx → {/* [51] */}</div></div></div>
+    <div class="card"><div class="num">52</div><div class="info"><div class="where">Samband · Samfélagsmiðlar</div><div class="label">Facebook slóð</div><div class="type"><span class="badge slod">Slóð</span></div><div class="file-ref">contact/page.tsx → {/* [52] */}</div></div></div>
+    <div class="card"><div class="num">53</div><div class="info"><div class="where">Samband · Samfélagsmiðlar</div><div class="label">Instagram / LinkedIn slóð</div><div class="type"><span class="badge slod">Slóð</span></div><div class="file-ref">contact/page.tsx → {/* [53] */}</div></div></div>
+    <div class="card"><div class="num">54</div><div class="info"><div class="where">Samband · Kart</div><div class="label">Google Maps (iframe src=)</div><div class="type"><span class="badge mynd">Mynd/Kart</span></div><div class="file-ref">contact/page.tsx → {/* [54] */}</div></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 class="section-title">🧭 Navbar — components/Navbar.tsx</h2>
+  <div class="grid">
+    <div class="card"><div class="num">55</div><div class="info"><div class="where">Navbar · Logo</div><div class="label">Logo texti: „EcoGarden"</div><div class="type"><span class="badge texti">Texti</span></div><div class="file-ref">Navbar.tsx → {/* [55] LOGO TEXTI */}</div></div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 class="section-title">🛒 Vörur — lib/products.ts &nbsp;(P = Product)</h2>
+  <div class="grid">
+    <div class="card product"><div class="num">P1</div><div class="info"><div class="where">Gróðurhús · Vara 1</div><div class="label">Gróðurhús Pro 6×12 m</div><div class="type"><span class="badge texti">Texti</span> <span class="badge mynd">Mynd</span> <span class="badge tala">Verð</span></div><div class="file-ref">lib/products.ts → slug: grodarhus-pro-6x12</div></div></div>
+    <div class="card product"><div class="num">P2</div><div class="info"><div class="where">Gróðurhús · Vara 2</div><div class="label">Gróðurhús Hobby 3×6 m</div><div class="type"><span class="badge texti">Texti</span> <span class="badge mynd">Mynd</span> <span class="badge tala">Verð</span></div><div class="file-ref">lib/products.ts → slug: grodarhus-hobby-3x6</div></div></div>
+    <div class="card product"><div class="num">P3</div><div class="info"><div class="where">Gróðurhús · Vara 3</div><div class="label">Atvinnugróðurhús 10×20 m</div><div class="type"><span class="badge texti">Texti</span> <span class="badge mynd">Mynd</span> <span class="badge tala">Verð</span></div><div class="file-ref">lib/products.ts → slug: grodarhus-commercial-10x20</div></div></div>
+    <div class="card product"><div class="num">P4</div><div class="info"><div class="where">Varmastýring · Vara 1</div><div class="label">Hitastýringarkerfi Argus</div><div class="type"><span class="badge texti">Texti</span> <span class="badge mynd">Mynd</span> <span class="badge tala">Verð</span></div><div class="file-ref">lib/products.ts → id: '10'</div></div></div>
+    <div class="card product"><div class="num">P5</div><div class="info"><div class="where">Varmastýring · Vara 2</div><div class="label">Rafmagnsofn 2 kW</div><div class="type"><span class="badge texti">Texti</span> <span class="badge mynd">Mynd</span> <span class="badge tala">Verð</span></div><div class="file-ref">lib/products.ts → id: '11'</div></div></div>
+  </div>
+  <p style="margin-top:12px; font-size:0.82rem; color:#6b7280;">
+    ℹ️ Fleiri vörur eru í <code>lib/products.ts</code> — hvert vöruspjald hefur <code>title</code>, <code>description</code>, <code>price</code>, <code>image</code> sem hægt er að breyta. Spurðu um tiltekna vöru eftir nafni.
+  </p>
+
+</div>
+
+<footer>
+  Eco Garden · Breytingalykill · Opnaðu BREYTINGAR.html í vafra til að skoða
+</footer>
+
+</body>
+</html>
