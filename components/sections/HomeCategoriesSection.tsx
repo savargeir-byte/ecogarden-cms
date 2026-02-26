@@ -4,7 +4,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import EditBadge from '@/components/EditBadge';
 import TiltCard from '@/components/TiltCard';
 
-const categories = [
+const defaultCategories = [
   {
     id: 'gardyrkjubaendur',
     badge: 69,
@@ -28,8 +28,30 @@ const categories = [
   },
 ];
 
-export default function HomeCategoriesSection() {
+interface SanityCategory {
+  slug: string;
+  title_is: string;
+  title_en?: string;
+  image?: string;
+}
+
+interface Props {
+  categories?: SanityCategory[];
+}
+
+export default function HomeCategoriesSection({ categories }: Props) {
   const { t, language } = useTranslation();
+
+  // Nota Sanity flokka ef til, annars default
+  const cats = categories && categories.length > 0
+    ? categories.map((c, i) => ({
+        id: c.slug,
+        badge: 69 + i,
+        name: c.title_is,
+        name_en: c.title_en ?? c.title_is,
+        image: c.image ?? defaultCategories[i % defaultCategories.length]?.image ?? '',
+      }))
+    : defaultCategories;
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white to-gray-50">
@@ -49,7 +71,7 @@ export default function HomeCategoriesSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {categories.map((cat) => {
+          {cats.map((cat) => {
             const name = language === 'en' ? cat.name_en : cat.name;
             return (
               <TiltCard key={cat.id} maxTilt={8} scale={1.03} glare={false}>

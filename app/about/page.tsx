@@ -1,21 +1,71 @@
-'use client';
-
 import Image from 'next/image';
 import EditBadge from '@/components/EditBadge';
+import { client } from '@/sanity/lib/client';
+import { aboutPageQuery } from '@/sanity/lib/queries';
 
-// ============================================================
-// UM OKKUR SÍÐA (About page)
-// ============================================================
-// YFIRLIT — Hvar er hægt að breyta hvað:
-//   Hero mynd/texti  → hér að neðan (src= og <h1>/<p> í glass card)
-//   Traust-ræma      → 4 ✔ textar undir hero
-//   Af hverju kortið → 3 kort með emoji, fyrirsögn, lýsing
-//   Okkar lausnir    → 3 kort með emoji, fyrirsögn, lýsing
-//   Teymið okkar     → Guðmundur / Ólafur — myndir, nöfn, titlar, tilvitnanir
-//   CTA neðst        → Fyrirsögn, undirtexti, sambandsupplýsingar
-// ============================================================
+const DEFAULTS = {
+  heroTitle: 'Garðlausnir sem endast',
+  heroSubtitle: 'Við hönnum lausnir fyrir íslenskar aðstæður. 50+ ára reynsla í garðyrkju og fagleg ráðgjöf frá upphafi.',
+  heroImage: 'https://static.wixstatic.com/media/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg/v1/fill/w_1960,h_1040,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg',
+  heroBtn1: 'Fá ókeypis ráðgjöf',
+  heroBtn2: 'Skoða vörur',
+  trustBadges: ['50+ ára reynsla', 'Vistvæn efni', 'Lausnir fyrir heimili & fyrirtæki', 'Þjónusta um allt land'],
+  whyHeading: 'Af hverju Eco Garden?',
+  whyCards: [
+    { emoji: '🌿', title: 'Vistvæn nálgun',       text: 'Allar lausnir eru þróaðar með umhverfið í huga.' },
+    { emoji: '🏆', title: 'Reynsla sem skiptir máli', text: 'Yfir 50 ára samsett reynsla í garðyrkju og rekstri.' },
+    { emoji: '💼', title: 'Lausnir sem endast',    text: 'Við veljum efni og vörur sem standast íslenskar aðstæður.' },
+  ],
+  solutionsHeading: 'Okkar lausnir',
+  solutionCards: [
+    { emoji: '🎨', title: 'Hönnun sem virkar',   text: 'Sérsniðin garðhönnun fyrir íslenskar aðstæður.' },
+    { emoji: '🌱', title: 'Ræktunarlausnir',     text: 'Snjallar lausnir fyrir ræktun í garði, gróðurhúsi eða atvinnuskyni.' },
+    { emoji: '🛠️', title: 'Garðvörur',           text: 'Vandaðar garðvörur sem standast íslenskar aðstæður.' },
+  ],
+  teamHeading: 'Teymið okkar',
+  teamSubtitle: 'Reynslumiklir sérfræðingar með brennandi áhuga á garðyrkju',
+  teamMembers: [
+    {
+      name: 'Guðmundur',
+      jobTitle: 'Sérfræðingur í garðyrkju',
+      quote: '"Ég trúi því að góð garðyrkja byrji á réttum lausnum."',
+      description: 'Með áratuga reynslu og brennandi áhuga hjálpar hann viðskiptavinum að ná árangri.',
+      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80',
+    },
+    {
+      name: 'Ólafur',
+      jobTitle: 'Þjónststjóri',
+      quote: '"Með reynslu og þekkingu hjálpum við viðskiptavinum að velja rétt."',
+      description: 'Áhersla á persónulega þjónustu og að finna réttu lausnina fyrir hvern og einn.',
+      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80',
+    },
+  ],
+  ctaHeading: 'Tilbúin(n) að bæta garðinn?',
+  ctaText: 'Hafðu samband og fáðu persónulega ráðgjöf eða ókeypis tilboð.',
+};
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const s = await client.fetch(aboutPageQuery).catch(() => null);
+
+  const heroTitle    = s?.heroTitle_is    ?? DEFAULTS.heroTitle;
+  const heroSubtitle = s?.heroSubtitle_is ?? DEFAULTS.heroSubtitle;
+  const heroImage    = s?.heroImage       ?? DEFAULTS.heroImage;
+  const heroBtn1     = s?.heroBtn1_is     ?? DEFAULTS.heroBtn1;
+  const heroBtn2     = s?.heroBtn2_is     ?? DEFAULTS.heroBtn2;
+  const trustBadges  = (s?.trustBadges?.map((b: {text_is:string}) => b.text_is).filter(Boolean) ?? []).length > 0
+    ? s.trustBadges.map((b: {text_is:string}) => b.text_is)
+    : DEFAULTS.trustBadges;
+  const whyHeading     = s?.whyHeading_is     ?? DEFAULTS.whyHeading;
+  const whyCards       = (s?.whyCards?.length > 0 ? s.whyCards.map((c: {emoji:string;title_is:string;text_is:string}) => ({ emoji: c.emoji, title: c.title_is, text: c.text_is })) : null) ?? DEFAULTS.whyCards;
+  const solutionsHeading = s?.solutionsHeading_is ?? DEFAULTS.solutionsHeading;
+  const solutionCards  = (s?.solutionCards?.length > 0 ? s.solutionCards.map((c: {emoji:string;title_is:string;text_is:string}) => ({ emoji: c.emoji, title: c.title_is, text: c.text_is })) : null) ?? DEFAULTS.solutionCards;
+  const teamHeading    = s?.teamHeading_is    ?? DEFAULTS.teamHeading;
+  const teamSubtitle   = s?.teamSubtitle_is   ?? DEFAULTS.teamSubtitle;
+  const teamMembers    = (s?.teamMembers?.length > 0 ? s.teamMembers.map((m: {name:string;jobTitle_is:string;quote_is:string;description_is:string;image?:string}) => ({
+    name: m.name, jobTitle: m.jobTitle_is, quote: m.quote_is, description: m.description_is, image: m.image ?? DEFAULTS.teamMembers[0].image,
+  })) : null) ?? DEFAULTS.teamMembers;
+  const ctaHeading = s?.ctaHeading_is ?? DEFAULTS.ctaHeading;
+  const ctaText    = s?.ctaText_is    ?? DEFAULTS.ctaText;
   return (
     <div className="min-h-screen bg-white">
       {/* ── HERO BAKGRUNNSMYND ──────────────────────────────────
@@ -27,7 +77,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <EditBadge n={17} />
           <Image
-            src="https://static.wixstatic.com/media/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg/v1/fill/w_1960,h_1040,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/nsplsh_b06e8f2ce3384bcb94d5404d439f0bf6~mv2.jpg"
+            src={heroImage}
             alt="Eco Garden - Sjálfbær garðyrkja"
             fill
             unoptimized
@@ -42,13 +92,13 @@ export default function AboutPage() {
             {/* [18] UM OKKUR — Hero titill */}
             <EditBadge n={18} />
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-5 leading-tight text-gray-900">
-              Garðlausnir sem endast
+              {heroTitle}
             </h1>
             
             {/* [19] UM OKKUR — Hero undirtexti */}
             <EditBadge n={19} />
             <p className="border-l-4 border-green-600 pl-4 text-lg sm:text-xl text-gray-700 mb-6 sm:mb-8 leading-relaxed">
-              Við hönnum lausnir fyrir íslenskar aðstæður. 50+ ára reynsla í garðyrkju og fagleg ráðgjöf frá upphafi.
+              {heroSubtitle}
             </p>
 
             {/* [20] UM OKKUR — Hnappur 1 texti / [21] Hnappur 2 texti */}
@@ -58,13 +108,13 @@ export default function AboutPage() {
                 href="/contact" 
                 className="inline-block text-center bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-102"
               >
-                Fá ókeypis ráðgjöf
+                {heroBtn1}
               </a>
               <a 
                 href="/products" 
                 className="inline-block text-center bg-white hover:bg-gray-50 text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-200 border-2 border-gray-200 hover:border-green-600 hover:scale-102"
               >
-                Skoða vörur
+                {heroBtn2}
               </a>
             </div>
           </div>
@@ -78,19 +128,19 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
             <div className="flex items-center justify-center gap-2">
               <span className="text-green-600 font-bold text-lg">✔</span>
-              <span className="text-sm sm:text-base text-gray-700">{/* [22] */}50+ ára reynsla</span>
+              <span className="text-sm sm:text-base text-gray-700">{trustBadges[0]}</span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <span className="text-green-600 font-bold text-lg">✔</span>
-              <span className="text-sm sm:text-base text-gray-700">{/* [23] */}Vistvæn efni</span>
+              <span className="text-sm sm:text-base text-gray-700">{trustBadges[1]}</span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <span className="text-green-600 font-bold text-lg">✔</span>
-              <span className="text-sm sm:text-base text-gray-700">{/* [24] */}Lausnir fyrir heimili & fyrirtæki</span>
+              <span className="text-sm sm:text-base text-gray-700">{trustBadges[2]}</span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <span className="text-green-600 font-bold text-lg">✔</span>
-              <span className="text-sm sm:text-base text-gray-700">{/* [25] */}Þjónusta um allt land</span>
+              <span className="text-sm sm:text-base text-gray-700">{trustBadges[3]}</span>
             </div>
           </div>
         </div>
@@ -103,40 +153,18 @@ export default function AboutPage() {
             {/* [26] UM OKKUR — "Af hverju" fyrirsögn */}
             <EditBadge n={26} />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
-              Af hverju Eco Garden?
+              {whyHeading}
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
-            {/* [27] UM OKKUR — Af hverju kort 1: emoji 🌿, titill, texti */}
-            <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up">
-              <EditBadge n={27} />
-              <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🌿</div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Vistvæn nálgun</h3>
-              <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
-                Allar lausnir eru þróaðar með umhverfið í huga.
-              </p>
-            </div>
-
-            {/* [28] UM OKKUR — Af hverju kort 2: emoji 🏆, titill, texti */}
-            <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '100ms' }}>
-              <EditBadge n={28} />
-              <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🏆</div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Reynsla sem skiptir máli</h3>
-              <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
-                Yfir 50 ára samsett reynsla í garðyrkju og rekstri.
-              </p>
-            </div>
-
-            {/* [29] UM OKKUR — Af hverju kort 3: emoji 💼, titill, texti */}
-            <div className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: '200ms' }}>
-              <EditBadge n={29} />
-              <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">💼</div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Lausnir sem endast</h3>
-              <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
-                Við veljum efni og vörur sem standast íslenskar aðstæður.
-              </p>
-            </div>
+            {whyCards.map((card: {emoji:string;title:string;text:string}, i: number) => (
+              <div key={i} className="group bg-white p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
+                <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">{card.emoji}</div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">{card.title}</h3>
+                <p className="text-gray-600 leading-relaxed text-base sm:text-lg">{card.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -147,60 +175,22 @@ export default function AboutPage() {
           {/* [30] UM OKKUR — "Okkar lausnir" fyrirsögn */}
           <EditBadge n={30} />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-10 lg:mb-14 animate-fade-in">
-            Okkar lausnir
+            {solutionsHeading}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
-            {/* [31] UM OKKUR — Lausn kort 1: emoji 🎨, titill, texti */}
-            <div className="group relative bg-gradient-to-br from-green-50 to-teal-50 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-slide-up">
-              <EditBadge n={31} />
-              <div className="relative z-10">
-                <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🎨</div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Hönnun sem virkar</h3>
-                <p className="text-gray-600 leading-relaxed text-base sm:text-lg mb-4">
-                  Sérsniðin garðhönnun fyrir íslenskar aðstæður.
-                </p>
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-green-600 font-semibold text-sm sm:text-base flex items-center gap-2">
-                    Sjá nánar →
-                  </span>
+            {solutionCards.map((card: {emoji:string;title:string;text:string}, i: number) => (
+              <div key={i} className="group relative bg-gradient-to-br from-green-50 to-teal-50 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
+                <div className="relative z-10">
+                  <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">{card.emoji}</div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">{card.title}</h3>
+                  <p className="text-gray-600 leading-relaxed text-base sm:text-lg mb-4">{card.text}</p>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="text-green-600 font-semibold text-sm sm:text-base flex items-center gap-2">Sjá nánar →</span>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* [32] UM OKKUR — Lausn kort 2: emoji 🌱, titill, texti */}
-            <div className="group relative bg-gradient-to-br from-green-50 to-teal-50 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-slide-up" style={{ animationDelay: '100ms' }}>
-              <EditBadge n={32} />
-              <div className="relative z-10">
-                <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🌱</div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Ræktunarlausnir</h3>
-                <p className="text-gray-600 leading-relaxed text-base sm:text-lg mb-4">
-                  Snjallar lausnir fyrir ræktun í garði, gróðurhúsi eða atvinnuskyni.
-                </p>
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-green-600 font-semibold text-sm sm:text-base flex items-center gap-2">
-                    Sjá nánar →
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* [33] UM OKKUR — Lausn kort 3: emoji 🛠️, titill, texti */}
-            <div className="group relative bg-gradient-to-br from-green-50 to-teal-50 p-6 sm:p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-slide-up" style={{ animationDelay: '200ms' }}>
-              <EditBadge n={33} />
-              <div className="relative z-10">
-                <div className="text-5xl sm:text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">🛠️</div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">Garðvörur</h3>
-                <p className="text-gray-600 leading-relaxed text-base sm:text-lg mb-4">
-                  Vandaðar garðvörur sem standast íslenskar aðstæður.
-                </p>
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-green-600 font-semibold text-sm sm:text-base flex items-center gap-2">
-                    Sjá nánar →
-                  </span>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -208,82 +198,35 @@ export default function AboutPage() {
       {/* Team Section - Personalized */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-green-50/30 to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {/* [34] UM OKKUR — Teymi fyrirsögn */}
-          <EditBadge n="34–35" />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-3 sm:mb-4 animate-fade-in">
-            Teymið okkar
+            {teamHeading}
           </h2>
-          {/* [35] UM OKKUR — Teymi undirtexti */}
           <p className="text-center text-gray-600 mb-10 lg:mb-14 max-w-2xl mx-auto text-base sm:text-lg">
-            Reynslumiklir sérfræðingar með brennandi áhuga á garðyrkju
+            {teamSubtitle}
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
-            {/* ══ MAÐUR 1 ══════════════════════════════════════ */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up">
-              <EditBadge n="36–40" />
-              <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
-                {/* [36] UM OKKUR — Maður 1: mynd (src=) */}
-                <Image
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80"
-                  alt="Guðmundur"
-                  fill
-                  unoptimized
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-6 sm:p-8">
-                {/* [37] UM OKKUR — Maður 1: nafn */}
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Guðmundur</h3>
-                {/* [38] UM OKKUR — Maður 1: titill */}
-                <p className="text-green-600 font-semibold mb-4 text-base sm:text-lg">Sérfræðingur í garðyrkju</p>
-                
-                <div className="mb-6 p-4 bg-green-50 rounded-xl border-l-4 border-green-600">
-                  {/* [39] UM OKKUR — Maður 1: tilvitnun */}
-                  <p className="text-gray-700 italic text-sm sm:text-base">
-                    "Ég trúi því að góð garðyrkja byrji á réttum lausnum."
-                  </p>
+            {teamMembers.map((m: {name:string;jobTitle:string;quote:string;description:string;image:string}, i: number) => (
+              <div key={i} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
+                <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
+                  <Image
+                    src={m.image || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80'}
+                    alt={m.name}
+                    fill
+                    unoptimized
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-                
-                {/* [40] UM OKKUR — Maður 1: lýsing */}
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  Með áratuga reynslu og brennandi áhuga hjálpar hann viðskiptavinum að ná árangri.
-                </p>
-              </div>
-            </div>
-
-            {/* ══ MAÐUR 2 ══════════════════════════════════════ */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up" style={{ animationDelay: '100ms' }}>
-              <EditBadge n="41–45" />
-              <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
-                {/* [41] UM OKKUR — Maður 2: mynd (src=) */}
-                <Image
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80"
-                  alt="Ólafur"
-                  fill
-                  unoptimized
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-6 sm:p-8">
-                {/* [42] UM OKKUR — Maður 2: nafn */}
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Ólafur</h3>
-                {/* [43] UM OKKUR — Maður 2: titill */}
-                <p className="text-green-600 font-semibold mb-4 text-base sm:text-lg">Þjónustustjóri</p>
-                
-                <div className="mb-6 p-4 bg-green-50 rounded-xl border-l-4 border-green-600">
-                  {/* [44] UM OKKUR — Maður 2: tilvitnun */}
-                  <p className="text-gray-700 italic text-sm sm:text-base">
-                    "Með reynslu og þekkingu hjálpum við viðskiptavinum að velja rétt."
-                  </p>
+                <div className="p-6 sm:p-8">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{m.name}</h3>
+                  <p className="text-green-600 font-semibold mb-4 text-base sm:text-lg">{m.jobTitle}</p>
+                  <div className="mb-6 p-4 bg-green-50 rounded-xl border-l-4 border-green-600">
+                    <p className="text-gray-700 italic text-sm sm:text-base">"{m.quote}"</p>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{m.description}</p>
                 </div>
-                
-                {/* [45] UM OKKUR — Maður 2: lýsing */}
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                  Áhersla á persónulega þjónustu og að finna réttu lausnina fyrir hvern og einn.
-                </p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -297,15 +240,11 @@ export default function AboutPage() {
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="text-center mb-8 sm:mb-10 lg:mb-12 animate-fade-in">
-            {/* [64] UM OKKUR — CTA fyrirsögn neðst */}
-            <EditBadge n={64} />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
-              Tilbúin(n) að bæta garðinn?
+              {ctaHeading}
             </h2>
-            {/* [65] UM OKKUR — CTA undirtexti neðst */}
-            <EditBadge n={65} />
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto">
-              Hafðu samband og fáðu persónulega ráðgjöf eða ókeypis tilboð.
+              {ctaText}
             </p>
           </div>
 

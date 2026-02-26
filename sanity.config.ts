@@ -19,16 +19,27 @@ export default defineConfig({
         S.list()
           .title('Efni')
           .items([
+            // ── Síður ──────────────────────────────────────
             S.listItem()
-              .title('Forsíða')
+              .title('🏠 Forsíða')
               .id('homePage')
               .child(S.document().schemaType('homePage').documentId('homePage')),
             S.listItem()
-              .title('Stillingar')
+              .title('👥 Um okkur')
+              .id('aboutPage')
+              .child(S.document().schemaType('aboutPage').documentId('aboutPage')),
+            S.listItem()
+              .title('📞 Hafa samband')
+              .id('contactPage')
+              .child(S.document().schemaType('contactPage').documentId('contactPage')),
+            S.listItem()
+              .title('⚙️ Stillingar')
               .id('siteSettings')
               .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
             S.divider(),
-            S.documentTypeListItem('product').title('Vörur'),
+            // ── Vörur & Flokkar ────────────────────────────
+            S.documentTypeListItem('product').title('🌿 Vörur'),
+            S.documentTypeListItem('category').title('📁 Flokkar'),
           ]),
     }),
     visionTool(),

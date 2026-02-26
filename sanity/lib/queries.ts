@@ -81,3 +81,58 @@ export const featuredProductsQuery = groq`
 export const allProductSlugsQuery = groq`
   *[_type == "product" && defined(slug.current)] { "slug": slug.current }
 `
+
+// ── Allir flokkar ────────────────────────────────────────────
+export const allCategoriesQuery = groq`
+  *[_type == "category"] | order(order asc) {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    "image": image.asset->url,
+    subcategories[] {
+      title_is,
+      title_en,
+      slug
+    }
+  }
+`
+
+// ── Um okkur síða ────────────────────────────────────────────
+export const aboutPageQuery = groq`
+  *[_type == "aboutPage" && _id == "aboutPage"][0] {
+    heroTitle_is, heroTitle_en,
+    heroSubtitle_is, heroSubtitle_en,
+    "heroImage": heroImage.asset->url,
+    heroBtn1_is, heroBtn1_en,
+    heroBtn2_is, heroBtn2_en,
+    trustBadges,
+    whyHeading_is, whyHeading_en,
+    whyCards,
+    solutionsHeading_is, solutionsHeading_en,
+    solutionCards,
+    teamHeading_is, teamHeading_en,
+    teamSubtitle_is, teamSubtitle_en,
+    teamMembers[] {
+      name, jobTitle_is, jobTitle_en,
+      quote_is, quote_en,
+      description_is, description_en,
+      "image": image.asset->url
+    },
+    ctaHeading_is, ctaHeading_en,
+    ctaText_is, ctaText_en
+  }
+`
+
+// ── Hafa samband síða ────────────────────────────────────────
+export const contactPageQuery = groq`
+  *[_type == "contactPage" && _id == "contactPage"][0] {
+    "heroImage": heroImage.asset->url,
+    heroTitle_is, heroTitle_en,
+    heroSubtitle_is, heroSubtitle_en,
+    address, phone, email,
+    openingHours_is, openingHours_en,
+    facebookUrl, linkedinUrl, instagramUrl,
+    mapEmbedSrc
+  }
+`
