@@ -30,12 +30,28 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-    
-    // Simulate form submission
-    setTimeout(() => {
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error('Contact error:', data.error);
+        setStatus('error');
+        return;
+      }
+
       setStatus('success');
       setFormData({ name: '', phone: '', email: '', company: '', message: '' });
-    }, 1000);
+    } catch (err) {
+      console.error('Contact fetch error:', err);
+      setStatus('error');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -250,6 +266,12 @@ export default function ContactPage() {
                   {status === 'success' && (
                     <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-center animate-fade-in">
                       ✓ Takk fyrir að hafa samband! Við munum svara þér fljótlega.
+                    </div>
+                  )}
+
+                  {status === 'error' && (
+                    <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-center animate-fade-in">
+                      ✗ Eitthvað fór úrskeiðis. Vinsamlegast reyndu aftur eða hringdu í 487-8910.
                     </div>
                   )}
                 </form>

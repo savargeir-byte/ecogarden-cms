@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40" lang="is">
+<head>
+  <meta charset="UTF-8">
+  <title>Eco Garden – Efnisyfirlit / Content Brief</title>
+  <style>
+    /* ─── PAGE LAYOUT ─────────────────────────────────────── */
+    @page {
+      size: A4 landscape;
+      margin: 1.5cm 1.8cm;
+    }
+    body {
+      font-family: Calibri, Arial, sans-serif;
+      font-size: 10pt;
+      color: #1a1a1a;
+      background: #fff;
+      margin: 0;
+    }
+    /* ─── COVER ───────────────────────────────────────────── */
+    .cover {
+      text-align: center;
+      padding: 60px 0 40px;
+      page-break-after: always;
+    }
+    .cover h1 {
+      font-size: 28pt;
+      color: #16a34a;
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+    .cover h2 {
+      font-size: 16pt;
+      color: #444;
+      margin: 0 0 30px;
+      font-weight: 400;
+    }
+    .cover .meta {
+      font-size: 10pt;
+      color: #777;
+      margin: 6px 0;
+    }
+    .cover .meta strong { color: #333; }
+    .cover .url {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 20px;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 6px;
+      font-size: 10pt;
+      color: #15803d;
+      font-weight: 600;
+    }
+    .cover .legend {
+      margin: 30px auto 0;
+      max-width: 500px;
+      text-align: left;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px 20px;
+      background: #f9fafb;
+    }
+    .cover .legend h3 {
+      font-size: 10pt;
+      margin: 0 0 8px;
+      color: #16a34a;
+    }
+    .cover .legend p {
+      font-size: 9pt;
+      margin: 4px 0;
+      color: #555;
+    }
+    /* ─── SECTION HEADERS ─────────────────────────────────── */
+    .page-section {
+      margin-top: 24px;
+      page-break-inside: avoid;
+    }
+    .section-header {
+      background: #15803d;
+      color: #fff;
+      font-size: 12pt;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 4px 4px 0 0;
+      margin-bottom: 0;
+    }
+    .section-url {
+      font-size: 9pt;
+      font-weight: 400;
+      opacity: 0.85;
+    }
+    /* ─── TABLE ───────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9.5pt;
+    }
+    thead tr {
+      background: #dcfce7;
+    }
+    thead th {
+      border: 1px solid #86efac;
+      padding: 6px 10px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 9pt;
+      color: #15803d;
+    }
+    tbody tr:nth-child(even) {
+      background: #f9fafb;
+    }
+    tbody tr:nth-child(odd) {
+      background: #ffffff;
+    }
+    tbody td {
+      border: 1px solid #e5e7eb;
+      padding: 7px 10px;
+      vertical-align: top;
+    }
+    .td-num {
+      width: 55px;
+      text-align: center;
+      font-weight: 700;
+      color: #15803d;
+      font-size: 11pt;
+    }
+    .td-section {
+      width: 130px;
+      font-weight: 600;
+      color: #374151;
+    }
+    .td-what {
+      width: 200px;
+      color: #374151;
+    }
+    .td-current {
+      width: 220px;
+      color: #6b7280;
+      font-style: italic;
+    }
+    .td-new {
+      min-width: 200px;
+      background: #fffbeb !important;
+      border: 1px dashed #d97706 !important;
+    }
+    .note {
+      font-size: 8pt;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+    .type-img { color: #1d4ed8; }
+    .type-txt { color: #374151; }
+    .type-lnk { color: #7c3aed; }
+    .badge-group {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 8pt;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    .fill-here {
+      color: #d97706;
+      font-size: 8pt;
+      font-style: normal;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ FORSÍÐA ═══════════ -->
+<div class="cover">
+  <h1>🌿 Eco Garden</h1>
+  <h2>Efnisyfirlit vefsíðunnar – Content Brief</h2>
+  <p class="meta"><strong>Vefsíða:</strong> <a href="https://eccogarden.vercel.app">eccogarden.vercel.app</a></p>
+  <p class="meta"><strong>Útgáfa:</strong> 1.0 &nbsp;|&nbsp; <strong>Dagsetning:</strong> Febrúar 2026</p>
+  <div class="url">Fylltu inn í dálkinn: NÝTT EFNI / NEW CONTENT</div>
+
+  <div class="legend">
+    <h3>Hvað þýðir hvað?</h3>
+    <p>🖼️ = <strong>Mynd</strong> — gefðu upp URL eða nýtt myndarheiti</p>
+    <p>✏️ = <strong>Texti</strong> — skrifaðu nýjan texta beint í reitinn</p>
+    <p>🔗 = <strong>Tengill / slóð</strong> — gefðu upp nýtt URL</p>
+    <p>📞 = <strong>Sambandsupplýsingar</strong> — sími, netfang, heimilisfang</p>
+    <p>⚙️ = <strong>Kall til aðgerðar</strong> — texti á hnöpp og CTA</p>
+    <p>Númer í <span class="badge-group">gulum reitum</span> samsvara merkingunum á vefsíðunni þegar edit-mode er virkt.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════ 1. VALMYND (NAVBAR) ═══════ -->
+<div class="page-section">
+  <div class="section-header">🧭 VALMYND (Navbar) <span class="section-url">— birtist á öllum síðum</span></div>
+  <table>
+    <thead><tr>
+      <th class="td-num">#</th>
+      <th class="td-section">Hluti</th>
+      <th class="td-what">Hvað breytist</th>
+      <th class="td-current">Núverandi efni</th>
+      <th class="td-new">NÝTT EFNI / NEW CONTENT</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="td-num"><span class="badge-group">73</span></td>
+        <td class="td-section">Logo</td>
+        <td class="td-what">✏️ Logo texti (nafn fyrirtækis)</td>
+        <td class="td-current">Eco<span style="color:#16a34a">Garden</span></td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">74</span></td>
+        <td class="td-section">Valmynd</td>
+        <td class="td-what">✏️ Valmyndarliðir (Home / Vörur / Um okkur / Samband)</td>
+        <td class="td-current">Heim | Vörur | Um okkur | Hafa samband</td>
+        <td class="td-new"><span class="fill-here">Breyttu texta ef þarf...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">75</span></td>
+        <td class="td-section">CTA hnappur</td>
+        <td class="td-what">⚙️ "Fá tilboð" hnappur — texti</td>
+        <td class="td-current">Fá tilboð</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════ 2. FORSÍÐA ════════════════ -->
+<div class="page-section">
+  <div class="section-header">🏠 FORSÍÐA <span class="section-url">— eccogarden.vercel.app/</span></div>
+  <table>
+    <thead><tr>
+      <th class="td-num">#</th>
+      <th class="td-section">Hluti</th>
+      <th class="td-what">Hvað breytist</th>
+      <th class="td-current">Núverandi efni</th>
+      <th class="td-new">NÝTT EFNI / NEW CONTENT</th>
+    </tr></thead>
+    <tbody>
+      <!-- HERO -->
+      <tr>
+        <td class="td-num"><span class="badge-group">1</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">🖼️ Hero bakgrunnsmynd</td>
+        <td class="td-current"><em>(mynd frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Slóð á nýja mynd...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">2</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">✏️ Aðaltitill (íslenska)</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Skrifaðu titil hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">3</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">✏️ Aðaltitill (enska)</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Enter title here...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">4</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">✏️ Undirtexti (íslenska)</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Skrifaðu undirtexta hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">5</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">✏️ Undirtexti (enska)</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Enter subtitle here...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">6</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">⚙️ CTA hnappur — texti</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Skrifaðu texta á hnapp...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">7</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">🔗 CTA hnappur — slóð (href)</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">t.d. /products eða /contact</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">8</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">✏️ Alt texti myndar (aðgengi)</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Lýsing á mynd...</span></td>
+      </tr>
+      <!-- MISSION -->
+      <tr>
+        <td class="td-num"><span class="badge-group">11</span></td>
+        <td class="td-section">Mission</td>
+        <td class="td-what">✏️ Mission fyrirsögn</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">12</span></td>
+        <td class="td-section">Mission</td>
+        <td class="td-what">✏️ Mission meginmál</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">13</span></td>
+        <td class="td-section">Mission</td>
+        <td class="td-what">✏️ Mission undirtexti / aukatexti</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <!-- STATS -->
+      <tr>
+        <td class="td-num"><span class="badge-group">9</span></td>
+        <td class="td-section">Tölfræði</td>
+        <td class="td-what">✏️ Stats fyrirsögn</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">10</span></td>
+        <td class="td-section">Tölfræði</td>
+        <td class="td-what">✏️ Stats undirtexti</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">14</span></td>
+        <td class="td-section">Tölfræði</td>
+        <td class="td-what">✏️ Stat 1 — tala + lýsing</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Tala + texti...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">15</span></td>
+        <td class="td-section">Tölfræði</td>
+        <td class="td-what">✏️ Stat 2 — tala + lýsing</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Tala + texti...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">16</span></td>
+        <td class="td-section">Tölfræði</td>
+        <td class="td-what">✏️ Stat 3 — tala + lýsing</td>
+        <td class="td-current"><em>(frá gagnagrunni)</em></td>
+        <td class="td-new"><span class="fill-here">Tala + texti...</span></td>
+      </tr>
+      <!-- CATEGORIES SECTION -->
+      <tr>
+        <td class="td-num"><span class="badge-group">67</span></td>
+        <td class="td-section">Vöruflokkar</td>
+        <td class="td-what">✏️ Vöruhluta fyrirsögn</td>
+        <td class="td-current">Vöruflokkar okkar</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">68</span></td>
+        <td class="td-section">Vöruflokkar</td>
+        <td class="td-what">✏️ Vöruhluta undirtexti</td>
+        <td class="td-current">Veldu flokk til að skoða vörur</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">69</span></td>
+        <td class="td-section">Vöruflokkar</td>
+        <td class="td-what">🖼️ Flokkur 1 — mynd + heiti (IS/EN)</td>
+        <td class="td-current">Garðyrkjubændur / Horticulture Farmers</td>
+        <td class="td-new"><span class="fill-here">Heiti + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">70</span></td>
+        <td class="td-section">Vöruflokkar</td>
+        <td class="td-what">🖼️ Flokkur 2 — mynd + heiti (IS/EN)</td>
+        <td class="td-current">Landbúnaður / Agriculture</td>
+        <td class="td-new"><span class="fill-here">Heiti + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">71</span></td>
+        <td class="td-section">Vöruflokkar</td>
+        <td class="td-what">🖼️ Flokkur 3 — mynd + heiti (IS/EN)</td>
+        <td class="td-current">Almennar Garðyrkjuvörur / General Garden Products</td>
+        <td class="td-new"><span class="fill-here">Heiti + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">72</span></td>
+        <td class="td-section">Vöruflokkar</td>
+        <td class="td-what">⚙️ "Skoða allar lausnir" hnappur</td>
+        <td class="td-current">Skoða allar lausnir / View all products</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════ 3. UM OKKUR ══════════════ -->
+<div class="page-section">
+  <div class="section-header">👥 UM OKKUR <span class="section-url">— eccogarden.vercel.app/about</span></div>
+  <table>
+    <thead><tr>
+      <th class="td-num">#</th>
+      <th class="td-section">Hluti</th>
+      <th class="td-what">Hvað breytist</th>
+      <th class="td-current">Núverandi efni</th>
+      <th class="td-new">NÝTT EFNI / NEW CONTENT</th>
+    </tr></thead>
+    <tbody>
+      <!-- HERO -->
+      <tr>
+        <td class="td-num"><span class="badge-group">17</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">🖼️ Hero bakgrunnsmynd</td>
+        <td class="td-current">Stök mynd (wixstatic.com)</td>
+        <td class="td-new"><span class="fill-here">Slóð á nýja mynd...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">18</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">✏️ Hero titill</td>
+        <td class="td-current">Garðlausnir sem endast</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">19</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">✏️ Hero undirtexti</td>
+        <td class="td-current">Við hönnum lausnir fyrir íslenskar aðstæður. 50+ ára reynsla í garðyrkju og fagleg ráðgjöf frá upphafi.</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">20</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">⚙️ Hnappur 1 — texti + slóð</td>
+        <td class="td-current">Fá ókeypis ráðgjöf → /contact</td>
+        <td class="td-new"><span class="fill-here">Texti + slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">21</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">⚙️ Hnappur 2 — texti + slóð</td>
+        <td class="td-current">Skoða vörur → /products</td>
+        <td class="td-new"><span class="fill-here">Texti + slóð...</span></td>
+      </tr>
+      <!-- TRUST BAR -->
+      <tr>
+        <td class="td-num"><span class="badge-group">22</span></td>
+        <td class="td-section">Traust-ræma</td>
+        <td class="td-what">✏️ Traust-liður 1</td>
+        <td class="td-current">50+ ára reynsla</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">23</span></td>
+        <td class="td-section">Traust-ræma</td>
+        <td class="td-what">✏️ Traust-liður 2</td>
+        <td class="td-current">Vistvæn efni</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">24</span></td>
+        <td class="td-section">Traust-ræma</td>
+        <td class="td-what">✏️ Traust-liður 3</td>
+        <td class="td-current">Lausnir fyrir heimili &amp; fyrirtæki</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">25</span></td>
+        <td class="td-section">Traust-ræma</td>
+        <td class="td-what">✏️ Traust-liður 4</td>
+        <td class="td-current">Þjónusta um allt land</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <!-- WHY ECO GARDEN -->
+      <tr>
+        <td class="td-num"><span class="badge-group">26</span></td>
+        <td class="td-section">Af hverju</td>
+        <td class="td-what">✏️ Fyrirsögn "Af hverju Eco Garden?"</td>
+        <td class="td-current">Af hverju Eco Garden?</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">27</span></td>
+        <td class="td-section">Af hverju</td>
+        <td class="td-what">✏️ Kort 1 — emoji + titill + texti</td>
+        <td class="td-current">🌿 Vistvæn nálgun — Allar lausnir eru þróaðar með umhverfið í huga.</td>
+        <td class="td-new"><span class="fill-here">Emoji: ___ Titill: ___ Texti: ___</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">28</span></td>
+        <td class="td-section">Af hverju</td>
+        <td class="td-what">✏️ Kort 2 — emoji + titill + texti</td>
+        <td class="td-current">🏆 Reynsla sem skiptir máli — Yfir 50 ára samsett reynsla í garðyrkju og rekstri.</td>
+        <td class="td-new"><span class="fill-here">Emoji: ___ Titill: ___ Texti: ___</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">29</span></td>
+        <td class="td-section">Af hverju</td>
+        <td class="td-what">✏️ Kort 3 — emoji + titill + texti</td>
+        <td class="td-current">💼 Lausnir sem endast — Við veljum efni og vörur sem standast íslenskar aðstæður.</td>
+        <td class="td-new"><span class="fill-here">Emoji: ___ Titill: ___ Texti: ___</span></td>
+      </tr>
+      <!-- SOLUTIONS -->
+      <tr>
+        <td class="td-num"><span class="badge-group">30</span></td>
+        <td class="td-section">Okkar lausnir</td>
+        <td class="td-what">✏️ Fyrirsögn "Okkar lausnir"</td>
+        <td class="td-current">Okkar lausnir</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">31</span></td>
+        <td class="td-section">Okkar lausnir</td>
+        <td class="td-what">✏️ Lausn 1 — emoji + titill + texti</td>
+        <td class="td-current">🎨 Hönnun sem virkar — Sérsniðin garðhönnun fyrir íslenskar aðstæður.</td>
+        <td class="td-new"><span class="fill-here">Emoji: ___ Titill: ___ Texti: ___</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">32</span></td>
+        <td class="td-section">Okkar lausnir</td>
+        <td class="td-what">✏️ Lausn 2 — emoji + titill + texti</td>
+        <td class="td-current">🌱 Ræktunarlausnir — Snjallar lausnir fyrir ræktun í garði, gróðurhúsi eða atvinnuskyni.</td>
+        <td class="td-new"><span class="fill-here">Emoji: ___ Titill: ___ Texti: ___</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">33</span></td>
+        <td class="td-section">Okkar lausnir</td>
+        <td class="td-what">✏️ Lausn 3 — emoji + titill + texti</td>
+        <td class="td-current">🛠️ Garðvörur — Vandaðar garðvörur sem standast íslenskar aðstæður.</td>
+        <td class="td-new"><span class="fill-here">Emoji: ___ Titill: ___ Texti: ___</span></td>
+      </tr>
+      <!-- TEAM -->
+      <tr>
+        <td class="td-num"><span class="badge-group">34</span></td>
+        <td class="td-section">Teymið</td>
+        <td class="td-what">✏️ Teymi fyrirsögn</td>
+        <td class="td-current">Teymið okkar</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">35</span></td>
+        <td class="td-section">Teymið</td>
+        <td class="td-what">✏️ Teymi undirtexti</td>
+        <td class="td-current">Reynslumiklir sérfræðingar með brennandi áhuga á garðyrkju</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">36</span></td>
+        <td class="td-section">Teymið – Maður 1</td>
+        <td class="td-what">🖼️ Mynd af Manni 1</td>
+        <td class="td-current">Unsplash mynd (maður í jakka)</td>
+        <td class="td-new"><span class="fill-here">Slóð á raunverulega mynd...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">37</span></td>
+        <td class="td-section">Teymið – Maður 1</td>
+        <td class="td-what">✏️ Nafn (Maður 1)</td>
+        <td class="td-current">Guðmundur</td>
+        <td class="td-new"><span class="fill-here">Fullt nafn...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">38</span></td>
+        <td class="td-section">Teymið – Maður 1</td>
+        <td class="td-what">✏️ Titill / starfsheiti (Maður 1)</td>
+        <td class="td-current">Sérfræðingur í garðyrkju</td>
+        <td class="td-new"><span class="fill-here">Starfsheiti...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">39</span></td>
+        <td class="td-section">Teymið – Maður 1</td>
+        <td class="td-what">✏️ Tilvitnun (Maður 1)</td>
+        <td class="td-current">"Ég trúi því að góð garðyrkja byrji á réttum lausnum."</td>
+        <td class="td-new"><span class="fill-here">Tilvitnun í gæsalöppum...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">40</span></td>
+        <td class="td-section">Teymið – Maður 1</td>
+        <td class="td-what">✏️ Lýsing (Maður 1)</td>
+        <td class="td-current">Með áratuga reynslu og brennandi áhuga hjálpar hann viðskiptavinum að ná árangri.</td>
+        <td class="td-new"><span class="fill-here">Stuttlæg lýsing (1–2 setningar)...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">41</span></td>
+        <td class="td-section">Teymið – Maður 2</td>
+        <td class="td-what">🖼️ Mynd af Manni 2</td>
+        <td class="td-current">Unsplash mynd (maður)</td>
+        <td class="td-new"><span class="fill-here">Slóð á raunverulega mynd...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">42</span></td>
+        <td class="td-section">Teymið – Maður 2</td>
+        <td class="td-what">✏️ Nafn (Maður 2)</td>
+        <td class="td-current">Ólafur</td>
+        <td class="td-new"><span class="fill-here">Fullt nafn...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">43</span></td>
+        <td class="td-section">Teymið – Maður 2</td>
+        <td class="td-what">✏️ Titill / starfsheiti (Maður 2)</td>
+        <td class="td-current">Þjónustustjóri</td>
+        <td class="td-new"><span class="fill-here">Starfsheiti...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">44</span></td>
+        <td class="td-section">Teymið – Maður 2</td>
+        <td class="td-what">✏️ Tilvitnun (Maður 2)</td>
+        <td class="td-current">"Með reynslu og þekkingu hjálpum við viðskiptavinum að velja rétt."</td>
+        <td class="td-new"><span class="fill-here">Tilvitnun í gæsalöppum...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">45</span></td>
+        <td class="td-section">Teymið – Maður 2</td>
+        <td class="td-what">✏️ Lýsing (Maður 2)</td>
+        <td class="td-current">Áhersla á persónulega þjónustu og að finna réttu lausnina fyrir hvern og einn.</td>
+        <td class="td-new"><span class="fill-here">Stuttlæg lýsing (1–2 setningar)...</span></td>
+      </tr>
+      <!-- ABOUT CTA -->
+      <tr>
+        <td class="td-num"><span class="badge-group">64</span></td>
+        <td class="td-section">CTA neðst</td>
+        <td class="td-what">✏️ CTA fyrirsögn</td>
+        <td class="td-current">Tilbúin(n) að bæta garðinn?</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">65</span></td>
+        <td class="td-section">CTA neðst</td>
+        <td class="td-what">✏️ CTA undirtexti</td>
+        <td class="td-current">Hafðu samband og fáðu persónulega ráðgjöf eða ókeypis tilboð.</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">66</span></td>
+        <td class="td-section">CTA neðst</td>
+        <td class="td-what">⚙️ 3 CTA-kort (emoji + titill + texti)</td>
+        <td class="td-current">🌿 Skoða vörur | 📞 Hafa samband | 💡 Fá ráðgjöf</td>
+        <td class="td-new"><span class="fill-here">Kort 1: ___ Kort 2: ___ Kort 3: ___</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">99</span></td>
+        <td class="td-section">CTA neðst</td>
+        <td class="td-what">📞 Sambandsupplýsingar (heimilisfang + sími/netfang)</td>
+        <td class="td-current">Lambhagavegur 9, 110 Reykjavík | Sími: 487-8910 | oli@eco-garden.is</td>
+        <td class="td-new"><span class="fill-here">Heimilisfang: ___ Sími: ___ Netfang: ___</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════ 4. HAFA SAMBAND ═══════════ -->
+<div class="page-section">
+  <div class="section-header">📞 HAFA SAMBAND <span class="section-url">— eccogarden.vercel.app/contact</span></div>
+  <table>
+    <thead><tr>
+      <th class="td-num">#</th>
+      <th class="td-section">Hluti</th>
+      <th class="td-what">Hvað breytist</th>
+      <th class="td-current">Núverandi efni</th>
+      <th class="td-new">NÝTT EFNI / NEW CONTENT</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="td-num"><span class="badge-group">46</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">🖼️ Hero bakgrunnsmynd</td>
+        <td class="td-current">Unsplash – gróðurhús (photo-1530836369250)</td>
+        <td class="td-new"><span class="fill-here">Slóð á nýja mynd...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">47</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">✏️ Hero titill</td>
+        <td class="td-current">Við eigum lausnina fyrir þg</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">48</span></td>
+        <td class="td-section">Hero</td>
+        <td class="td-what">✏️ Hero undirtexti</td>
+        <td class="td-current">Hringdu eða sendu okkur línu!</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">49</span></td>
+        <td class="td-section">Sambandsupplýsingar</td>
+        <td class="td-what">📞 Heimilisfang</td>
+        <td class="td-current">Lambhagavegur 9, 110 Reykjavík</td>
+        <td class="td-new"><span class="fill-here">Nýtt heimilisfang...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">50</span></td>
+        <td class="td-section">Sambandsupplýsingar</td>
+        <td class="td-what">📞 Símanúmer</td>
+        <td class="td-current">487-8910</td>
+        <td class="td-new"><span class="fill-here">Nýtt símanúmer...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">51</span></td>
+        <td class="td-section">Sambandsupplýsingar</td>
+        <td class="td-what">📞 Netfang</td>
+        <td class="td-current">oli@eco-garden.is</td>
+        <td class="td-new"><span class="fill-here">Nýtt netfang...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">52</span></td>
+        <td class="td-section">Samfélagsmiðlar</td>
+        <td class="td-what">🔗 Facebook slóð</td>
+        <td class="td-current">facebook.com/Eco-Garden-104951408186641</td>
+        <td class="td-new"><span class="fill-here">https://facebook.com/...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">53</span></td>
+        <td class="td-section">Samfélagsmiðlar</td>
+        <td class="td-what">🔗 LinkedIn slóð</td>
+        <td class="td-current">linkedin.com/company/eco-garden-island</td>
+        <td class="td-new"><span class="fill-here">https://linkedin.com/company/...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">54</span></td>
+        <td class="td-section">Kort</td>
+        <td class="td-what">🗺️ Google Maps staðsetning</td>
+        <td class="td-current">Lambhagavegur 9, Reykjavík (iframe)</td>
+        <td class="td-new"><span class="fill-here">Nýtt Google Maps embed URL...</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════ 5. VÖRUR (Yfirlit) ════════ -->
+<div class="page-section">
+  <div class="section-header">🛒 VÖRUR – Yfirlit <span class="section-url">— eccogarden.vercel.app/products</span></div>
+  <table>
+    <thead><tr>
+      <th class="td-num">#</th>
+      <th class="td-section">Hluti</th>
+      <th class="td-what">Hvað breytist</th>
+      <th class="td-current">Núverandi efni</th>
+      <th class="td-new">NÝTT EFNI / NEW CONTENT</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="td-num"><span class="badge-group">78</span></td>
+        <td class="td-section">Flipa-ræma</td>
+        <td class="td-what">✏️ Flokkaflipa textar (3 meginflokkar)</td>
+        <td class="td-current">Garðyrkjubændur | Landbúnaður | Almennar Garðyrkjuvörur</td>
+        <td class="td-new"><span class="fill-here">Flokkur 1: ___ 2: ___ 3: ___</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">79</span></td>
+        <td class="td-section">Fyrirsögn</td>
+        <td class="td-what">✏️ Vörur hluta fyrirsögn</td>
+        <td class="td-current">Vörur</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+
+      <!-- GARÐYRKJUBÆNDUR subcategories -->
+      <tr><td colspan="5" style="background:#f0fdf4; font-weight:700; color:#15803d; padding:5px 10px; font-size:9pt;">
+        ↳ Undirflokkar: Garðyrkjubændur
+      </td></tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">80</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Gróðurhús / Greenhouses</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">81</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Varmastýring / Climate Control</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">82</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Ræktunarkassar / Growing Systems</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">83</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Vökvunarkerfi / Irrigation Systems</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">84</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">LED ljósabúnaður / LED Grow Lights</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">85</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Hitastigar og mælar / Sensors &amp; Meters</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+
+      <!-- LANDBÚNAÐUR subcategories -->
+      <tr><td colspan="5" style="background:#f0fdf4; font-weight:700; color:#15803d; padding:5px 10px; font-size:9pt;">
+        ↳ Undirflokkar: Landbúnaður
+      </td></tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">86</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Garðyrkjuvélar / Garden Machinery</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">87</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Slátturvélar / Lawn Mowers</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">88</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Sáningabúnaður / Seeding Equipment</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">89</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Heyvinnsla / Hay Processing</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">90</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Girðingaefni / Fencing Materials</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">91</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Hlaðabúnaður / Barn Equipment</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+
+      <!-- ALMENNAR GARÐYRKJUVÖRUR subcategories -->
+      <tr><td colspan="5" style="background:#f0fdf4; font-weight:700; color:#15803d; padding:5px 10px; font-size:9pt;">
+        ↳ Undirflokkar: Almennar Garðyrkjuvörur
+      </td></tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">92</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Garðverkfæri / Garden Tools</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">93</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Garðhúsgögn / Garden Furniture</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">94</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Pottaplöntur / Potted Plants</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">95</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Jarðvegur og áburður / Soil &amp; Fertilizer</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">96</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Girðingar og skreyting / Fences &amp; Decorations</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">97</span></td>
+        <td class="td-section">Undirflokkur</td>
+        <td class="td-what">🖼️ Tile — heiti + mynd</td>
+        <td class="td-current">Vatnsslöngur / Hoses</td>
+        <td class="td-new"><span class="fill-here">Heiti IS/EN + mynd slóð...</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════ 6. VARA SÍÐA ══════════════ -->
+<div class="page-section">
+  <div class="section-header">📦 VARA – Einstaka vara <span class="section-url">— eccogarden.vercel.app/products/[vara-nafn]</span></div>
+  <table>
+    <thead><tr>
+      <th class="td-num">#</th>
+      <th class="td-section">Hluti</th>
+      <th class="td-what">Hvað breytist</th>
+      <th class="td-current">Núverandi efni (dæmi)</th>
+      <th class="td-new">NÝTT EFNI / NEW CONTENT</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="td-num"><span class="badge-group">63</span></td>
+        <td class="td-section">Myndasafn</td>
+        <td class="td-what">🖼️ Aðalmynd vöru (og aukamyndir)</td>
+        <td class="td-current">Vara aðalmynd</td>
+        <td class="td-new"><span class="fill-here">Slóð á mynd(ir)...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">57</span></td>
+        <td class="td-section">Vara info</td>
+        <td class="td-what">✏️ Vöruheiti</td>
+        <td class="td-current">t.d. Gróðurhús Pro 6x12</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">58</span></td>
+        <td class="td-section">Vara info</td>
+        <td class="td-what">✏️ Verð</td>
+        <td class="td-current">t.d. 450,000 kr</td>
+        <td class="td-new"><span class="fill-here">Verð í kr...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">59</span></td>
+        <td class="td-section">Vara info</td>
+        <td class="td-what">✏️ Lýsing vöru (löng lýsing)</td>
+        <td class="td-current">Fullbúið íslenskt gróðurhús...</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu lýsingu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">60</span></td>
+        <td class="td-section">Vara info</td>
+        <td class="td-what">✏️ Kostir / features (listi)</td>
+        <td class="td-current">• 6x12m stærð • Stálgrind • LED ljós...</td>
+        <td class="td-new"><span class="fill-here">• Eiginleiki 1 • Eiginleiki 2 • ...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">61</span></td>
+        <td class="td-section">CTA</td>
+        <td class="td-what">⚙️ CTA titill (neðst á vörusíðu)</td>
+        <td class="td-current">Hafðu samband vegna þessarar vöru</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">62</span></td>
+        <td class="td-section">CTA</td>
+        <td class="td-what">⚙️ CTA texti (undir titlinum)</td>
+        <td class="td-current">Sendu okkur fyrirspurn eða hringdu beint</td>
+        <td class="td-new"><span class="fill-here">Skrifaðu hér...</span></td>
+      </tr>
+      <tr>
+        <td class="td-num"><span class="badge-group">98</span></td>
+        <td class="td-section">Vörukort</td>
+        <td class="td-what">🖼️ Vörukort í lista — mynd + heiti + verð</td>
+        <td class="td-current">(sett upp per vara í lib/products.ts)</td>
+        <td class="td-new"><span class="fill-here">Sjá neðst – listi yfir vörur</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════ 7. VARA LISTI ═════════════ -->
+<div class="page-section">
+  <div class="section-header">📋 VARA-LISTI – Allar vörur (lib/products.ts)</div>
+  <table>
+    <thead><tr>
+      <th style="width:60px">Nr.</th>
+      <th style="width:200px">Núverandi heiti</th>
+      <th style="width:120px">Flokkur</th>
+      <th style="width:120px">Undirflokkur</th>
+      <th style="width:80px">Verð (kr)</th>
+      <th>Nýtt heiti / lýsing / verð</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Gróðurhús Pro 6x12</td><td>Garðyrkjubændur</td><td>Gróðurhús</td><td>450,000</td><td class="td-new"><span class="fill-here">Breytingar...</span></td></tr>
+      <tr><td>2</td><td>Gróðurhús Hobby 3x6</td><td>Garðyrkjubændur</td><td>Gróðurhús</td><td>189,000</td><td class="td-new"><span class="fill-here">Breytingar...</span></td></tr>
+      <tr><td>3</td><td>Gróðurhús Commercial 10x20</td><td>Garðyrkjubændur</td><td>Gróðurhús</td><td>890,000</td><td class="td-new"><span class="fill-here">Breytingar...</span></td></tr>
+      <tr><td>4</td><td>Hitastýring Pro HT-200</td><td>Garðyrkjubændur</td><td>Varmastýring</td><td>85,000</td><td class="td-new"><span class="fill-here">Breytingar...</span></td></tr>
+      <tr><td>5</td><td>Smart Climate Controller</td><td>Garðyrkjubændur</td><td>Varmastýring</td><td>145,000</td><td class="td-new"><span class="fill-here">Breytingar...</span></td></tr>
+      <tr><td>6</td><td>Ræktunarkassar 1x2m</td><td>Garðyrkjubændur</td><td>Ræktunarkassar</td><td>45,000</td><td class="td-new"><span class="fill-here">Breytingar...</span></td></tr>
+      <tr><td>7</td><td>Vökvunarkerfi Drip Pro</td><td>Garðyrkjubændur</td><td>Vökvunarkerfi</td><td>65,000</td><td class="td-new"><span class="fill-here">Breytingar...</span></td></tr>
+      <tr><td>…</td><td colspan="4"><em>o.s.frv. – 35 vörur alls (sjá vollinn lista á /products)</em></td><td class="td-new"><span class="fill-here">Skráðu breytingar...</span></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:8pt; color:#9ca3af; margin:8px 0 0 4px;">* Til að bæta við eða breyta vörum í heild: senda lista til þróunarteymis (heiti, lýsing, verð, flokkur, myndir).</p>
+</div>
+
+<!-- ═══════════════════════ 8. ATHUGASEMDIR ══════════ -->
+<div class="page-section">
+  <div class="section-header">📝 ATHUGASEMDIR</div>
+  <table>
+    <thead><tr>
+      <th style="width:200px">Liður</th>
+      <th>Athugasemd frá kúnna</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Almennar athugasemdir</td><td class="td-new" style="height:60px"><span class="fill-here">Skrifaðu hér...</span></td></tr>
+      <tr><td>Myndir sem þarf að fá</td><td class="td-new" style="height:60px"><span class="fill-here">Listi yfir myndir...</span></td></tr>
+      <tr><td>Textar sem þarf að endurskoða</td><td class="td-new" style="height:60px"><span class="fill-here">Skrifaðu hér...</span></td></tr>
+      <tr><td>Aðrar breytingar</td><td class="td-new" style="height:60px"><span class="fill-here">Skrifaðu hér...</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p style="font-size:8pt; color:#9ca3af; text-align:center; margin-top:40px; padding-top:16px; border-top:1px solid #e5e7eb;">
+  Eco Garden – Efnisyfirlit | eccogarden.vercel.app | Útbúið: Febrúar 2026
+</p>
+
+</body>
+</html>
