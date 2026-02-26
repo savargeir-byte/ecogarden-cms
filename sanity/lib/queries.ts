@@ -3,16 +3,19 @@ import { groq } from 'next-sanity'
 // ── Forsíða ──────────────────────────────────────────────────
 export const homePageQuery = groq`
   *[_type == "homePage" && _id == "homePage"][0] {
-    title_is,
-    title_en,
-    subtitle_is,
-    subtitle_en,
+    title_is, title_en,
+    subtitle_is, subtitle_en,
     "heroImage": image.asset->url,
-    imageAlt_is,
-    imageAlt_en,
-    ctaText_is,
-    ctaText_en,
-    ctaLink
+    imageAlt_is, imageAlt_en,
+    ctaText_is, ctaText_en, ctaLink,
+    missionHeading_is, missionHeading_en,
+    missionText_is, missionText_en,
+    missionDesc_is, missionDesc_en,
+    statsHeading_is, statsHeading_en,
+    statsSubheading_is, statsSubheading_en,
+    stat1Value, stat1Suffix, stat1Label_is, stat1Label_en, stat1Desc_is, stat1Desc_en,
+    stat2Value, stat2Suffix, stat2Label_is, stat2Label_en, stat2Desc_is, stat2Desc_en,
+    stat3Value, stat3Suffix, stat3Label_is, stat3Label_en, stat3Desc_is, stat3Desc_en
   }
 `
 
