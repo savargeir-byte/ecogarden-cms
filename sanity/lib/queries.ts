@@ -7,7 +7,7 @@ export const homePageQuery = groq`
     title_en,
     subtitle_is,
     subtitle_en,
-    image,
+    "heroImage": image.asset->url,
     imageAlt_is,
     imageAlt_en,
     ctaText_is,
