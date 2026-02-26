@@ -1,5 +1,19 @@
 import { Suspense } from 'react';
 import ProductsClient from './ProductsClient';
+import type { Metadata } from 'next';
+
+const BASE_URL = 'https://eccogarden.vercel.app';
+
+export const metadata: Metadata = {
+  title: 'Vörur',
+  description: 'Garðyrkju- og landbúnaðarvörur – gróðurhús, varmastýring, ræktunarlausnir og fleira. Valdar af fagfólki með 50+ ára reynslu.',
+  alternates: { canonical: `${BASE_URL}/products` },
+  openGraph: {
+    title: 'Vörur – Eco Garden',
+    description: 'Garðyrkju- og landbúnaðarvörur – gróðurhús, varmastýring, ræktunarlausnir og fleira.',
+    url: `${BASE_URL}/products`,
+  },
+};
 
 export const dynamic = 'force-dynamic';
 
