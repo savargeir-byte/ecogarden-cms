@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     const body = await request.json();
-    const { name, email, phone, company, message } = body;
+    const { name, email, phone, address, service, message } = body;
 
     if (!name || !email) {
       return NextResponse.json({ error: 'Nafn og netfang eru nauðsynleg.' }, { status: 400 });
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       from: FROM_EMAIL,
       to: [TO_EMAIL],
       replyTo: email,
-      subject: `Ný fyrirspurn frá ${name}${company ? ` (${company})` : ''}`,
+      subject: `Ný fyrirspurn frá ${name}${service ? ` — ${service}` : ''}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f9fafb; padding: 0;">
           <!-- Header -->
@@ -41,9 +41,13 @@ export async function POST(request: Request) {
                 <td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #6b7280; font-size: 14px; font-weight: 600;">Sími</td>
                 <td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; font-size: 14px;"><a href="tel:${phone}" style="color: #15803d;">${phone}</a></td>
               </tr>` : ''}
-              ${company ? `<tr>
-                <td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #6b7280; font-size: 14px; font-weight: 600;">Fyrirtæki</td>
-                <td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-size: 14px;">${company}</td>
+              ${address ? `<tr>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #6b7280; font-size: 14px; font-weight: 600;">Heimilisfang</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-size: 14px;">${address}</td>
+              </tr>` : ''}
+              ${service ? `<tr>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #6b7280; font-size: 14px; font-weight: 600;">Þjónusta</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-size: 14px;">${service}</td>
               </tr>` : ''}
             </table>
 

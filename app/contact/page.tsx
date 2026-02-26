@@ -20,9 +20,10 @@ import EditBadge from '@/components/EditBadge';
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
-    phone: '',
     email: '',
-    company: '',
+    phone: '',
+    address: '',
+    service: '',
     message: ''
   });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -47,14 +48,14 @@ export default function ContactPage() {
       }
 
       setStatus('success');
-      setFormData({ name: '', phone: '', email: '', company: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', address: '', service: '', message: '' });
     } catch (err) {
       console.error('Contact fetch error:', err);
       setStatus('error');
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -174,72 +175,99 @@ export default function ContactPage() {
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                        Nafn *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all"
-                        placeholder="Fullt nafn"
-                      />
-                    </div>
 
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                        Phone
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all"
-                        placeholder="Símanúmer"
-                      />
-                    </div>
+                  {/* Nafn */}
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                      Nafn *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all"
+                      placeholder="Fullt nafn"
+                    />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all"
-                        placeholder="netfang@example.is"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
-                        Fyrirtæki
-                      </label>
-                      <input
-                        type="text"
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all"
-                        placeholder="Fyrirtækið þitt"
-                      />
-                    </div>
+                  {/* Email */}
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Netfang *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all"
+                      placeholder="netfang@example.is"
+                    />
                   </div>
 
+                  {/* Sími */}
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                      Sími
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all"
+                      placeholder="Símanúmer"
+                    />
+                  </div>
+
+                  {/* Heimilisfang */}
+                  <div>
+                    <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                      Heimilisfang
+                    </label>
+                    <input
+                      type="text"
+                      id="address"
+                      name="address"
+                      value={formData.address}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all"
+                      placeholder="Gata, póstnúmer, staður"
+                    />
+                  </div>
+
+                  {/* Þjónusta */}
+                  <div>
+                    <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1">
+                      Þjónusta
+                    </label>
+                    <select
+                      id="service"
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent transition-all bg-white text-gray-700"
+                    >
+                      <option value="">Veldu þjónustu...</option>
+                      <option value="Gróðurhús">Gróðurhús</option>
+                      <option value="Varmastýring">Varmastýring</option>
+                      <option value="Ræktunarlausnir">Ræktunarlausnir</option>
+                      <option value="Vökvunarkerfi">Vökvunarkerfi</option>
+                      <option value="LED ljósabúnaður">LED ljósabúnaður</option>
+                      <option value="Landbúnaðarvörur">Landbúnaðarvörur</option>
+                      <option value="Garðverkfæri og vörur">Garðverkfæri og vörur</option>
+                      <option value="Ráðgjöf">Ráðgjöf</option>
+                      <option value="Annað">Annað</option>
+                    </select>
+                  </div>
+
+                  {/* Skilaboð */}
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                       Skilaboð
