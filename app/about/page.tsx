@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import EditBadge from '@/components/EditBadge';
 import { client } from '@/sanity/lib/client';
-import { aboutPageQuery } from '@/sanity/lib/queries';
+import { aboutPageQuery, siteSettingsQuery } from '@/sanity/lib/queries';
 
 const DEFAULTS = {
   heroTitle: 'Garðlausnir sem endast',
@@ -45,7 +45,14 @@ const DEFAULTS = {
 };
 
 export default async function AboutPage() {
-  const s = await client.fetch(aboutPageQuery).catch(() => null);
+  const [s, settings] = await Promise.all([
+    client.fetch(aboutPageQuery).catch(() => null),
+    client.fetch(siteSettingsQuery).catch(() => null),
+  ]);
+
+  const contactAddress = settings?.address     ?? 'Lambhagavegur 9, 110 Reykjavík';
+  const contactPhone   = settings?.phone       ?? '487-8910';
+  const contactEmail   = settings?.email       ?? 'info@ecogarden.is';
 
   const heroTitle    = s?.heroTitle_is    ?? DEFAULTS.heroTitle;
   const heroSubtitle = s?.heroSubtitle_is ?? DEFAULTS.heroSubtitle;
@@ -296,10 +303,10 @@ export default async function AboutPage() {
             <EditBadge n={99} />
             <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 text-white">
               <div>
-                <p className="text-xs sm:text-sm font-semibold">Lambhagavegur 9, 110 Reykjavík</p>
+                <p className="text-xs sm:text-sm font-semibold">{contactAddress}</p>
               </div>
               <div>
-                <p className="text-xs sm:text-sm font-semibold">Sími: 487-8910 | oli@eco-garden.is</p>
+                <p className="text-xs sm:text-sm font-semibold">Sími: {contactPhone} | {contactEmail}</p>
               </div>
             </div>
           </div>

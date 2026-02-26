@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client';
-import { contactPageQuery } from '@/sanity/lib/queries';
+import { contactPageQuery, siteSettingsQuery } from '@/sanity/lib/queries';
 import ContactClient from './ContactClient';
 
 const DEFAULTS = {
@@ -8,25 +8,33 @@ const DEFAULTS = {
   heroSubtitle: 'Hringdu eða sendu okkur línu!',
   address: 'Lambhagavegur 9\n110 Reykjavík',
   phone: '487-8910',
-  email: 'oli@eco-garden.is',
+  email: 'info@ecogarden.is',
+  openingHours: 'Mán–Fös: 8:00–17:00',
   facebookUrl: 'https://www.facebook.com/Eco-Garden-104951408186641',
   linkedinUrl: 'https://www.linkedin.com/company/eco-garden-island',
+  instagramUrl: '',
   mapEmbedSrc:
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1742.8324567890123!2d-21.9!3d64.14!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNjTCsDA4JzI0LjAiTiAyMcKwNTQnMDAuMCJX!5e0!3m2!1sen!2sis!4v1234567890123!5m2!1sen!2sis',
 };
 
 export default async function ContactPage() {
-  const data = await client.fetch(contactPageQuery).catch(() => null);
+  const [pageData, settings] = await Promise.all([
+    client.fetch(contactPageQuery).catch(() => null),
+    client.fetch(siteSettingsQuery).catch(() => null),
+  ]);
 
-  const heroImage    = data?.heroImage    ?? DEFAULTS.heroImage;
-  const heroTitle    = data?.heroTitle    ?? DEFAULTS.heroTitle;
-  const heroSubtitle = data?.heroSubtitle ?? DEFAULTS.heroSubtitle;
-  const address      = data?.address      ?? DEFAULTS.address;
-  const phone        = data?.phone        ?? DEFAULTS.phone;
-  const email        = data?.email        ?? DEFAULTS.email;
-  const facebookUrl  = data?.facebookUrl  ?? DEFAULTS.facebookUrl;
-  const linkedinUrl  = data?.linkedinUrl  ?? DEFAULTS.linkedinUrl;
-  const mapEmbedSrc  = data?.mapEmbedSrc  ?? DEFAULTS.mapEmbedSrc;
+  const heroImage    = pageData?.heroImage        ?? DEFAULTS.heroImage;
+  const heroTitle    = pageData?.heroTitle_is      ?? DEFAULTS.heroTitle;
+  const heroSubtitle = pageData?.heroSubtitle_is   ?? DEFAULTS.heroSubtitle;
+  // Contact info always from Stillingar so one place to edit
+  const address      = settings?.address           ?? DEFAULTS.address;
+  const phone        = settings?.phone             ?? DEFAULTS.phone;
+  const email        = settings?.email             ?? DEFAULTS.email;
+  const openingHours = settings?.openingHours_is   ?? DEFAULTS.openingHours;
+  const facebookUrl  = pageData?.facebookUrl       ?? DEFAULTS.facebookUrl;
+  const linkedinUrl  = pageData?.linkedinUrl       ?? DEFAULTS.linkedinUrl;
+  const instagramUrl = pageData?.instagramUrl      ?? DEFAULTS.instagramUrl;
+  const mapEmbedSrc  = pageData?.mapEmbedSrc       ?? DEFAULTS.mapEmbedSrc;
 
   return (
     <ContactClient
@@ -36,8 +44,10 @@ export default async function ContactPage() {
       address={address}
       phone={phone}
       email={email}
+      openingHours={openingHours}
       facebookUrl={facebookUrl}
       linkedinUrl={linkedinUrl}
+      instagramUrl={instagramUrl}
       mapEmbedSrc={mapEmbedSrc}
     />
   );
