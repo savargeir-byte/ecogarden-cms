@@ -1,0 +1,42 @@
+import { defineType, defineField } from 'sanity'
+
+export const homePageSchema = defineType({
+  name: 'homePage',
+  title: 'Forsíða',
+  type: 'document',
+  fields: [
+    // ── Hero ──────────────────────────────────────────────
+    defineField({ name: 'title_is',    title: 'Hero titill (IS)',     type: 'string' }),
+    defineField({ name: 'title_en',    title: 'Hero titill (EN)',     type: 'string' }),
+    defineField({ name: 'subtitle_is', title: 'Hero undirtexti (IS)', type: 'text', rows: 2 }),
+    defineField({ name: 'subtitle_en', title: 'Hero undirtexti (EN)', type: 'text', rows: 2 }),
+    defineField({ name: 'image',       title: 'Hero bakgrunnsmynd',   type: 'image', options: { hotspot: true } }),
+    defineField({ name: 'imageAlt_is', title: 'Mynd alt-texti (IS)',  type: 'string' }),
+    defineField({ name: 'imageAlt_en', title: 'Mynd alt-texti (EN)',  type: 'string' }),
+    defineField({ name: 'ctaText_is',  title: 'CTA hnappur (IS)',     type: 'string' }),
+    defineField({ name: 'ctaText_en',  title: 'CTA hnappur (EN)',     type: 'string' }),
+    defineField({ name: 'ctaLink',     title: 'CTA slóð',             type: 'string' }),
+    // ── Mission ───────────────────────────────────────────
+    defineField({ name: 'missionHeading_is', title: 'Mission fyrirsögn (IS)', type: 'string' }),
+    defineField({ name: 'missionHeading_en', title: 'Mission fyrirsögn (EN)', type: 'string' }),
+    defineField({ name: 'missionText_is',    title: 'Mission texti (IS)',     type: 'text', rows: 2 }),
+    defineField({ name: 'missionText_en',    title: 'Mission texti (EN)',     type: 'text', rows: 2 }),
+    defineField({ name: 'missionDesc_is',    title: 'Mission lýsing (IS)',    type: 'text', rows: 3 }),
+    defineField({ name: 'missionDesc_en',    title: 'Mission lýsing (EN)',    type: 'text', rows: 3 }),
+    // ── Stats ─────────────────────────────────────────────
+    defineField({ name: 'statsHeading_is', title: 'Stats fyrirsögn (IS)', type: 'string' }),
+    defineField({ name: 'statsHeading_en', title: 'Stats fyrirsögn (EN)', type: 'string' }),
+    defineField({ name: 'stat1Value',   title: 'Tala 1 (t.d. 500)',    type: 'number' }),
+    defineField({ name: 'stat1Label_is', title: 'Tala 1 texti (IS)',   type: 'string' }),
+    defineField({ name: 'stat1Label_en', title: 'Tala 1 texti (EN)',   type: 'string' }),
+    defineField({ name: 'stat2Value',   title: 'Tala 2',               type: 'number' }),
+    defineField({ name: 'stat2Label_is', title: 'Tala 2 texti (IS)',   type: 'string' }),
+    defineField({ name: 'stat2Label_en', title: 'Tala 2 texti (EN)',   type: 'string' }),
+    defineField({ name: 'stat3Value',   title: 'Tala 3',               type: 'number' }),
+    defineField({ name: 'stat3Label_is', title: 'Tala 3 texti (IS)',   type: 'string' }),
+    defineField({ name: 'stat3Label_en', title: 'Tala 3 texti (EN)',   type: 'string' }),
+  ],
+  preview: {
+    prepare: () => ({ title: 'Forsíða' }),
+  },
+})
