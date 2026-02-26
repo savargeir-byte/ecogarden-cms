@@ -94,9 +94,14 @@ export const allCategoriesQuery = groq`
     "slug": slug.current,
     "image": image.asset->url,
     subcategories[] {
+      _key,
       title_is,
       title_en,
-      slug
+      slug,
+      description_is,
+      description_en,
+      "image": image.asset->url,
+      "images": images[].asset->url
     }
   }
 `
