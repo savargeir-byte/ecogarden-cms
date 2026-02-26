@@ -22,6 +22,7 @@ export const categorySchema = defineType({
           { name: 'title_is', type: 'string', title: 'Nafn (IS)' },
           { name: 'title_en', type: 'string', title: 'Nafn (EN)' },
           { name: 'slug',     type: 'string', title: 'Slóð (t.d. grodur-hus)' },
+          { name: 'image',    type: 'image',  title: 'Mynd', options: { hotspot: true } },
         ],
         preview: {
           select: { title: 'title_is' },

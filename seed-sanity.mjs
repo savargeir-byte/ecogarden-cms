@@ -291,4 +291,29 @@ for (const cat of categories) {
   console.log(`   ✓ ${cat.title_is}`);
 }
 
+// ── 6. STILLINGAR (siteSettings) ─────────────────────────────
+console.log('\n6️⃣  Stillingar...');
+await deleteIfExists('siteSettings');
+await client.createOrReplace({
+  _id: 'siteSettings',
+  _type: 'siteSettings',
+  // Um okkur hero
+  aboutHeroTitle_is: 'Garðlausnir sem endast',
+  aboutHeroTitle_en: 'Garden Solutions That Last',
+  aboutHeroSubtitle_is: 'Við hönnum lausnir fyrir íslenskar aðstæður. 50+ ára reynsla í garðyrkju og fagleg ráðgjöf frá upphafi.',
+  aboutHeroSubtitle_en: 'We design solutions for Icelandic conditions. 50+ years of horticultural experience and professional guidance.',
+  // Hafa samband hero
+  contactHeroTitle_is: 'Við eigum lausnina fyrir þig',
+  contactHeroTitle_en: 'We Have the Solution for You',
+  contactHeroSubtitle_is: 'Hringdu eða sendu okkur línu!',
+  contactHeroSubtitle_en: 'Call or send us a message!',
+  // Samskiptaupplýsingar
+  phone: '487-8910',
+  email: 'info@ecogarden.is',
+  address: 'Lambhagavegur 9, 110 Reykjavík',
+  openingHours_is: 'Mán–Fös: 8:00–17:00',
+  openingHours_en: 'Mon–Fri: 8:00–17:00',
+});
+console.log('   ✓ Stillingar');
+
 console.log('\n✅ Lokið! Farðu á Studio og skoðaðu efnið:\n   https://ecogarden-cms.vercel.app/studio\n');
