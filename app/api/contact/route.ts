@@ -1,12 +1,11 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const TO_EMAIL = 'proctus@proctus.is';
 const FROM_EMAIL = 'Eco Garden <onboarding@resend.dev>';
 
 export async function POST(request: Request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     const body = await request.json();
     const { name, email, phone, company, message } = body;
