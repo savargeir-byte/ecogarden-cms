@@ -8,10 +8,11 @@ import ProductCard from '@/components/ProductCard'
 export default async function CategoryPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
+  const { slug } = await params
   const category = await client.fetch(categoryWithChildrenQuery, {
-    slug: params.slug,
+    slug,
   })
 
   if (!category) {
