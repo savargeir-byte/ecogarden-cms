@@ -1,5 +1,8 @@
 {
   "buildCommand": "npm run build",
   "cleanUrls": true,
-  "version": 2
+  "version": 2,
+  "redirects": [
+    { "source": "/admin/:path*", "destination": "/", "permanent": false }
+  ]
 }
