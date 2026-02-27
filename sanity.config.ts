@@ -42,6 +42,9 @@ export default defineConfig({
             // ── Vörur & Flokkar ────────────────────────────
             S.documentTypeListItem('product').title('🌿 Vörur'),
             S.documentTypeListItem('category').title('📁 Flokkar'),
+            S.divider(),
+            // ── Fréttir ────────────────────────────────────
+            S.documentTypeListItem('news').title('📰 Fréttir'),
           ]),
     }),
     visionTool(),
