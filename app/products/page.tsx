@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import ProductsClient from './ProductsClient';
 import type { Metadata } from 'next';
 import { client } from '@/sanity/lib/client';
-import { allCategoriesQuery, productsPageQuery } from '@/sanity/lib/queries';
+import { nestedCategoriesForProductsQuery, productsPageQuery } from '@/sanity/lib/queries';
 
 const BASE_URL = 'https://eccogarden.vercel.app';
 
@@ -21,7 +21,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function ProductsPage() {
   const [sanityCategories, productsPageData] = await Promise.all([
-    client.fetch(allCategoriesQuery).catch(() => null),
+    client.fetch(nestedCategoriesForProductsQuery).catch(() => null),
     client.fetch(productsPageQuery).catch(() => null),
   ]);
 

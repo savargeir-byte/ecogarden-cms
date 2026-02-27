@@ -385,7 +385,32 @@ export const productsByProductTypeQuery = groq`
 `
 
 // ────────────────────────────────────────────────────────────
-// NESTED CATEGORY SYSTEM (NÝTT!)
+// ── Aðalflokkar með undirflokkum fyrir vörusíðu ──────────────
+export const nestedCategoriesForProductsQuery = groq`
+  *[_type == "categoryNested" && !defined(parent)] | order(order asc) {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    icon,
+    description_is,
+    description_en,
+    "image": image.asset->url,
+    "subcategories": *[_type == "categoryNested" && parent._ref == ^._id] | order(order asc) {
+      "_key": _id,
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      icon,
+      description_is,
+      description_en,
+      "image": image.asset->url
+    }
+  }
+`
+
+// NESTED CATEGORY SYSTEM
 // ────────────────────────────────────────────────────────────
 
 // ── Allir aðalflokkar (enginn parent) ─────────────────────────
