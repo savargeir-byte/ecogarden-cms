@@ -153,3 +153,37 @@ export const productsPageQuery = groq`
     heroSubtitle_is, heroSubtitle_en
   }
 `
+
+// ── Allar fréttir ────────────────────────────────────────────
+export const allNewsQuery = groq`
+  *[_type == "news"] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    "mainImage": mainImage.asset->url
+  }
+`
+
+// ── 3 nýjustu fréttir (fyrir forsíðu) ──────────────────────
+export const latestNewsQuery = groq`
+  *[_type == "news"] | order(publishedAt desc) [0..2] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    "mainImage": mainImage.asset->url
+  }
+`
+
+// ── Ein frétt (eftir slug) ───────────────────────────────────
+export const newsBySlugQuery = groq`
+  *[_type == "news" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    "mainImage": mainImage.asset->url,
+    body
+  }
+`

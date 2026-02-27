@@ -5,6 +5,7 @@ import { categorySchema } from './category'
 import { aboutPageSchema } from './aboutPage'
 import { contactPageSchema } from './contactPage'
 import { productsPageSchema } from './productsPage'
+import { newsSchema } from './news'
 
 export const schemaTypes = [
   homePageSchema,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   aboutPageSchema,
   contactPageSchema,
   productsPageSchema,
+  newsSchema,
 ]

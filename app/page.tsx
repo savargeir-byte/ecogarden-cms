@@ -3,13 +3,15 @@ import StatsSection from '@/components/sections/StatsSection';
 import MissionSection from '@/components/sections/MissionSection';
 import Hero from '@/components/sections/Hero';
 import { client } from '@/sanity/lib/client';
-import { homePageQuery, allCategoriesQuery } from '@/sanity/lib/queries';
+import { homePageQuery, allCategoriesQuery, latestNewsQuery } from '@/sanity/lib/queries';
+import Link from 'next/link';
 
 export default async function Home() {
   // Fetch frá Sanity — fallback í hardcoded ef tómt
-  const [sanityHome, sanityCategories] = await Promise.all([
+  const [sanityHome, sanityCategories, latestNews] = await Promise.all([
     client.fetch(homePageQuery).catch(() => null),
     client.fetch(allCategoriesQuery).catch(() => null),
+    client.fetch(latestNewsQuery).catch(() => []),
   ]);
 
   const heroData = {
@@ -47,6 +49,76 @@ export default async function Home() {
       <HomeCategoriesSection categories={sanityCategories ?? undefined} />
       <MissionSection heading={missionHeading} text={missionText} desc={missionDesc} />
       <StatsSection heading={statsHeading} subheading={statsSubheading} stats={sanityStats} />
+
+      {/* Nýjustu fréttir */}
+      {latestNews && latestNews.length > 0 && (
+        <section className="bg-gray-50 py-20 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <h2 className="text-4xl font-bold text-gray-900">Nýjustu fréttir</h2>
+                <p className="text-gray-500 mt-2">Fréttir og tilkynningar frá Eco Garden</p>
+              </div>
+              <Link
+                href="/news"
+                className="hidden sm:inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold text-sm"
+              >
+                Sjá allar fréttir
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {latestNews.map((item: { _id: string; title: string; slug: string; publishedAt: string | null; mainImage: string | null }) => (
+                <Link
+                  key={item._id}
+                  href={`/news/${item.slug}`}
+                  className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+                >
+                  <div className="relative h-52 bg-gray-100 overflow-hidden">
+                    {item.mainImage ? (
+                      <img
+                        src={item.mainImage}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-300 text-5xl">📰</div>
+                    )}
+                  </div>
+                  <div className="p-6 flex flex-col flex-1">
+                    {item.publishedAt && (
+                      <p className="text-sm text-green-600 font-medium mb-2">
+                        {new Date(item.publishedAt).toLocaleDateString('is-IS', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      </p>
+                    )}
+                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-green-700 transition-colors leading-snug">
+                      {item.title}
+                    </h3>
+                    <div className="mt-auto pt-4 flex items-center gap-1 text-green-600 font-semibold text-sm">
+                      Lesa meira
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-10 text-center sm:hidden">
+              <Link href="/news" className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold">
+                Sjá allar fréttir
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
