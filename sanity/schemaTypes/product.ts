@@ -28,7 +28,37 @@ export const productSchema = defineType({
         ],
       },
     }),
-    defineField({ name: 'subcategory', title: 'Undirflokkur', type: 'string' }),
+    defineField({
+      name: 'subcategory',
+      title: 'Undirflokkur',
+      type: 'string',
+      hidden: ({ document }) => !document?.category,
+      options: {
+        list: [
+          // Garðyrkjubændur
+          { value: 'grodur hus',           title: 'Gróðurhús (Garðyrkjubændur)' },
+          { value: 'varmast yring',         title: 'Varmastýring (Garðyrkjubændur)' },
+          { value: 'raektunarkassar',       title: 'Ræktunarkassar (Garðyrkjubændur)' },
+          { value: 'vokvunarkerfi',         title: 'Vökvunarkerfi (Garðyrkjubændur)' },
+          { value: 'led-ljosabunadur',      title: 'LED ljósabúnaður (Garðyrkjubændur)' },
+          { value: 'hitastigar-og-maelar',  title: 'Hitastigar og mælar (Garðyrkjubændur)' },
+          // Landbúnaður
+          { value: 'gardyrkjuvelar',  title: 'Garðyrkjuvélar (Landbúnaður)' },
+          { value: 'slatturvelar',    title: 'Slátturvélar (Landbúnaður)' },
+          { value: 'saningabunadur',  title: 'Sáningabúnaður (Landbúnaður)' },
+          { value: 'heyvinnsla',      title: 'Heyvinnsla (Landbúnaður)' },
+          { value: 'girdingaefni',    title: 'Girðingaefni (Landbúnaður)' },
+          { value: 'hladabunadur',    title: 'Hlaðabúnaður (Landbúnaður)' },
+          // Almennar Garðyrkjuvörur
+          { value: 'gardverkfaeri',       title: 'Garðverkfæri (Almennar)' },
+          { value: 'gardhusgo gn',        title: 'Garðhúsgögn (Almennar)' },
+          { value: 'pottaplantur',        title: 'Pottaplöntur (Almennar)' },
+          { value: 'jardvegur-aburur',    title: 'Jarðvegur og áburður (Almennar)' },
+          { value: 'girdingar-skreyting', title: 'Girðingar og skreyting (Almennar)' },
+          { value: 'vatnsslongur',        title: 'Vatnsslöngur (Almennar)' },
+        ],
+      },
+    }),
     defineField({
       name: 'status',
       title: 'Staða',
