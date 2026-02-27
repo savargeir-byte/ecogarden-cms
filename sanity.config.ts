@@ -43,7 +43,13 @@ export default defineConfig({
             S.divider(),
             // ── Vörur & Flokkar ────────────────────────────
             S.documentTypeListItem('product').title('🌿 Vörur'),
-            S.documentTypeListItem('category').title('📁 Flokkar'),
+            S.documentTypeListItem('categoryNested').title('📂 Vöruflokkar (Nýtt!)'),
+            S.divider(),
+            // Legacy flokkar
+            S.documentTypeListItem('category').title('📁 Flokkar (Gamalt)'),
+            S.documentTypeListItem('industry').title('🏭 Rekstur (Gamalt)'),
+            S.documentTypeListItem('solution').title('🔧 Lausnir (Gamalt)'),
+            S.documentTypeListItem('productType').title('📦 Vörutegundir (Gamalt)'),
             S.divider(),
             // ── Fréttir ────────────────────────────────────
             S.documentTypeListItem('news').title('📰 Fréttir'),

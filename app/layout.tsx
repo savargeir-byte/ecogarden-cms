@@ -18,6 +18,15 @@ export const metadata: Metadata = {
   publisher: 'Eco Garden',
   robots: { index: true, follow: true },
   alternates: { canonical: BASE_URL },
+  icons: {
+    icon: [
+      { url: '/logo.svg', type: 'image/svg+xml' },
+      { url: '/logo.svg', sizes: '32x32', type: 'image/svg+xml' },
+      { url: '/logo.svg', sizes: '16x16', type: 'image/svg+xml' },
+    ],
+    apple: { url: '/logo.svg', type: 'image/svg+xml' },
+    shortcut: '/logo.svg',
+  },
   openGraph: {
     type: 'website',
     locale: 'is_IS',
@@ -45,7 +54,7 @@ const orgJsonLd = {
   '@type': 'Organization',
   name: 'Eco Garden',
   url: BASE_URL,
-  logo: `${BASE_URL}/favicon.ico`,
+  logo: `${BASE_URL}/logo.svg`,
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: '+354-487-8910',

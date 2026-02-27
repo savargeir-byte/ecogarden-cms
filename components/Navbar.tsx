@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -38,20 +39,22 @@ export default function Navbar() {
           <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-14 sm:h-16' : 'h-20 sm:h-24'}`}>
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
-              <div className={`flex items-center gap-2 transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'}`}>
-                <div className={`bg-gradient-to-br from-green-500 to-green-700 rounded-lg p-2 transition-all duration-300 ${scrolled ? 'w-8 h-8' : 'w-10 h-10'}`}>
-                  <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-white">
-                    <path d="M12 2L4 7v10c0 5.55 3.84 10 8 10s8-4.45 8-10V7l-8-5z" fill="currentColor" opacity="0.3"/>
-                    <path d="M12 2v10M12 12l-4 4M12 12l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </div>
-                {/* ── LOGO TEXTI ─────────────────────────────────
-                    Breyttu "Eco" og "Garden" til að endurnefna logo */}
-                {/* [73] NAVBAR — Logo texti ("EcoGarden") */}
+              <div className={`flex items-center gap-3 transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'}`}>
+                {/* ── ECOGARDEN LOGO ─────────────────────────────────
+                    Logo mynd kemur úr /public/logo.png
+                    Breyttu myndinni með því að skipta út /public/logo.png */}
+                {/* [73] NAVBAR — Logo mynd */}
                 <EditBadge n={73} />
-                <span className={`font-bold text-gray-800 transition-all duration-300 ${scrolled ? 'text-lg' : 'text-xl'}`}>
-                  Eco<span className="text-green-600">Garden</span>
-                </span>
+                <div className="relative">
+                  <Image
+                    src="/logo.svg"
+                    alt="EcoGarden Logo"
+                    width={scrolled ? 140 : 180}
+                    height={scrolled ? 40 : 50}
+                    className="transition-all duration-300 object-contain"
+                    priority
+                  />
+                </div>
               </div>
             </Link>
 

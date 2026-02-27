@@ -65,17 +65,21 @@ export default function Hero({ data }: HeroProps) {
     }`}>
       {/* Background Image */}
       {data.image && (
-        <div className="absolute inset-0">
-          <SmartImage
-            src={data.image}
-            alt={imageAlt}
-            width={1920}
-            height={700}
-            className="w-full h-full object-cover"
-            priority
-          />
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `url(${data.image})`,
+          }}
+        >
           {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/50"></div>
+        </div>
+      )}
+
+      {/* Fallback gray background ef engin mynd */}
+      {!data.image && (
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-400 to-gray-600">
+          <div className="absolute inset-0 bg-black/30"></div>
         </div>
       )}
 

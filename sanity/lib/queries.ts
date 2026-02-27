@@ -37,6 +37,25 @@ export const allProductsQuery = groq`
     "images": images[].asset->url,
     category,
     subcategory,
+    productType->{
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      solution->{
+        _id,
+        title_is,
+        title_en,
+        "slug": slug.current,
+        industry->{
+          _id,
+          title_is,
+          title_en,
+          "slug": slug.current,
+          icon
+        }
+      }
+    },
     status,
     features,
     specifications,
@@ -57,6 +76,31 @@ export const productBySlugQuery = groq`
     "images": images[].asset->url,
     category,
     subcategory,
+    productType->{
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      description_is,
+      description_en,
+      solution->{
+        _id,
+        title_is,
+        title_en,
+        "slug": slug.current,
+        description_is,
+        description_en,
+        industry->{
+          _id,
+          title_is,
+          title_en,
+          "slug": slug.current,
+          icon,
+          description_is,
+          description_en
+        }
+      }
+    },
     status,
     features,
     specifications,
@@ -187,3 +231,276 @@ export const newsBySlugQuery = groq`
     body
   }
 `
+
+// ────────────────────────────────────────────────────────────
+// NYtt Product Hierarchy System
+// ────────────────────────────────────────────────────────────
+
+// ── Allir rekstrar (Industries) Level 1 ─────────────────────
+export const allIndustriesQuery = groq`
+  *[_type == "industry"] | order(order asc) {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    icon,
+    description_is,
+    description_en,
+    "image": image.asset->url,
+    order,
+    featured
+  }
+`
+
+// ── Einn rekstur með lausnum ─────────────────────────────────
+export const industryBySlugQuery = groq`
+  *[_type == "industry" && slug.current == $slug][0] {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    icon,
+    description_is,
+    description_en,
+    "image": image.asset->url,
+    "solutions": *[_type == "solution" && references(^._id)] | order(order asc) {
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      description_is,
+      description_en,
+      "image": image.asset->url,
+      order
+    }
+  }
+`
+
+// ── Allar lausnir fyrir rekstur ──────────────────────────────
+export const solutionsByIndustryQuery = groq`
+  *[_type == "solution" && industry._ref == $industryId] | order(order asc) {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    description_is,
+    description_en,
+    "image": image.asset->url,
+    order
+  }
+`
+
+// ── Ein lausn með vörutegundum ───────────────────────────────
+export const solutionBySlugQuery = groq`
+  *[_type == "solution" && slug.current == $slug][0] {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    description_is,
+    description_en,
+    "image": image.asset->url,
+    industry->{
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      icon
+    },
+    "productTypes": *[_type == "productType" && references(^._id)] | order(order asc) {
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      description_is,
+      description_en,
+      "image": image.asset->url,
+      order
+    }
+  }
+`
+
+// ── Allar vörutegundir fyrir lausn ───────────────────────────
+export const productTypesBySolutionQuery = groq`
+  *[_type == "productType" && solution._ref == $solutionId] | order(order asc) {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    description_is,
+    description_en,
+    "image": image.asset->url,
+    order
+  }
+`
+
+// ── Ein vörutegund með vörum ──────────────────────────────────
+export const productTypeBySlugQuery = groq`
+  *[_type == "productType" && slug.current == $slug][0] {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    description_is,
+    description_en,
+    "image": image.asset->url,
+    solution->{
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      industry->{
+        _id,
+        title_is,
+        title_en,
+        "slug": slug.current,
+        icon
+      }
+    },
+    "products": *[_type == "product" && references(^._id) && status == "published"] {
+      _id,
+      title,
+      "slug": slug.current,
+      description,
+      price,
+      "image": image.asset->url,
+      features
+    }
+  }
+`
+
+// ── Allar vörur fyrir vörutegund ─────────────────────────────
+export const productsByProductTypeQuery = groq`
+  *[_type == "product" && productType._ref == $productTypeId && status == "published"] {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    price,
+    "image": image.asset->url,
+    "images": images[].asset->url,
+    features,
+    specifications
+  }
+`
+
+// ────────────────────────────────────────────────────────────
+// NESTED CATEGORY SYSTEM (NÝTT!)
+// ────────────────────────────────────────────────────────────
+
+// ── Allir aðalflokkar (enginn parent) ─────────────────────────
+export const topLevelCategoriesQuery = groq`
+  *[_type == "categoryNested" && !defined(parent)] | order(order asc) {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    icon,
+    description_is,
+    description_en,
+    "image": image.asset->url,
+    order,
+    featured,
+    showInMenu
+  }
+`
+
+// ── Einn flokkur með undir flokkum ────────────────────────────
+export const categoryWithChildrenQuery = groq`
+  *[_type == "categoryNested" && slug.current == $slug][0] {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    icon,
+    description_is,
+    description_en,
+    "image": image.asset->url,
+    parent->{
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      parent->{
+        _id,
+        title_is,
+        title_en,
+        "slug": slug.current
+      }
+    },
+    "children": *[_type == "categoryNested" && parent._ref == ^._id] | order(order asc) {
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      icon,
+      description_is,
+      "image": image.asset->url,
+      order
+    },
+    "products": *[_type == "product" && references(^._id) && status == "published"] {
+      _id,
+      title,
+      "slug": slug.current,
+      description,
+      price,
+      "image": image.asset->url,
+      features
+    }
+  }
+`
+
+// ── Öll category tree (fyrir menu) ────────────────────────────
+export const categoryTreeQuery = groq`
+  *[_type == "categoryNested" && !defined(parent) && showInMenu == true] | order(order asc) {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    icon,
+    order,
+    "children": *[_type == "categoryNested" && parent._ref == ^._id && showInMenu == true] | order(order asc) {
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      order,
+      "children": *[_type == "categoryNested" && parent._ref == ^._id && showInMenu == true] | order(order asc) {
+        _id,
+        title_is,
+        title_en,
+        "slug": slug.current,
+        order
+      }
+    }
+  }
+`
+
+// ── Breadcrumbs fyrir category ─────────────────────────────────
+export const categoryBreadcrumbsQuery = groq`
+  *[_type == "categoryNested" && slug.current == $slug][0] {
+    _id,
+    title_is,
+    title_en,
+    "slug": slug.current,
+    parent->{
+      _id,
+      title_is,
+      title_en,
+      "slug": slug.current,
+      parent->{
+        _id,
+        title_is,
+        title_en,
+        "slug": slug.current,
+        parent->{
+          _id,
+          title_is,
+          "slug": slug.current
+        }
+      }
+    }
+  }
+`
+
+

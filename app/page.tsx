@@ -3,14 +3,14 @@ import StatsSection from '@/components/sections/StatsSection';
 import MissionSection from '@/components/sections/MissionSection';
 import Hero from '@/components/sections/Hero';
 import { client } from '@/sanity/lib/client';
-import { homePageQuery, allCategoriesQuery, latestNewsQuery } from '@/sanity/lib/queries';
+import { homePageQuery, topLevelCategoriesQuery, latestNewsQuery } from '@/sanity/lib/queries';
 import Link from 'next/link';
 
 export default async function Home() {
   // Fetch frá Sanity — fallback í hardcoded ef tómt
   const [sanityHome, sanityCategories, latestNews] = await Promise.all([
     client.fetch(homePageQuery).catch(() => null),
-    client.fetch(allCategoriesQuery).catch(() => null),
+    client.fetch(topLevelCategoriesQuery).catch(() => null),
     client.fetch(latestNewsQuery).catch(() => []),
   ]);
 

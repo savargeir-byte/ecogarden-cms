@@ -4,6 +4,7 @@ export const productSchema = defineType({
   name: 'product',
   title: 'Vara',
   type: 'document',
+  icon: () => '🛒',
   fields: [
     defineField({ name: 'title',       title: 'Heiti vöru',        type: 'string',  validation: R => R.required() }),
     defineField({ name: 'slug',        title: 'Slóð (slug)',        type: 'slug',    options: { source: 'title' }, validation: R => R.required() }),
@@ -16,10 +17,29 @@ export const productSchema = defineType({
       type: 'array',
       of: [{ type: 'image', options: { hotspot: true } }],
     }),
+    // NEW: Nested Category System
+    defineField({
+      name: 'categories',
+      title: 'Flokkar',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'categoryNested' }] }],
+      description: 'Veldu alla viðeigandi flokka (t.d. Landbúnaður → Innréttingar → Átgrindur)',
+    }),
+    // ALTERNATIVE: ProductType system (Level 1-2-3)
+    defineField({
+      name: 'productType',
+      title: 'Vörutegund (gamalt kerfi)',
+      type: 'reference',
+      to: [{ type: 'productType' }],
+      description: 'GAMALT: Veldu vörutegund',
+      hidden: true,
+    }),
+    // DEPRECATED: Keep for backwards compatibility during migration
     defineField({
       name: 'category',
-      title: 'Flokkur',
+      title: 'Flokkur (GAMALT - notist ekki)',
       type: 'string',
+      hidden: true,
       options: {
         list: [
           { value: 'gardyrkjubaendur',        title: 'Garðyrkjubændur' },
@@ -30,9 +50,9 @@ export const productSchema = defineType({
     }),
     defineField({
       name: 'subcategory',
-      title: 'Undirflokkur',
+      title: 'Undirflokkur (GAMALT - notist ekki)',
       type: 'string',
-      hidden: ({ document }) => !document?.category,
+      hidden: true,
       options: {
         list: [
           // Garðyrkjubændur
@@ -101,6 +121,20 @@ export const productSchema = defineType({
     }),
   ],
   preview: {
-    select: { title: 'title', subtitle: 'category', media: 'image' },
+    select: {
+      title: 'title',
+      productType: 'productType.title_is',
+      solution: 'productType.solution.title_is',
+      industry: 'productType.solution.industry.title_is',
+      media: 'image',
+    },
+    prepare({ title, productType, solution, industry, media }) {
+      const subtitle = [industry, solution, productType].filter(Boolean).join(' → ')
+      return {
+        title,
+        subtitle: subtitle || 'Engin vörutegund valin',
+        media,
+      }
+    },
   },
 })
