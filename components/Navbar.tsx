@@ -67,6 +67,9 @@ export default function Navbar() {
               <Link href="/about" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
                 {t('about')}
               </Link>
+              <Link href="/news" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
+                {t('news')}
+              </Link>
               <Link href="/contact" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
                 {t('contact')}
               </Link>
@@ -180,10 +183,19 @@ export default function Navbar() {
               <span>{t('about')}</span>
             </Link>
             <Link 
-              href="/contact" 
+              href="/news" 
               onClick={() => setMenuOpen(false)}
               className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
               style={{ transitionDelay: menuOpen ? '250ms' : '0ms' }}
+            >
+              <span className="text-2xl">📰</span>
+              <span>{t('news')}</span>
+            </Link>
+            <Link 
+              href="/contact" 
+              onClick={() => setMenuOpen(false)}
+              className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
+              style={{ transitionDelay: menuOpen ? '300ms' : '0ms' }}
             >
               <span className="text-2xl">📞</span>
               <span>{t('contact')}</span>

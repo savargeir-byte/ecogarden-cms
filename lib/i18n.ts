@@ -27,6 +27,7 @@ export const translations = {
     home: 'Heim',
     products: 'Vörur',
     about: 'Um okkur',
+    news: 'Fréttir',
     contact: 'Hafa samband',
     getQuote: 'Fá tilboð',
     
@@ -162,6 +163,7 @@ export const translations = {
     home: 'Home',
     products: 'Products',
     about: 'About Us',
+    news: 'News',
     contact: 'Contact',
     getQuote: 'Get a Quote',
     
