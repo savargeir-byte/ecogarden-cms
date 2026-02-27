@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import EditBadge from '@/components/EditBadge';
 import { client } from '@/sanity/lib/client';
-import { aboutPageQuery, siteSettingsQuery } from '@/sanity/lib/queries';
+import { aboutPageQuery, contactPageQuery } from '@/sanity/lib/queries';
 
 const DEFAULTS = {
   heroTitle: 'Garðlausnir sem endast',
@@ -45,14 +45,14 @@ const DEFAULTS = {
 };
 
 export default async function AboutPage() {
-  const [s, settings] = await Promise.all([
+  const [s, contactData] = await Promise.all([
     client.fetch(aboutPageQuery).catch(() => null),
-    client.fetch(siteSettingsQuery).catch(() => null),
+    client.fetch(contactPageQuery).catch(() => null),
   ]);
 
-  const contactAddress = settings?.address     ?? 'Lambhagavegur 9, 110 Reykjavík';
-  const contactPhone   = settings?.phone       ?? '487-8910';
-  const contactEmail   = settings?.email       ?? 'info@ecogarden.is';
+  const contactAddress = contactData?.address ?? 'Lambhagavegúr 9, 110 Reykjavík';
+  const contactPhone   = contactData?.phone   ?? '487-8910';
+  const contactEmail   = contactData?.email   ?? 'info@ecogarden.is';
 
   const heroTitle    = s?.heroTitle_is    ?? DEFAULTS.heroTitle;
   const heroSubtitle = s?.heroSubtitle_is ?? DEFAULTS.heroSubtitle;

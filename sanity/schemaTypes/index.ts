@@ -4,6 +4,7 @@ import { siteSettingsSchema } from './siteSettings'
 import { categorySchema } from './category'
 import { aboutPageSchema } from './aboutPage'
 import { contactPageSchema } from './contactPage'
+import { productsPageSchema } from './productsPage'
 
 export const schemaTypes = [
   homePageSchema,
@@ -12,4 +13,5 @@ export const schemaTypes = [
   categorySchema,
   aboutPageSchema,
   contactPageSchema,
+  productsPageSchema,
 ]

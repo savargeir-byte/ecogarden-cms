@@ -35,8 +35,10 @@ export default defineConfig({
             S.listItem()
               .title('⚙️ Stillingar')
               .id('siteSettings')
-              .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
-            S.divider(),
+              .child(S.document().schemaType('siteSettings').documentId('siteSettings')),            S.listItem()
+              .title('🛋️ Vörur síða')
+              .id('productsPage')
+              .child(S.document().schemaType('productsPage').documentId('productsPage')),            S.divider(),
             // ── Vörur & Flokkar ────────────────────────────
             S.documentTypeListItem('product').title('🌿 Vörur'),
             S.documentTypeListItem('category').title('📁 Flokkar'),

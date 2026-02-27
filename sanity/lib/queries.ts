@@ -144,3 +144,12 @@ export const contactPageQuery = groq`
     mapEmbedSrc
   }
 `
+
+// ── Vörur síða ───────────────────────────────────────────────
+export const productsPageQuery = groq`
+  *[_type == "productsPage" && _id == "productsPage"][0] {
+    "heroImage": heroImage.asset->url,
+    heroTitle_is, heroTitle_en,
+    heroSubtitle_is, heroSubtitle_en
+  }
+`

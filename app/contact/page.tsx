@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client';
-import { contactPageQuery, siteSettingsQuery } from '@/sanity/lib/queries';
+import { contactPageQuery } from '@/sanity/lib/queries';
 import ContactClient from './ContactClient';
 
 const DEFAULTS = {
@@ -18,19 +18,16 @@ const DEFAULTS = {
 };
 
 export default async function ContactPage() {
-  const [pageData, settings] = await Promise.all([
-    client.fetch(contactPageQuery).catch(() => null),
-    client.fetch(siteSettingsQuery).catch(() => null),
-  ]);
+  const pageData = await client.fetch(contactPageQuery).catch(() => null);
 
   const heroImage    = pageData?.heroImage        ?? DEFAULTS.heroImage;
   const heroTitle    = pageData?.heroTitle_is      ?? DEFAULTS.heroTitle;
   const heroSubtitle = pageData?.heroSubtitle_is   ?? DEFAULTS.heroSubtitle;
-  // Contact info always from Stillingar so one place to edit
-  const address      = settings?.address           ?? DEFAULTS.address;
-  const phone        = settings?.phone             ?? DEFAULTS.phone;
-  const email        = settings?.email             ?? DEFAULTS.email;
-  const openingHours = settings?.openingHours_is   ?? DEFAULTS.openingHours;
+  // Contact info all from contactPage — edit in “Hafa samband” in Studio
+  const address      = pageData?.address           ?? DEFAULTS.address;
+  const phone        = pageData?.phone             ?? DEFAULTS.phone;
+  const email        = pageData?.email             ?? DEFAULTS.email;
+  const openingHours = pageData?.openingHours_is   ?? DEFAULTS.openingHours;
   const facebookUrl  = pageData?.facebookUrl       ?? DEFAULTS.facebookUrl;
   const linkedinUrl  = pageData?.linkedinUrl       ?? DEFAULTS.linkedinUrl;
   const instagramUrl = pageData?.instagramUrl      ?? DEFAULTS.instagramUrl;
