@@ -166,7 +166,7 @@ export const aboutPageQuery = groq`
     teamHeading_is, teamHeading_en,
     teamSubtitle_is, teamSubtitle_en,
     teamMembers[] {
-      name, jobTitle_is, jobTitle_en,
+      name, jobTitle_is, jobTitle_en, phone,
       quote_is, quote_en,
       description_is, description_en,
       "image": image.asset->url
@@ -446,11 +446,13 @@ export const categoryWithChildrenQuery = groq`
       title_is,
       title_en,
       "slug": slug.current,
+      "image": image.asset->url,
       parent->{
         _id,
         title_is,
         title_en,
-        "slug": slug.current
+        "slug": slug.current,
+        "image": image.asset->url
       }
     },
     "children": *[_type == "categoryNested" && parent._ref == ^._id] | order(order asc) {

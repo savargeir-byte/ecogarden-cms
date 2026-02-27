@@ -73,6 +73,9 @@ export default function Navbar() {
               <Link href="/news" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
                 {t('news')}
               </Link>
+              <Link href="/video" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
+                {t('video')}
+              </Link>
               <Link href="/contact" className="text-gray-700 hover:text-green-600 font-medium transition-colors uppercase text-sm">
                 {t('contact')}
               </Link>
@@ -86,11 +89,12 @@ export default function Navbar() {
               
               {/* [75] NAVBAR — "Fá tilboð" hnappur texti → lib/i18n.ts → getQuote */}
               <EditBadge n={75} />
-              <Link 
-                href="/contact" 
-                className="hidden lg:inline-block px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-102 uppercase text-sm"
+              <Link
+                href="/contact"
+                className="hidden lg:inline-flex items-center relative px-4 py-1.5 rounded-lg font-medium text-white text-xs uppercase bg-gradient-to-r from-emerald-500 to-green-600 shadow-md shadow-emerald-500/20 transition duration-300 hover:scale-105 hover:shadow-emerald-400/40 active:scale-95 overflow-hidden animate-[pulse_4s_ease-in-out_infinite]"
               >
-                {t('getQuote')}
+                <span className="absolute inset-0 rounded-xl bg-white/10 opacity-0 hover:opacity-100 transition duration-500" />
+                <span className="relative z-10">{t('getQuote')}</span>
               </Link>
               
               {/* Hamburger - More transparent with site green color */}
@@ -98,15 +102,15 @@ export default function Navbar() {
                 onClick={() => setMenuOpen(!menuOpen)}
                 className={`p-2 rounded-lg backdrop-blur-sm transition-all duration-300 relative z-50 flex items-center justify-center shadow-md hover:scale-110 border ${
                   menuOpen 
-                    ? 'bg-green-600/15 hover:bg-green-600/25 border-green-600/30 w-12 h-12' 
+                    ? 'bg-green-600/15 hover:bg-green-600/25 border-green-600/30 w-8 h-8' 
                     : scrolled 
-                      ? 'bg-green-600/20 hover:bg-green-600/30 border-green-600/30 w-10 h-10 sm:w-11 sm:h-11' 
-                      : 'bg-green-600/15 hover:bg-green-600/25 border-green-600/25 w-11 h-11 sm:w-12 sm:h-12'
+                      ? 'bg-green-600/20 hover:bg-green-600/30 border-green-600/30 w-8 h-8' 
+                      : 'bg-green-600/15 hover:bg-green-600/25 border-green-600/25 w-9 h-9'
                 }`}
                 aria-label="Toggle menu"
               >
                 <div className={`flex flex-col justify-between transition-all duration-300 ${
-                  menuOpen ? 'w-6 h-5' : scrolled ? 'w-5 h-4' : 'w-6 h-5'
+                  menuOpen ? 'w-4 h-3.5' : scrolled ? 'w-4 h-3' : 'w-4 h-3.5'
                 }`}>
                   <span className={`block w-full transition-all duration-300 ${
                     menuOpen 
@@ -136,19 +140,22 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Side Drawer Overlay */}
-      <div 
-        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      {/* Glassmorphism Backdrop */}
+      <div
+        className={`fixed inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity duration-500 ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setMenuOpen(false)}
       />
 
-      {/* Side Drawer Menu - Slides from right like Teemore */}
-      <div className={`fixed top-0 right-0 h-full w-80 bg-teal-600/80 backdrop-blur-md z-50 shadow-2xl transform transition-all duration-300 ease-out ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
-        <div className="flex flex-col h-full p-8 text-white">
+      {/* Glassmorphism Side Drawer */}
+      <div className={`fixed top-0 right-0 h-full w-[85%] max-w-sm z-50 backdrop-blur-xl bg-white/10 border-l border-white/20 shadow-2xl transform transition-transform duration-500 ease-in-out ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        {/* Gradient glow layer */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 via-emerald-500/10 to-transparent pointer-events-none" />
+
+        <div className="relative flex flex-col h-full p-8 text-white">
           {/* Close button */}
           <button
             onClick={() => setMenuOpen(false)}
-            className="self-end mb-8 text-white hover:text-gray-200 transition-colors"
+            className="self-end mb-8 text-white/80 hover:text-white transition-colors duration-200"
             aria-label="Close menu"
           >
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,56 +164,33 @@ export default function Navbar() {
           </button>
 
           {/* Menu Links with stagger animation */}
-          <div className="flex flex-col space-y-6">
-            <Link 
-              href="/" 
-              onClick={() => setMenuOpen(false)}
-              className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
-              style={{ transitionDelay: menuOpen ? '100ms' : '0ms' }}
-            >
-              <span className="text-2xl">🏡</span>
-              <span>{t('home')}</span>
-            </Link>
-            <Link 
-              href="/products" 
-              onClick={() => setMenuOpen(false)}
-              className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
-              style={{ transitionDelay: menuOpen ? '150ms' : '0ms' }}
-            >
-              <span className="text-2xl">🌱</span>
-              <span>{t('products')}</span>
-            </Link>
-            <Link 
-              href="/about" 
-              onClick={() => setMenuOpen(false)}
-              className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
-              style={{ transitionDelay: menuOpen ? '200ms' : '0ms' }}
-            >
-              <span className="text-2xl">ℹ️</span>
-              <span>{t('about')}</span>
-            </Link>
-            <Link 
-              href="/news" 
-              onClick={() => setMenuOpen(false)}
-              className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
-              style={{ transitionDelay: menuOpen ? '250ms' : '0ms' }}
-            >
-              <span className="text-2xl">📰</span>
-              <span>{t('news')}</span>
-            </Link>
-            <Link 
-              href="/contact" 
-              onClick={() => setMenuOpen(false)}
-              className={`text-white hover:text-gray-200 transition-all flex items-center gap-3 text-lg font-medium ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
-              style={{ transitionDelay: menuOpen ? '300ms' : '0ms' }}
-            >
-              <span className="text-2xl">📞</span>
-              <span>{t('contact')}</span>
-            </Link>
+          <div className="flex flex-col space-y-1">
+            {[
+              { href: '/',         emoji: '🏡', label: t('home'),     delay: '100ms' },
+              { href: '/products', emoji: '🌱', label: t('products'), delay: '150ms' },
+              { href: '/about',    emoji: 'ℹ️',  label: t('about'),    delay: '200ms' },
+              { href: '/news',     emoji: '📰', label: t('news'),     delay: '250ms' },
+              { href: '/video',    emoji: '🎬', label: t('video'),    delay: '270ms' },
+              { href: '/contact',  emoji: '📞', label: t('contact'),  delay: '300ms' },
+            ].map(({ href, emoji, label, delay }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-lg font-medium
+                  transition-all duration-300
+                  hover:bg-white/10 hover:translate-x-1
+                  ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}
+                style={{ transitionDelay: menuOpen ? delay : '0ms' }}
+              >
+                <span className="text-2xl">{emoji}</span>
+                <span>{label}</span>
+              </Link>
+            ))}
           </div>
-          
+
           {/* Language Switcher in mobile menu */}
-          <div className="mt-8 pt-8 border-t border-white/20 md:hidden">
+          <div className="mt-auto pt-8 border-t border-white/20 md:hidden">
             <LanguageSwitcher />
           </div>
         </div>

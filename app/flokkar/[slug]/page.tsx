@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import ProductCard from '@/components/ProductCard'
+import CategoryHero from '@/components/CategoryHero'
 
 export default async function CategoryPage({
   params,
@@ -27,62 +28,53 @@ export default async function CategoryPage({
     current = current.parent
   }
 
+  // Nota eigin mynd, annars foreldramynd (undirflokkar erfa forsíðumynd)
+  const heroImage = category.image ?? category.parent?.image ?? category.parent?.parent?.image
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-green-50 to-white py-12 border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {/* Breadcrumbs */}
-          {breadcrumbs.length > 1 && (
-            <nav className="mb-6 text-sm">
-              <ol className="flex items-center gap-2 flex-wrap">
-                <li>
-                  <Link
-                    href="/"
-                    className="text-gray-500 hover:text-green-600 transition"
-                  >
-                    Heim
-                  </Link>
-                </li>
-                {breadcrumbs.map((bc, i) => (
-                  <li key={bc._id} className="flex items-center gap-2">
-                    <span className="text-gray-400">→</span>
-                    {i === breadcrumbs.length - 1 ? (
-                      <span className="font-semibold text-gray-900">
-                        {bc.title_is}
-                      </span>
-                    ) : (
-                      <Link
-                        href={`/flokkar/${bc.slug}`}
-                        className="text-green-600 hover:text-green-700 transition"
-                      >
-                        {bc.title_is}
-                      </Link>
-                    )}
+      {heroImage ? (
+        <CategoryHero
+          heroImage={heroImage}
+          title={category.title_is}
+          description={category.description_is}
+          icon={category.icon}
+          breadcrumbs={breadcrumbs}
+        />
+      ) : (
+        <div className="relative overflow-hidden border-b">
+          <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-white" />
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12">
+            {breadcrumbs.length > 1 && (
+              <nav className="mb-6 text-sm">
+                <ol className="flex items-center gap-2 flex-wrap">
+                  <li>
+                    <Link href="/" className="text-gray-500 hover:text-green-600 transition">Heim</Link>
                   </li>
-                ))}
-              </ol>
-            </nav>
-          )}
-
-          {/* Title */}
-          <div className="flex items-center gap-4 mb-4">
-            {category.icon && (
-              <div className="text-6xl">{category.icon}</div>
+                  {breadcrumbs.map((bc, i) => (
+                    <li key={bc._id} className="flex items-center gap-2">
+                      <span className="text-gray-400">→</span>
+                      {i === breadcrumbs.length - 1 ? (
+                        <span className="font-semibold text-gray-900">{bc.title_is}</span>
+                      ) : (
+                        <Link href={`/flokkar/${bc.slug}`} className="text-green-600 hover:text-green-700 transition">{bc.title_is}</Link>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </nav>
             )}
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
-                {category.title_is}
-              </h1>
-              {category.description_is && (
-                <p className="text-xl text-gray-600 mt-2">
-                  {category.description_is}
-                </p>
-              )}
+            <div className="flex items-center gap-4 mb-4">
+              {category.icon && <div className="text-6xl">{category.icon}</div>}
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900">{category.title_is}</h1>
+                {category.description_is && <p className="text-xl mt-2 text-gray-600">{category.description_is}</p>}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         {/* Undirflokkar */}

@@ -26,18 +26,20 @@ const DEFAULTS = {
   teamSubtitle: 'Reynslumiklir sérfræðingar með brennandi áhuga á garðyrkju',
   teamMembers: [
     {
-      name: 'Guðmundur',
-      jobTitle: 'Sérfræðingur í garðyrkju',
-      quote: '"Ég trúi því að góð garðyrkja byrji á réttum lausnum."',
-      description: 'Með áratuga reynslu og brennandi áhuga hjálpar hann viðskiptavinum að ná árangri.',
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80',
+      name: 'Guðmundur Karl Eiríksson',
+      jobTitle: 'Sölustjóri',
+      phone: '848-1468',
+      quote: '',
+      description: 'Reynsla, þekking og kunnátta Guðmundar sem hann hefur hlotið af garðyrkjustörfum skiptir sköpum hjá Eco Garden. Hann hefur starfað við garðyrkju í yfir 13 ár og þekkir því vel til verka.\n\nGuðmundur hefur einnig starfað hjá Sölufélagi garðyrkjumanna og var Sölumaður hjá Sláturfélagi suðurlands.\n\nGuðmundur er fæddur og uppalinn á Flúðum, Hrunamannahreppi og kemur af landbúnaðarætt.',
+      image: 'https://cdn.sanity.io/images/atu6hs4h/production/beb6bf2f2228fe288bd6f122d35e1f240efc7932-705x745.png',
     },
     {
-      name: 'Ólafur',
-      jobTitle: 'Þjónststjóri',
-      quote: '"Með reynslu og þekkingu hjálpum við viðskiptavinum að velja rétt."',
-      description: 'Áhersla á persónulega þjónustu og að finna réttu lausnina fyrir hvern og einn.',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80',
+      name: 'Ólafur E Ólafsson',
+      jobTitle: 'Markaðsstjóri',
+      phone: '659-8108',
+      quote: '',
+      description: 'Ólafur hefur áratuga reynslu í rekstri og sölu á garðyrkjuvörum. Hann starfaði í mörg ár sem sölustjóri og síðar framkvæmdastjóri hjá Frjó Umbúðasölunni og síðar sem framkvæmdastjóri hjá Kassagerð Reykjavíkur.\n\nÓlafur er uppalinn undir Eyjafjöllum í Rángárvallasýslu og starfaði þar við hefðbundin landbúnaðarstörf og ræktun á grænmeti.',
+      image: 'https://cdn.sanity.io/images/atu6hs4h/production/c14d4e83770278ec1e7f0c222f6d13dbb3c8c3c0-732x801.png',
     },
   ],
   ctaHeading: 'Tilbúin(n) að bæta garðinn?',
@@ -68,8 +70,8 @@ export default async function AboutPage() {
   const solutionCards  = (s?.solutionCards?.length > 0 ? s.solutionCards.map((c: {emoji:string;title_is:string;text_is:string}) => ({ emoji: c.emoji, title: c.title_is, text: c.text_is })) : null) ?? DEFAULTS.solutionCards;
   const teamHeading    = s?.teamHeading_is    ?? DEFAULTS.teamHeading;
   const teamSubtitle   = s?.teamSubtitle_is   ?? DEFAULTS.teamSubtitle;
-  const teamMembers    = (s?.teamMembers?.length > 0 ? s.teamMembers.map((m: {name:string;jobTitle_is:string;quote_is:string;description_is:string;image?:string}) => ({
-    name: m.name, jobTitle: m.jobTitle_is, quote: m.quote_is, description: m.description_is, image: m.image ?? DEFAULTS.teamMembers[0].image,
+  const teamMembers    = (s?.teamMembers?.length > 0 ? s.teamMembers.map((m: {name:string;jobTitle_is:string;phone?:string;quote_is:string;description_is:string;image?:string}, i: number) => ({
+    name: m.name, jobTitle: m.jobTitle_is, phone: m.phone ?? '', quote: m.quote_is ?? '', description: m.description_is, image: m.image ?? DEFAULTS.teamMembers[i]?.image ?? DEFAULTS.teamMembers[0].image,
   })) : null) ?? DEFAULTS.teamMembers;
   const ctaHeading = s?.ctaHeading_is ?? DEFAULTS.ctaHeading;
   const ctaText    = s?.ctaText_is    ?? DEFAULTS.ctaText;
@@ -202,35 +204,78 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section - Personalized */}
+      {/* ── HVERT STEFNUM VIÐ ───────────────────────────────── */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Vinstri hlið — fyrirsögn */}
+            <div>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-tight mb-4">
+                Hvert stefnum við?
+              </h2>
+              <p className="text-xl text-gray-500 font-light">
+                Framtíðin er björt - og græn
+              </p>
+            </div>
+
+            {/* Hægri hlið — texti */}
+            <div className="space-y-6 text-gray-600 text-base sm:text-lg leading-relaxed">
+              <p>
+                Framtíðin liggur í vistvænum lausnum. Hún verður að vera það.
+                Mikil hugarfarsbreyting hefur orðið undanfarin ár, bæði hjá almenningi
+                og fyrirtækjum, þar sem sjálfbærni og umhyggja fyrir náttúrunni er
+                lykilatriði. Þetta hefur flýtt fyrir alls kyns þróun á vistvænum
+                lausnum, hvort sem er í umbúðum, áburði eða hreinsiefnum.
+              </p>
+              <p>
+                Við hjá Eco Garden skynjum vel þessar breytingar og viljum vera fyrsti
+                valkostur þeirra sem kjósa vandaðar vörur sem sameina gæði og virðingu
+                fyrir umhverfinu. Það gerum við með því að vera sífellt vakandi fyrir
+                þörfum markaðarins hér heima og sömuleiðis vöruþróun hjá okkar bestu
+                birgjum.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-green-50/30 to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-3 sm:mb-4 animate-fade-in">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-3 sm:mb-4">
             {teamHeading}
           </h2>
           <p className="text-center text-gray-600 mb-10 lg:mb-14 max-w-2xl mx-auto text-base sm:text-lg">
             {teamSubtitle}
           </p>
 
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
-            {teamMembers.map((m: {name:string;jobTitle:string;quote:string;description:string;image:string}, i: number) => (
-              <div key={i} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border-2 border-green-100 hover:border-green-300 animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
-                <div className="relative h-56 sm:h-64 overflow-hidden bg-gray-200">
+          <div className="grid md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
+            {teamMembers.map((m: {name:string;jobTitle:string;phone?:string;quote:string;description:string;image:string}, i: number) => (
+              <div key={i} className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 border border-green-100 hover:border-green-300">
+                <div className="relative h-52 overflow-hidden bg-gray-200">
                   <Image
                     src={m.image || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80'}
                     alt={m.name}
                     fill
                     unoptimized
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <div className="p-6 sm:p-8">
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{m.name}</h3>
-                  <p className="text-green-600 font-semibold mb-4 text-base sm:text-lg">{m.jobTitle}</p>
-                  <div className="mb-6 p-4 bg-green-50 rounded-xl border-l-4 border-green-600">
-                    <p className="text-gray-700 italic text-sm sm:text-base">"{m.quote}"</p>
-                  </div>
-                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{m.description}</p>
+                <div className="p-4 sm:p-5">
+                  <h3 className="text-lg font-bold text-gray-900 mb-0.5">{m.name}</h3>
+                  <p className="text-green-600 font-semibold text-sm mb-1">{m.jobTitle}</p>
+                  {m.phone && (
+                    <a href={`tel:${m.phone.replace(/-/g, '')}`} className="inline-flex items-center gap-1 text-gray-500 text-xs mb-3 hover:text-green-600 transition-colors">
+                      <span>📞</span> Sími {m.phone}
+                    </a>
+                  )}
+                  {!m.phone && <div className="mb-3" />}
+                  {m.quote && (
+                    <div className="mb-3 p-3 bg-green-50 rounded-lg border-l-4 border-green-600">
+                      <p className="text-gray-700 italic text-xs">&quot;{m.quote}&quot;</p>
+                    </div>
+                  )}
+                  <p className="text-gray-600 leading-relaxed text-xs whitespace-pre-line">{m.description}</p>
                 </div>
               </div>
             ))}

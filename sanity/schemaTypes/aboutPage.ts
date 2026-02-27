@@ -12,10 +12,11 @@ const teamMemberFields = [
   defineField({ name: 'name',           title: 'Nafn',               type: 'string' }),
   defineField({ name: 'jobTitle_is',    title: 'Titill (IS)',         type: 'string' }),
   defineField({ name: 'jobTitle_en',    title: 'Titill (EN)',         type: 'string' }),
+  defineField({ name: 'phone',          title: 'Símanúmer',           type: 'string' }),
   defineField({ name: 'quote_is',       title: 'Tilvitnun (IS)',      type: 'text', rows: 2 }),
   defineField({ name: 'quote_en',       title: 'Tilvitnun (EN)',      type: 'text', rows: 2 }),
-  defineField({ name: 'description_is', title: 'Lýsing (IS)',         type: 'text', rows: 2 }),
-  defineField({ name: 'description_en', title: 'Lýsing (EN)',         type: 'text', rows: 2 }),
+  defineField({ name: 'description_is', title: 'Lýsing (IS)',         type: 'text', rows: 4 }),
+  defineField({ name: 'description_en', title: 'Lýsing (EN)',         type: 'text', rows: 4 }),
   defineField({ name: 'image',          title: 'Mynd',                type: 'image', options: { hotspot: true } }),
 ]
 
@@ -88,7 +89,7 @@ export const aboutPageSchema = defineType({
     defineField({ name: 'teamSubtitle_en', title: 'Teymi undirtexti (EN)', type: 'text', rows: 2, group: 'team' }),
     defineField({
       name: 'teamMembers',
-      title: 'Teymið (2+ meðlimir)',
+      title: 'Teymið (starfsmenn)',
       type: 'array',
       group: 'team',
       of: [{ type: 'object', fields: teamMemberFields, preview: { select: { title: 'name', media: 'image' } } }],
