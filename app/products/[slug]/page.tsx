@@ -1,98 +1,85 @@
-import ProductPage from "@/components/ProductPage";
-import { getProductBySlug, products } from "@/lib/products";
-import type { Metadata } from "next";
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { client, urlFor } from '@/sanity/lib/client';
+import ProductDetail from './ProductDetail';
 
 const BASE_URL = 'https://eccogarden.vercel.app';
 
-export const revalidate = false; // fully static
+interface Params { params: Promise<{ slug: string }> }
 
-interface ProductPageProps {
-  params: {
-    slug: string;
-  };
-  searchParams?: {
-    preview?: string;
-  };
+async function getProduct(slug: string) {
+  return client.fetch(
+    `*[_type == "product" && slug.current == $slug][0]{
+      title,
+      description,
+      features,
+      specifications,
+      videoUrl,
+      image,
+      images,
+      "categories": categories[]->{
+        title_is,
+        "slug": slug.current
+      },
+      seo
+    }`,
+    { slug }
+  ).catch(() => null);
 }
 
-// Pre-generate all product pages at build time
-export async function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
-
-// SEO Metadata
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const product = getProductBySlug(params.slug);
-
-  if (!product) {
-    return {
-      title: "Vara finnst ekki",
-      description: "Varan sem þú ert að leita að er ekki til.",
-    };
-  }
-
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { slug } = await params;
+  const p = await getProduct(slug);
+  if (!p) return { title: 'Vara ekki fundin' };
+  const imgUrl = p.image ? urlFor(p.image).width(1200).url() : undefined;
   return {
-    title: `${product.title} – Eco Garden`,
-    description: product.description,
-    alternates: { canonical: `${BASE_URL}/products/${product.slug}` },
+    title: `${p.seo?.title ?? p.title} – Eco Garden`,
+    description: p.seo?.description ?? p.description?.slice(0, 160),
+    alternates: { canonical: `${BASE_URL}/products/${slug}` },
     openGraph: {
-      title: `${product.title} – Eco Garden`,
-      description: product.description,
-      url: `${BASE_URL}/products/${product.slug}`,
-      images: product.images?.[0] ? [{ url: product.images[0], width: 1200, height: 630, alt: product.title }] : [],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${product.title} – Eco Garden`,
-      description: product.description,
-      images: product.images?.[0] ? [product.images[0]] : [],
+      title: p.title,
+      url: `${BASE_URL}/products/${slug}`,  
+      images: imgUrl ? [{ url: imgUrl, width: 1200, height: 630, alt: p.title }] : [],
     },
   };
 }
 
-export default function Product({ params }: ProductPageProps) {
-  const product = getProductBySlug(params.slug);
+export const dynamic = 'force-dynamic';
 
-  if (!product) {
-    return (
-      <div className="container py-20 text-center">
-        <h1 className="text-4xl font-bold mb-4">Vara fannst ekki</h1>
-        <p className="text-gray-600 mb-8">Varan sem þú leitar að er ekki til.</p>
-        <a
-          href="/products"
-          className="inline-block px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
-        >
-          ← Til baka í vörulista
-        </a>
-      </div>
-    );
-  }
+export default async function ProductPage({ params }: Params) {
+  const { slug } = await params;
+  const product = await getProduct(slug);
+  if (!product) return notFound();
 
-  const productJsonLd = {
+  const mainImageUrl = product.image ? urlFor(product.image).width(900).url() : undefined;
+  const galleryUrls  = (product.images ?? []).map((img: any) => urlFor(img).width(900).url());
+
+  const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.title,
     description: product.description,
-    image: product.images?.[0] || product.image,
-    url: `${BASE_URL}/products/${product.slug}`,
+    image: mainImageUrl,
+    url: `${BASE_URL}/products/${slug}`,
+
     brand: { '@type': 'Brand', name: 'Eco Garden' },
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'ISK',
-      price: product.price ?? 0,
-      availability: 'https://schema.org/InStock',
-      seller: { '@type': 'Organization', name: 'Eco Garden' },
-    },
   };
 
   return (
     <main className="bg-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ProductDetail
+        product={{
+          title:          product.title,
+          description:    product.description,
+          features:       product.features,
+          specifications: product.specifications,
+          videoUrl:       product.videoUrl,
+          mainImageUrl,
+          galleryUrls,
+          categories:     product.categories,
+        }}
       />
-      <ProductPage product={product} />
     </main>
   );
 }
-

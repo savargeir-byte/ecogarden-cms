@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
 import { allNewsQuery } from '@/sanity/lib/queries';
+import NewsImage from '@/components/NewsImage';
 
 interface NewsItem {
   _id: string;
@@ -41,17 +42,7 @@ export default async function NewsPage() {
               >
                 {/* Image */}
                 <div className="relative h-52 bg-gray-100 overflow-hidden">
-                  {item.mainImage ? (
-                    <img
-                      src={item.mainImage}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-300 text-5xl">
-                      📰
-                    </div>
-                  )}
+                  <NewsImage src={item.mainImage} alt={item.title} />
                 </div>
 
                 {/* Content */}

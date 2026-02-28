@@ -111,6 +111,12 @@ export const productSchema = defineType({
       }],
     }),
     defineField({
+      name: 'videoUrl',
+      title: 'YouTube / Vimeo tengill',
+      type: 'url',
+      description: 'T.d. https://www.youtube.com/watch?v=xxxxx',
+    }),
+    defineField({
       name: 'seo',
       title: 'SEO',
       type: 'object',

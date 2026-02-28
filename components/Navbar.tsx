@@ -37,7 +37,7 @@ export default function Navbar() {
       <nav className={`bg-white border-b border-gray-200 sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg' : 'shadow-sm'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-14 sm:h-16' : 'h-20 sm:h-24'}`}>
-            {/* Logo */}
+            {/* Logo → fer á forsíðu */}
             <Link href="/" className="flex items-center gap-3">
               <div className={`flex items-center gap-3 transition-all duration-300 ${scrolled ? 'scale-90' : 'scale-100'}`}>
                 {/* ── ECOGARDEN LOGO ─────────────────────────────────

@@ -29,7 +29,22 @@ export default async function CategoryPage({
   }
 
   // Nota eigin mynd, annars foreldramynd (undirflokkar erfa forsíðumynd)
-  const heroImage = category.image ?? category.parent?.image ?? category.parent?.parent?.image
+  // Ef engin mynd er til, nota slug-miðaða sjálfgefna mynd
+  const FALLBACK_HEROES: Record<string, string> = {
+    'golf-fotbolti':    '/images/heroes/golf-hero.webp',
+    'gardyrkjubaendur': '/images/heroes/gardyrkja-hero.png',
+    'landbunadur':      '/images/heroes/landbunadur-hero.jpg',
+    'rulluplast':       '/landbunadur/plastrullurengi.jpg',
+    'rullugerd':        'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1920&q=80',
+  }
+  const DEFAULT_FALLBACK = '/images/heroes/landbunadur-hero.jpg'
+  // FALLBACK_HEROES hafa forgang yfir Sanity myndir fyrir sérstakar slóðir
+  const heroImage = FALLBACK_HEROES[slug]
+    ?? category.image
+    ?? category.parent?.image
+    ?? category.parent?.parent?.image
+    ?? FALLBACK_HEROES[category.parent?.slug]
+    ?? DEFAULT_FALLBACK
 
   return (
     <div className="min-h-screen bg-white">

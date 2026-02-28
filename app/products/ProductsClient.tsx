@@ -214,6 +214,39 @@ export default function ProductsClient({
         </div>
       </div>
 
+      {/* Partner Logos Bar */}
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 text-center mb-5">
+            {language === 'en' ? 'Our partners' : 'Samstarfsaðilar okkar'}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+            {[
+              { src: '/images/logo_samstarf/bioret logo.png',                                       alt: 'Bioret Agri',      href: 'https://www.bioret-agri.com' },
+              { src: '/images/logo_samstarf/619b854585a3c96022ce386b_HATO_Logo_RGB.png',            alt: 'HATO Lighting',    href: 'https://www.hato.lighting' },
+              { src: '/images/logo_samstarf/VAN-HESSCHE-BETON-logo-zonder-achtergrond-300x212.png', alt: 'Van Hessche Beton', href: 'https://www.vanhessche.be' },
+              { src: '/images/logo_samstarf/Mollerup-Moelle.jpg',                                   alt: 'Mollerup Mølle',   href: 'https://www.mollerupmolle.dk' },
+              { src: '/images/logo_samstarf/MTczMDM3NzI5MjY3MjM3NjRjNzkyNmQ=.png',                 alt: 'Partner',          href: '#' },
+              { src: '/images/logo_samstarf/5eb2958f5b00004ba115f00c.webp',                         alt: 'Partner',          href: '#' },
+            ].map((logo) => (
+              <a
+                key={logo.src}
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center h-20 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="max-h-20 max-w-[180px] object-contain"
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Subcategory Tiles Grid */}
       {showSubcategoryTiles && !selectedSubcategory && (
         <div className="max-w-7xl mx-auto px-6 py-16">

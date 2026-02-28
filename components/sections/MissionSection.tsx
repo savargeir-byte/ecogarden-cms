@@ -30,7 +30,7 @@ export default function MissionSection({ heading, text, desc }: Props) {
             </h2>
             <div className="h-1 w-12 bg-gradient-to-l from-transparent to-green-500 rounded-full" />
           </div>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed mb-6 text-center">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed mb-6 text-center max-w-3xl mx-auto">
             {tx}
           </p>
           <p className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-3xl mx-auto text-center">
