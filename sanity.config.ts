@@ -43,7 +43,57 @@ export default defineConfig({
             S.divider(),
             // ── Vörur & Flokkar ────────────────────────────
             S.documentTypeListItem('product').title('🌿 Vörur'),
-            S.documentTypeListItem('categoryNested').title('📂 Vöruflokkar'),
+            S.listItem()
+              .title('📂 Vöruflokkar')
+              .id('categoryNestedTree')
+              .child(
+                S.documentList()
+                  .title('Yfirflokkar')
+                  .filter('_type == "categoryNested" && !defined(parent)')
+                  .defaultOrdering([{ field: 'title_is', direction: 'asc' }])
+                  .child((parentId) =>
+                    S.list()
+                      .title('Yfirflokkur')
+                      .items([
+                        S.listItem()
+                          .title('✏️ Breyta yfirflokki')
+                          .id(parentId + '-edit')
+                          .child(S.document().schemaType('categoryNested').documentId(parentId)),
+                        S.divider(),
+                        S.listItem()
+                          .title('📁 Undirflokkar')
+                          .id(parentId + '-children')
+                          .child(
+                            S.documentList()
+                              .title('Undirflokkar')
+                              .filter('_type == "categoryNested" && parent._ref == $parentId')
+                              .params({ parentId })
+                              .defaultOrdering([{ field: 'title_is', direction: 'asc' }])
+                              .child((childId) =>
+                                S.list()
+                                  .title('Undirflokkur')
+                                  .items([
+                                    S.listItem()
+                                      .title('✏️ Breyta undirflokki')
+                                      .id(childId + '-edit')
+                                      .child(S.document().schemaType('categoryNested').documentId(childId)),
+                                    S.divider(),
+                                    S.listItem()
+                                      .title('📁 Undirflokkar')
+                                      .id(childId + '-children')
+                                      .child(
+                                        S.documentList()
+                                          .title('Undirflokkar')
+                                          .filter('_type == "categoryNested" && parent._ref == $childId')
+                                          .params({ childId })
+                                          .defaultOrdering([{ field: 'title_is', direction: 'asc' }])
+                                      ),
+                                  ])
+                              )
+                          ),
+                      ])
+                  )
+              ),
             S.divider(),
             // ── Fréttir ────────────────────────────────────
             S.documentTypeListItem('news').title('📰 Fréttir'),
