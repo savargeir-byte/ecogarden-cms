@@ -214,9 +214,17 @@ export default function ProductDetail({ product }: Props) {
                 <div className="space-y-3">
                   <button
                     onClick={() => setShowForm(true)}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl text-lg transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.98]"
+                    className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 py-4 text-lg font-bold uppercase tracking-wide text-white shadow-xl shadow-green-500/30 transition-all duration-300 hover:scale-[1.02] hover:brightness-110 hover:shadow-green-400/50 active:scale-[0.98] active:shadow-none"
                   >
-                    Fá tilboð
+                    {/* glow layer */}
+                    <span className="absolute -inset-1 rounded-xl bg-gradient-to-r from-green-400 to-emerald-400 opacity-0 blur-md group-hover:opacity-40 transition-opacity duration-300" />
+                    <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      Fá tilboð
+                      <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
                   </button>
                   <Link
                     href="/contact"

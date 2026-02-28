@@ -120,12 +120,14 @@ export default function CategoryHero({ heroImage, title, description, icon, brea
           {/* Animated CTA */}
           <Link
             href="/contact"
-            className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white bg-green-600 hover:bg-green-500 shadow-lg shadow-green-900/40 transition-all duration-300 hover:scale-105 hover:shadow-green-500/50 overflow-hidden"
+            className="group relative inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-white text-sm uppercase tracking-wide bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 shadow-xl shadow-green-900/50 transition-all duration-300 hover:scale-105 hover:shadow-green-400/60 hover:brightness-110 active:scale-95 overflow-hidden"
           >
-            <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {/* pulse glow behind button */}
+            <span className="absolute -inset-1 rounded-xl bg-gradient-to-r from-green-400 to-emerald-400 opacity-0 blur-md group-hover:opacity-50 transition-opacity duration-300" />
+            <span className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <span className="relative z-10">Fá tilboð</span>
-            <svg className="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <svg className="relative z-10 w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
 

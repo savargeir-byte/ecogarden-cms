@@ -91,10 +91,15 @@ export default function Navbar() {
               <EditBadge n={75} />
               <Link
                 href="/contact"
-                className="hidden lg:inline-flex items-center relative px-4 py-1.5 rounded-lg font-medium text-white text-xs uppercase bg-gradient-to-r from-emerald-500 to-green-600 shadow-md shadow-emerald-500/20 transition duration-300 hover:scale-105 hover:shadow-emerald-400/40 active:scale-95 overflow-hidden animate-[pulse_4s_ease-in-out_infinite]"
+                className="hidden lg:inline-flex items-center gap-1.5 relative px-5 py-2 rounded-lg font-semibold text-white text-xs uppercase tracking-wide bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 shadow-lg shadow-green-500/30 transition-all duration-300 hover:scale-105 hover:shadow-green-400/50 hover:brightness-110 active:scale-95 overflow-hidden"
               >
-                <span className="absolute inset-0 rounded-xl bg-white/10 opacity-0 hover:opacity-100 transition duration-500" />
+                {/* animated glow ring */}
+                <span className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-green-400 to-emerald-400 opacity-0 blur-sm group-hover:opacity-60 transition duration-300" />
+                <span className="absolute inset-0 rounded-lg bg-white/10 opacity-0 hover:opacity-100 transition duration-300" />
                 <span className="relative z-10">{t('getQuote')}</span>
+                <svg className="relative z-10 w-3.5 h-3.5 -mr-0.5 transition-transform duration-300 hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </Link>
               
               {/* Hamburger - More transparent with site green color */}
