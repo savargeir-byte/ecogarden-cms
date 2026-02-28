@@ -1,45 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const PARTNERS = [
-  {
-    src: '/images/logo_samstarf/bioret logo.png',
-    alt: 'Bioret Agri',
-    href: 'https://www.bioret-agri.com',
-    desc: 'Búnaður fyrir nautgriparækt',
-  },
-  {
-    src: '/images/logo_samstarf/619b854585a3c96022ce386b_HATO_Logo_RGB.png',
-    alt: 'HATO Lighting',
-    href: 'https://www.hato.lighting',
-    desc: 'LED vaxtarljós',
-  },
-  {
-    src: '/images/logo_samstarf/VAN-HESSCHE-BETON-logo-zonder-achtergrond-300x212.png',
-    alt: 'Van Hessche Beton',
-    href: 'https://www.vanhessche.be',
-    desc: 'Steypugrindverk',
-  },
-  {
-    src: '/images/logo_samstarf/Mollerup-Moelle.jpg',
-    alt: 'Mollerup Mølle',
-    href: 'https://www.mollerupmolle.dk',
-    desc: 'Sáðvörur og áburður',
-  },
-  {
-    src: '/images/logo_samstarf/MTczMDM3NzI5MjY3MjM3NjRjNzkyNmQ=.png',
-    alt: 'Samstarfsaðili',
-    href: '#',
-    desc: '',
-  },
-  {
-    src: '/images/logo_samstarf/5eb2958f5b00004ba115f00c.webp',
-    alt: 'Samstarfsaðili',
-    href: '#',
-    desc: '',
-  },
-];
-
 const CERTIFICATIONS = [
   {
     icon: '🌿',
@@ -72,29 +33,7 @@ const QUICK_LINKS = [
   { href: '/contact', label: 'Hafa samband' },
 ];
 
-const SUPPLIERS = [
-  {
-    name: 'Mollerup Mølle',
-    href: 'https://www.mollerupmolle.dk',
-    logo: '/images/logo_samstarf/Mollerup-Moelle.jpg',
-    desc: 'Einn af fremstu framleiðendum sáðvara og áburðar í Evrópu. Eco Garden er opinber dreifingaraðili á Íslandi.',
-    country: '🇩🇰 Danmörk',
-  },
-  {
-    name: 'HATO Lighting',
-    href: 'https://www.hato.lighting',
-    logo: '/images/logo_samstarf/619b854585a3c96022ce386b_HATO_Logo_RGB.png',
-    desc: 'Leiðandi í LED vaxtarljósum fyrir gróðurhús. Hollsk tækni með sönnuð áhrif á uppskeru.',
-    country: '🇳🇱 Holland',
-  },
-  {
-    name: 'Bioret Agri',
-    href: 'https://www.bioret-agri.com',
-    logo: '/images/logo_samstarf/bioret logo.png',
-    desc: 'Framleiðandi sérhæfðs búnaðar fyrir nautgriparækt og matvælaöryggi í gróðurhúsum.',
-    country: '🇫🇷 Frakkland',
-  },
-];
+
 
 export default function Footer() {
   return (
@@ -112,71 +51,6 @@ export default function Footer() {
                   <p className="text-xs text-gray-400 leading-snug mt-0.5">{cert.sub}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Partner logos ──────────────────────────────────── */}
-      <div className="border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 text-center mb-6">
-            Samstarfsaðilar okkar
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            {PARTNERS.map((p) => (
-              <a
-                key={p.src}
-                href={p.href}
-                target={p.href !== '#' ? '_blank' : undefined}
-                rel="noopener noreferrer"
-                title={p.alt}
-                className="flex items-center justify-center h-14 grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300"
-              >
-                <img
-                  src={p.src}
-                  alt={p.alt}
-                  className="max-h-14 max-w-[140px] object-contain"
-                />
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Supplier spotlight ─────────────────────────────── */}
-      <div className="border-b border-white/5 bg-gray-900/50">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-6">
-            Birgðar okkar
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {SUPPLIERS.map((s) => (
-              <a
-                key={s.name}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col gap-3 rounded-xl border border-white/5 bg-white/3 hover:bg-white/8 hover:border-green-500/30 p-5 transition-all duration-300"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shrink-0 overflow-hidden">
-                    <img
-                      src={s.logo}
-                      alt={s.name}
-                      className="w-10 h-10 object-contain"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-white group-hover:text-green-400 transition-colors">{s.name}</p>
-                    <p className="text-xs text-gray-500">{s.country}</p>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-400 leading-relaxed">{s.desc}</p>
-                <span className="text-xs text-green-500 group-hover:text-green-400 flex items-center gap-1 mt-auto">
-                  Skoða →
-                </span>
-              </a>
             ))}
           </div>
         </div>
