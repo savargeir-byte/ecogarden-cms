@@ -46,9 +46,11 @@ export default defineConfig({
             S.listItem()
               .title('📂 Vöruflokkar')
               .id('categoryNestedTree')
+              .schemaType('categoryNested')
               .child(
                 S.documentList()
                   .title('Yfirflokkar')
+                  .schemaType('categoryNested')
                   .filter('_type == "categoryNested" && !defined(parent)')
                   .defaultOrdering([{ field: 'title_is', direction: 'asc' }])
                   .child((parentId) =>
