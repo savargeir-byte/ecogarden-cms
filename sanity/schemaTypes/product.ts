@@ -117,6 +117,20 @@ export const productSchema = defineType({
       description: 'T.d. https://www.youtube.com/watch?v=xxxxx',
     }),
     defineField({
+      name: 'pdfBrochure',
+      title: 'PDF bæklingur',
+      type: 'file',
+      description: 'Leiðbeiningar, gagnablað eða kynningarbæklingur (PDF)',
+      options: { accept: '.pdf' },
+    }),
+    defineField({
+      name: 'pdfLabel',
+      title: 'PDF nafn (birtist á hnappi)',
+      type: 'string',
+      description: 'T.d. "Sækja gagnablað" eða "Sækja leiðbeiningar"',
+      initialValue: 'Sækja gagnablað',
+    }),
+    defineField({
       name: 'seo',
       title: 'SEO',
       type: 'object',

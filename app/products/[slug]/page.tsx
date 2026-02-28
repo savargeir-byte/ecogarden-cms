@@ -17,6 +17,8 @@ async function getProduct(slug: string) {
       videoUrl,
       image,
       images,
+      "pdfUrl": pdfBrochure.asset->url,
+      pdfLabel,
       "categories": categories[]->{
         title_is,
         "slug": slug.current
@@ -70,11 +72,14 @@ export default async function ProductPage({ params }: Params) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ProductDetail
         product={{
+          slug,
           title:          product.title,
           description:    product.description,
           features:       product.features,
           specifications: product.specifications,
           videoUrl:       product.videoUrl,
+          pdfUrl:         product.pdfUrl,
+          pdfLabel:       product.pdfLabel,
           mainImageUrl,
           galleryUrls,
           categories:     product.categories,
