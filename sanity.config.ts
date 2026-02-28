@@ -10,6 +10,9 @@ export default defineConfig({
   projectId: 'atu6hs4h',
   dataset: 'production',
   title: 'Eco Garden CMS',
+  document: {
+    actions: (prev) => prev,
+  },
   schema: {
     types: schemaTypes,
   },
