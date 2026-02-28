@@ -3,7 +3,7 @@
 import ProductCard from '@/components/ProductCard';
 import { products as allProducts } from '@/lib/products';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
 import EditBadge from '@/components/EditBadge';
 import TiltCard from '@/components/TiltCard';
@@ -93,6 +93,7 @@ export default function ProductsClient({
   heroSubtitle_en,
 }: Props) {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const { t, language } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -260,8 +261,7 @@ export default function ProductsClient({
                 <TiltCard key={sub.id} maxTilt={8} scale={1.03} glare={false}>
                   <button
                     onClick={() => {
-                      setSelectedSubcategory(sub.id);
-                      setShowSubcategoryTiles(false);
+                      router.push(`/flokkar/${sub.id}`);
                     }}
                     className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 w-full block"
                   >
