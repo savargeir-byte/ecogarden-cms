@@ -4,14 +4,6 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './sanity/schemaTypes'
-import { createClient } from '@sanity/client'
-
-const sanityClient = createClient({
-  projectId: 'atu6hs4h',
-  dataset: 'production',
-  apiVersion: '2024-01-01',
-  useCdn: false,
-})
 
 export default defineConfig({
   basePath: '/studio',
@@ -51,56 +43,27 @@ export default defineConfig({
               .id('productsPage')
               .child(S.document().schemaType('productsPage').documentId('productsPage')),
             S.divider(),
-            // ── Vörur flokkað: Yfirflokkur → Undirflokkur → Vörur ──
+            // ── Vörur: Yfirflokkur → Undirflokkur → Vörur ──
             S.listItem()
               .title('🌿 Vörur')
               .id('product')
-              .child(() =>
-                sanityClient
-                  .fetch(`*[_type == "categoryNested" && !defined(parent)] | order(title_is asc) { _id, title_is }`)
-                  .then((parents: any[]) =>
-                    S.list()
-                      .title('Veldu yfirflokk')
-                      .id('parentCatList')
-                      .items(
-                        parents.map((p: any) =>
-                          S.listItem()
-                            .title(p.title_is || 'Ónafngreint')
-                            .id('p-' + p._id.replace(/\./g, '-'))
-                            .child(() =>
-                              sanityClient
-                                .fetch(
-                                  `*[_type == "categoryNested" && parent._ref == $pid] | order(title_is asc) { _id, title_is }`,
-                                  { pid: p._id }
-                                )
-                                .then((subs: any[]) => {
-                                  if (subs.length === 0) {
-                                    return S.documentList()
-                                      .id('products-in-' + p._id.replace(/\./g, '-'))
-                                      .title('Vörur í ' + p.title_is)
-                                      .filter('_type == "product" && parentCategory._ref == $pid')
-                                      .params({ pid: p._id })
-                                  }
-                                  return S.list()
-                                    .title(p.title_is)
-                                    .id('subs-' + p._id.replace(/\./g, '-'))
-                                    .items(
-                                      subs.map((sub: any) =>
-                                        S.listItem()
-                                          .title(sub.title_is || 'Ónafngreint')
-                                          .id('sub-' + sub._id.replace(/\./g, '-'))
-                                          .child(
-                                            S.documentList()
-                                              .id('products-in-' + sub._id.replace(/\./g, '-'))
-                                              .title('Vörur í ' + sub.title_is)
-                                              .filter('_type == "product" && subCategory._ref == $subId')
-                                              .params({ subId: sub._id })
-                                          )
-                                      )
-                                    )
-                                })
-                            )
-                        )
+              .child(
+                S.documentList()
+                  .id('yfirflokkar')
+                  .title('Veldu yfirflokk')
+                  .filter('_type == "categoryNested" && !defined(parent)')
+                  .child((parentId) =>
+                    S.documentList()
+                      .id(`undirflokkar-${parentId}`)
+                      .title('Veldu undirflokk')
+                      .filter('_type == "categoryNested" && parent._ref == $parentId')
+                      .params({ parentId })
+                      .child((subCatId) =>
+                        S.documentList()
+                          .id(`vorur-${subCatId}`)
+                          .title('Vörur')
+                          .filter('_type == "product" && subCategory._ref == $subCatId')
+                          .params({ subCatId })
                       )
                   )
               ),
