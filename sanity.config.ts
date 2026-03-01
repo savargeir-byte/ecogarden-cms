@@ -20,7 +20,7 @@ export default defineConfig({
     structureTool({
       structure: (S) =>
         S.list()
-          .title('Efni')
+          .title('Efni ✅')
           .items([
             S.listItem()
               .title('🏠 Forsíða')

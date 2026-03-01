@@ -2,6 +2,16 @@
   "buildCommand": "npm run build",
   "cleanUrls": true,
   "version": 2,
+  "headers": [
+    {
+      "source": "/studio/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate" },
+        { "key": "CDN-Cache-Control", "value": "no-store" },
+        { "key": "Vercel-CDN-Cache-Control", "value": "no-store" }
+      ]
+    }
+  ],
   "redirects": [
     { "source": "/admin/:path*", "destination": "/", "permanent": false }
   ]
