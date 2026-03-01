@@ -83,7 +83,7 @@ export const productSchema = defineType({
       group: 'flokkur',
       description: 'Veldu undirflokk sem passar við aðalflokk. Sýnir eingöngu undirflokka þess aðalflokks.',
       options: {
-        filter: ({ document }: { document: { parentCategory?: { _ref?: string } } }) => {
+        filter: ({ document }: any) => {
           const parentRef = document?.parentCategory?._ref
           if (!parentRef) return { filter: 'defined(parent)', params: {} }
           return {
@@ -92,7 +92,7 @@ export const productSchema = defineType({
           }
         },
         disableNew: true,
-      },
+      } as any,
     }),
     // Keep old categories array hidden for backwards compat
     defineField({
