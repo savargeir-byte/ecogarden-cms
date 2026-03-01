@@ -18,61 +18,12 @@ export default defineConfig({
   },
   plugins: [
     structureTool({
-      structure: async (S, context) => {
+      structure: (S, context) => {
         const client = context.getClient({ apiVersion: '2024-01-01' })
-
-        // Fetch yfirflokkar
-        const parents: { _id: string; title_is: string }[] = await client.fetch(
-          `*[_type == "categoryNested" && !defined(parent)] | order(title_is asc) { _id, title_is }`
-        )
-
-        // Build vörur tree: yfirflokkur → undirflokkur → vörur
-        const parentItems = await Promise.all(
-          parents.map(async (parent) => {
-            const subs: { _id: string; title_is: string }[] = await client.fetch(
-              `*[_type == "categoryNested" && parent._ref == $id] | order(title_is asc) { _id, title_is }`,
-              { id: parent._id }
-            )
-
-            const subItems = subs.map((sub) =>
-              S.listItem()
-                .title(sub.title_is || 'Ónafngreint')
-                .id('sub-' + sub._id)
-                .child(
-                  S.documentList()
-                    .title('Vörur í ' + sub.title_is)
-                    .filter('_type == "product" && subCategory._ref == $subId')
-                    .params({ subId: sub._id })
-                    .child((productId) =>
-                      S.document().schemaType('product').documentId(productId)
-                    )
-                )
-            )
-
-            return S.listItem()
-              .title(parent.title_is || 'Ónafngreint')
-              .id('parent-' + parent._id)
-              .child(
-                S.list()
-                  .title(parent.title_is)
-                  .items(subItems.length > 0 ? subItems : [
-                    S.listItem()
-                      .title('Engir undirflokkar')
-                      .id('empty-' + parent._id)
-                      .child(S.documentList()
-                        .title('Vörur')
-                        .filter('_type == "product" && parentCategory._ref == $pId')
-                        .params({ pId: parent._id })
-                      )
-                  ])
-              )
-          })
-        )
 
         return S.list()
           .title('Efni')
           .items([
-            // ── Síður ──────────────────────────────────────
             S.listItem()
               .title('🏠 Forsíða')
               .id('homePage')
@@ -94,14 +45,52 @@ export default defineConfig({
               .id('productsPage')
               .child(S.document().schemaType('productsPage').documentId('productsPage')),
             S.divider(),
-            // ── Vörur flokkað ──────────────────────────────
+            // Vörur: Yfirflokkur → Undirflokkur → Vörur
             S.listItem()
               .title('🌿 Vörur')
               .id('productsTree')
-              .child(
-                S.list()
-                  .title('Veldu yfirflokk')
-                  .items(parentItems)
+              .child(() =>
+                client
+                  .fetch<{_id: string; title_is: string}[]>(
+                    `*[_type == "categoryNested" && !defined(parent)] | order(title_is asc) { _id, title_is }`
+                  )
+                  .then((parents) =>
+                    S.list()
+                      .title('Veldu yfirflokk')
+                      .id('parentList')
+                      .items(
+                        parents.map((p) =>
+                          S.listItem()
+                            .title(p.title_is || 'Ónafngreint')
+                            .id('p-' + p._id)
+                            .child(() =>
+                              client
+                                .fetch<{_id: string; title_is: string}[]>(
+                                  `*[_type == "categoryNested" && parent._ref == $id] | order(title_is asc) { _id, title_is }`,
+                                  { id: p._id }
+                                )
+                                .then((subs) =>
+                                  S.list()
+                                    .title(p.title_is)
+                                    .id('subs-' + p._id)
+                                    .items(
+                                      subs.map((sub) =>
+                                        S.listItem()
+                                          .title(sub.title_is || 'Ónafngreint')
+                                          .id('sub-' + sub._id)
+                                          .child(
+                                            S.documentList()
+                                              .title('Vörur í ' + sub.title_is)
+                                              .filter('_type == "product" && subCategory._ref == $subId')
+                                              .params({ subId: sub._id })
+                                          )
+                                      )
+                                    )
+                                )
+                            )
+                        )
+                      )
+                  )
               ),
             S.listItem()
               .title('📂 Vöruflokkar')
@@ -115,7 +104,6 @@ export default defineConfig({
                   )
               ),
             S.divider(),
-            // ── Fréttir ────────────────────────────────────
             S.documentTypeListItem('news').title('📰 Fréttir'),
           ])
       },
