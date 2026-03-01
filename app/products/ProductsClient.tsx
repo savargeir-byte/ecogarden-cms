@@ -105,7 +105,7 @@ export default function ProductsClient({
   const useSanity = sanityCategories && sanityCategories.length > 0;
 
   const categories = useSanity
-    ? sanityCategories.map(c => ({ id: c.slug, name: c.title_is, name_en: c.title_en ?? c.title_is }))
+    ? sanityCategories.filter(c => c.title_is).map(c => ({ id: c.slug, name: c.title_is, name_en: c.title_en ?? c.title_is }))
     : FALLBACK_CATEGORIES;
 
   const subcategoriesMap: Record<string, Array<{ id: string; name: string; name_en: string; image: string }>> = useSanity
@@ -197,9 +197,7 @@ export default function ProductsClient({
                 <button
                   key={cat.id}
                   onClick={() => {
-                    setSelectedCategory(cat.id);
-                    setSelectedSubcategory(null);
-                    setShowSubcategoryTiles(true);
+                    router.push(`/flokkar/${cat.id}`);
                   }}
                   className={`px-6 py-3 rounded-lg font-semibold whitespace-nowrap transition-all ${
                     selectedCategory === cat.id
