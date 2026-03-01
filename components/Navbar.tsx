@@ -49,9 +49,10 @@ export default function Navbar() {
                   <Image
                     src="/logo.svg"
                     alt="EcoGarden Logo"
-                    width={scrolled ? 140 : 180}
-                    height={scrolled ? 40 : 50}
-                    className="transition-all duration-300 object-contain"
+                    width={180}
+                    height={50}
+                    className={`transition-all duration-300 object-contain ${scrolled ? 'w-[140px]' : 'w-[180px]'}`}
+                    style={{ height: 'auto' }}
                     priority
                   />
                 </div>
