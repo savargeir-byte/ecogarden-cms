@@ -48,7 +48,7 @@ export default defineConfig({
             // Vörur: Yfirflokkur → Undirflokkur → Vörur
             S.listItem()
               .title('🌿 Vörur')
-              .id('productsTree')
+              .id('product')
               .child(() =>
                 client
                   .fetch<{_id: string; title_is: string}[]>(
