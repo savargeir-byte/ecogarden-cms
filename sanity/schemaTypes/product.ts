@@ -64,12 +64,44 @@ export const productSchema = defineType({
     }),
     // NEW: Nested Category System
     defineField({
+      name: 'parentCategory',
+      title: 'Aðalflokkur',
+      type: 'reference',
+      to: [{ type: 'categoryNested' }],
+      group: 'flokkur',
+      description: 'Veldu fyrst aðalflokk — t.d. "Landbúnaður" eða "Garðyrkjubændur".',
+      options: {
+        filter: '!defined(parent)',
+        disableNew: true,
+      },
+    }),
+    defineField({
+      name: 'subCategory',
+      title: 'Undirflokkur',
+      type: 'reference',
+      to: [{ type: 'categoryNested' }],
+      group: 'flokkur',
+      description: 'Veldu undirflokk sem passar við aðalflokk. Sýnir eingöngu undirflokka þess aðalflokks.',
+      options: {
+        filter: ({ document }: { document: { parentCategory?: { _ref?: string } } }) => {
+          const parentRef = document?.parentCategory?._ref
+          if (!parentRef) return { filter: 'defined(parent)', params: {} }
+          return {
+            filter: 'parent._ref == $parentRef',
+            params: { parentRef },
+          }
+        },
+        disableNew: true,
+      },
+    }),
+    // Keep old categories array hidden for backwards compat
+    defineField({
       name: 'categories',
-      title: 'Vöruflokkar',
+      title: 'Flokkar (gamalt)',
       type: 'array',
       group: 'flokkur',
+      hidden: true,
       of: [{ type: 'reference', to: [{ type: 'categoryNested' }] }],
-      description: 'Smelltu á "+ Add Item" og veldu flokkinn sem varan tilheyrir. Hægt er að velja fleiri en einn flokk. T.d. "Landbúnaður → Rúlluplast".',
     }),
     // ALTERNATIVE: ProductType system (Level 1-2-3)
     defineField({

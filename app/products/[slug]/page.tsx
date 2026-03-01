@@ -19,6 +19,8 @@ async function getProduct(slug: string) {
       images,
       "pdfUrl": pdfBrochure.asset->url,
       pdfLabel,
+      "parentCategory": parentCategory->{title_is, "slug": slug.current},
+      "subCategory": subCategory->{title_is, "slug": slug.current},
       "categories": categories[]->{
         title_is,
         "slug": slug.current
