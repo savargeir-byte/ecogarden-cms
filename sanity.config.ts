@@ -49,47 +49,32 @@ export default defineConfig({
               .title('🌿 Vörur')
               .id('productsTree')
               .child(
-                S.documentTypeList('categoryNested')
+                S.documentList()
                   .title('Veldu yfirflokk')
                   .filter('_type == "categoryNested" && !defined(parent)')
                   .child((parentId) =>
-                    S.list()
-                      .title('Yfirflokkur')
-                      .items([
-                        S.listItem()
-                          .title('📋 Allar vörur í yfirflokki')
-                          .id(parentId + '-all-products')
-                          .child(
-                            S.documentTypeList('product')
-                              .title('Vörur')
-                              .filter('_type == "product" && parentCategory._ref == $parentId')
-                              .params({ parentId })
-                          ),
-                        S.divider(),
-                        S.listItem()
-                          .title('📁 Veldu undirflokk')
-                          .id(parentId + '-subcats')
-                          .child(
-                            S.documentTypeList('categoryNested')
-                              .title('Undirflokkar')
-                              .filter('_type == "categoryNested" && parent._ref == $parentId')
-                              .params({ parentId })
-                              .child((subCategoryId) =>
-                                S.documentTypeList('product')
-                                  .title('Vörur')
-                                  .filter('_type == "product" && subCategory._ref == $subCategoryId')
-                                  .params({ subCategoryId })
-                              )
-                          ),
-                      ])
+                    S.documentList()
+                      .title('Veldu undirflokk')
+                      .filter('_type == "categoryNested" && parent._ref == $parentId')
+                      .params({ parentId })
+                      .child((subCategoryId) =>
+                        S.documentList()
+                          .title('Vörur')
+                          .filter('_type == "product" && subCategory._ref == $subCategoryId')
+                          .params({ subCategoryId })
+                          .child((productId) =>
+                            S.document()
+                              .schemaType('product')
+                              .documentId(productId)
+                          )
+                      )
                   )
               ),
             S.listItem()
               .title('📂 Vöruflokkar')
               .id('categoryNestedTree')
-              .schemaType('categoryNested')
               .child(
-                S.documentTypeList('categoryNested')
+                S.documentList()
                   .title('Yfirflokkar')
                   .filter('_type == "categoryNested" && !defined(parent)')
                   .child((parentId) =>
@@ -105,29 +90,12 @@ export default defineConfig({
                           .title('📁 Undirflokkar')
                           .id(parentId + '-children')
                           .child(
-                            S.documentTypeList('categoryNested')
+                            S.documentList()
                               .title('Undirflokkar')
                               .filter('_type == "categoryNested" && parent._ref == $parentId')
                               .params({ parentId })
                               .child((childId) =>
-                                S.list()
-                                  .title('Undirflokkur')
-                                  .items([
-                                    S.listItem()
-                                      .title('✏️ Breyta undirflokki')
-                                      .id(childId + '-edit')
-                                      .child(S.document().schemaType('categoryNested').documentId(childId)),
-                                    S.divider(),
-                                    S.listItem()
-                                      .title('📁 Undirflokkar')
-                                      .id(childId + '-children')
-                                      .child(
-                                        S.documentTypeList('categoryNested')
-                                          .title('Undirflokkar')
-                                          .filter('_type == "categoryNested" && parent._ref == $childId')
-                                          .params({ childId })
-                                      ),
-                                  ])
+                                S.document().schemaType('categoryNested').documentId(childId)
                               )
                           ),
                       ])
