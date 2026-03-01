@@ -46,26 +46,12 @@ export default defineConfig({
             // ── Vörur: Yfirflokkur → Undirflokkur → Vörur ──
             S.listItem()
               .title('🌿 Vörur')
-              .id('product')
+              .id('productsTree')
               .child(
                 S.documentList()
                   .id('yfirflokkar')
                   .title('Veldu yfirflokk')
                   .filter('_type == "categoryNested" && !defined(parent)')
-                  .child((parentId) =>
-                    S.documentList()
-                      .id(`undirflokkar-${parentId}`)
-                      .title('Veldu undirflokk')
-                      .filter('_type == "categoryNested" && parent._ref == $parentId')
-                      .params({ parentId })
-                      .child((subCatId) =>
-                        S.documentList()
-                          .id(`vorur-${subCatId}`)
-                          .title('Vörur')
-                          .filter('_type == "product" && subCategory._ref == $subCatId')
-                          .params({ subCatId })
-                      )
-                  )
               ),
             // ── Vöruflokkar ──
             S.listItem()
