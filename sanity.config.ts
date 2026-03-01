@@ -4,6 +4,14 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './sanity/schemaTypes'
+import { createClient } from '@sanity/client'
+
+const sanityClient = createClient({
+  projectId: 'atu6hs4h',
+  dataset: 'production',
+  apiVersion: '2024-01-01',
+  useCdn: false,
+})
 
 export default defineConfig({
   basePath: '/studio',
@@ -18,10 +26,8 @@ export default defineConfig({
   },
   plugins: [
     structureTool({
-      structure: (S, context) => {
-        const client = context.getClient({ apiVersion: '2024-01-01' })
-
-        return S.list()
+      structure: (S) =>
+        S.list()
           .title('Efni')
           .items([
             S.listItem()
@@ -45,68 +51,72 @@ export default defineConfig({
               .id('productsPage')
               .child(S.document().schemaType('productsPage').documentId('productsPage')),
             S.divider(),
-            // Vörur: Yfirflokkur → Undirflokkur → Vörur
+            // ── Vörur flokkað: Yfirflokkur → Undirflokkur → Vörur ──
             S.listItem()
               .title('🌿 Vörur')
               .id('product')
               .child(() =>
-                client
-                  .fetch<{_id: string; title_is: string}[]>(
-                    `*[_type == "categoryNested" && !defined(parent)] | order(title_is asc) { _id, title_is }`
-                  )
-                  .then((parents) =>
+                sanityClient
+                  .fetch(`*[_type == "categoryNested" && !defined(parent)] | order(title_is asc) { _id, title_is }`)
+                  .then((parents: any[]) =>
                     S.list()
                       .title('Veldu yfirflokk')
-                      .id('parentList')
+                      .id('parentCatList')
                       .items(
-                        parents.map((p) =>
+                        parents.map((p: any) =>
                           S.listItem()
                             .title(p.title_is || 'Ónafngreint')
-                            .id('p-' + p._id)
+                            .id('p-' + p._id.replace(/\./g, '-'))
                             .child(() =>
-                              client
-                                .fetch<{_id: string; title_is: string}[]>(
-                                  `*[_type == "categoryNested" && parent._ref == $id] | order(title_is asc) { _id, title_is }`,
-                                  { id: p._id }
+                              sanityClient
+                                .fetch(
+                                  `*[_type == "categoryNested" && parent._ref == $pid] | order(title_is asc) { _id, title_is }`,
+                                  { pid: p._id }
                                 )
-                                .then((subs) =>
-                                  S.list()
+                                .then((subs: any[]) => {
+                                  if (subs.length === 0) {
+                                    return S.documentList()
+                                      .id('products-in-' + p._id.replace(/\./g, '-'))
+                                      .title('Vörur í ' + p.title_is)
+                                      .filter('_type == "product" && parentCategory._ref == $pid')
+                                      .params({ pid: p._id })
+                                  }
+                                  return S.list()
                                     .title(p.title_is)
-                                    .id('subs-' + p._id)
+                                    .id('subs-' + p._id.replace(/\./g, '-'))
                                     .items(
-                                      subs.map((sub) =>
+                                      subs.map((sub: any) =>
                                         S.listItem()
                                           .title(sub.title_is || 'Ónafngreint')
-                                          .id('sub-' + sub._id)
+                                          .id('sub-' + sub._id.replace(/\./g, '-'))
                                           .child(
                                             S.documentList()
+                                              .id('products-in-' + sub._id.replace(/\./g, '-'))
                                               .title('Vörur í ' + sub.title_is)
                                               .filter('_type == "product" && subCategory._ref == $subId')
                                               .params({ subId: sub._id })
                                           )
                                       )
                                     )
-                                )
+                                })
                             )
                         )
                       )
                   )
               ),
+            // ── Vöruflokkar ──
             S.listItem()
               .title('📂 Vöruflokkar')
               .id('categoryNestedTree')
               .child(
                 S.documentList()
+                  .id('allCategories')
                   .title('Vöruflokkar')
                   .filter('_type == "categoryNested"')
-                  .child((catId) =>
-                    S.document().schemaType('categoryNested').documentId(catId)
-                  )
               ),
             S.divider(),
             S.documentTypeListItem('news').title('📰 Fréttir'),
-          ])
-      },
+          ]),
     }),
     visionTool(),
   ],
