@@ -82,7 +82,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="is" className="scroll-smooth">
+    <html lang="is" className="scroll-smooth" data-scroll-behavior="smooth">
       <body className="min-h-screen flex flex-col">
         <script
           type="application/ld+json"
