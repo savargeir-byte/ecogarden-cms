@@ -30,7 +30,7 @@ export default function CategoryHero({ heroImage, title, description, icon, brea
     <div className="relative overflow-hidden" style={{ height: "560px" }}>
       {/* Bakgrunnsmynd — parallax */}
       <motion.div
-        className="absolute inset-0 w-full"
+        className="absolute inset-0 w-full will-change-transform"
         style={{ y: imageY, scale: imageScale, transformOrigin: "center" }}
       >
         <Image

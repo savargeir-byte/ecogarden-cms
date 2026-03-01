@@ -8,6 +8,11 @@
 body {
   background: white;
   color: #171717;
+  overscroll-behavior: none;
+}
+
+html {
+  overscroll-behavior: none;
 }
 
 /* Premium Animations */
